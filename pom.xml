@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.1</version>
+        <version>3.1.6</version>
     </parent>
     <groupId>com.github.lingkai5wu</groupId>
     <artifactId>love-ta</artifactId>
@@ -54,7 +54,7 @@
         <!-- Sa-Token 一个轻量级 Java 权限认证框架 -->
         <dependency>
             <groupId>cn.dev33</groupId>
-            <artifactId>sa-token-spring-boot-starter</artifactId>
+            <artifactId>sa-token-spring-boot3-starter</artifactId>
             <version>1.37.0</version>
         </dependency>
     </dependencies>
