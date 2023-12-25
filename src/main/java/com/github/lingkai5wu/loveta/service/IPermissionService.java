@@ -3,6 +3,8 @@ package com.github.lingkai5wu.loveta.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.lingkai5wu.loveta.model.po.Permission;
 
+import java.util.List;
+
 /**
  * <p>
  * 权限 服务类
@@ -13,4 +15,5 @@ import com.github.lingkai5wu.loveta.model.po.Permission;
  */
 public interface IPermissionService extends IService<Permission> {
 
+    List<String> listPermissionById(Object id);
 }

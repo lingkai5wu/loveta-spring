@@ -6,6 +6,8 @@ import com.github.lingkai5wu.loveta.model.po.Group;
 import com.github.lingkai5wu.loveta.service.IGroupService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户组 服务实现类
@@ -17,4 +19,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements IGroupService {
 
+    @Override
+    public List<String> listRoleById(Object id) {
+        return baseMapper.listRoleById(id);
+    }
 }

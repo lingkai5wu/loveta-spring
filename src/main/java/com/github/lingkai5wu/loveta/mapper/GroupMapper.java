@@ -3,6 +3,8 @@ package com.github.lingkai5wu.loveta.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.lingkai5wu.loveta.model.po.Group;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户组 Mapper 接口
@@ -13,4 +15,5 @@ import com.github.lingkai5wu.loveta.model.po.Group;
  */
 public interface GroupMapper extends BaseMapper<Group> {
 
+    List<String> listRoleById(Object id);
 }
