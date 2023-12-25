@@ -17,4 +17,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
+    @Override
+    public User getByPhone(String phone) {
+        return lambdaQuery()
+                .eq(User::getPhone, phone)
+                .one();
+    }
 }

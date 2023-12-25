@@ -13,4 +13,5 @@ import com.github.lingkai5wu.loveta.model.po.User;
  */
 public interface IUserService extends IService<User> {
 
+    User getByPhone(String phone);
 }
