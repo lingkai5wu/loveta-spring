@@ -5,7 +5,7 @@
     <select id="listRoleById" resultType="java.lang.String">
         SELECT auth_group.name
         FROM auth_group
-                 LEFT JOIN auth_user_groups ON auth_group.id = auth_user_groups.group_id
+                 INNER JOIN auth_user_groups ON auth_group.id = auth_user_groups.group_id
         WHERE auth_user_groups.user_id = #{id}
     </select>
 </mapper>
