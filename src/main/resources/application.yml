@@ -1,3 +1,6 @@
 spring:
   profiles:
     active: dev
+sa-token:
+  is-read-body: false
+  is-read-cookie: false

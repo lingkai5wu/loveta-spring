@@ -6,6 +6,8 @@ import com.github.lingkai5wu.loveta.model.po.Menu;
 import com.github.lingkai5wu.loveta.service.IMenuService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 菜单 服务实现类
@@ -17,4 +19,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
+    @Override
+    public List<String> getMenuByUserId(long id) {
+        return baseMapper.getMenuByUserId(id);
+    }
 }

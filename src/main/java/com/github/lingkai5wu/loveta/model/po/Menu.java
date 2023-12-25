@@ -37,14 +37,14 @@ public class Menu implements Serializable {
     private Integer pid;
 
     /**
-     * 标题
-     */
-    private String title;
-
-    /**
      * 路径
      */
     private String path;
+
+    /**
+     * 标题
+     */
+    private String name;
 
     /**
      * 排序
