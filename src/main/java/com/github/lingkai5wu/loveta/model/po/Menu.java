@@ -15,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author lingkai5wu
- * @since 2023-12-25
+ * @since 2023-12-26
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -37,24 +37,19 @@ public class Menu implements Serializable {
     private Integer pid;
 
     /**
-     * 路径
+     * 路由路径
      */
     private String path;
 
     /**
-     * 标题
+     * 路由名
      */
     private String name;
 
     /**
-     * 排序
+     * 菜单名
      */
-    private Integer sort;
-
-    /**
-     * 叶子节点
-     */
-    private Integer leaf;
+    private String lable;
 
 
 }

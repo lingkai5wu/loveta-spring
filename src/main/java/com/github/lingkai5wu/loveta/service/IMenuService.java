@@ -15,5 +15,5 @@ import java.util.List;
  */
 public interface IMenuService extends IService<Menu> {
 
-    List<String> getMenuByUserId(long id);
+    List<Menu> listMenuByUserId(long id);
 }

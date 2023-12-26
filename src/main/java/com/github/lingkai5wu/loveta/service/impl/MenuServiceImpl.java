@@ -20,7 +20,7 @@ import java.util.List;
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
     @Override
-    public List<String> getMenuByUserId(long id) {
-        return baseMapper.getMenuByUserId(id);
+    public List<Menu> listMenuByUserId(long id) {
+        return baseMapper.listMenuByUserId(id);
     }
 }
