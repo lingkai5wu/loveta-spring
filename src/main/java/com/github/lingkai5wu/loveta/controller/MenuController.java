@@ -6,9 +6,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import com.github.lingkai5wu.loveta.model.po.Menu;
 import com.github.lingkai5wu.loveta.service.IMenuService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,5 +42,26 @@ public class MenuController {
     public SaResult listMenu() {
         List<Menu> menu = menuService.list();
         return SaResult.data(menu);
+    }
+
+    @PostMapping("/save")
+    @SaCheckPermission("menu.save")
+    public SaResult saveMenu(@RequestBody Menu menu) {
+        menuService.save(menu);
+        return SaResult.ok();
+    }
+
+    @PostMapping("/update")
+    @SaCheckPermission("menu.update")
+    public SaResult updateMenu(@RequestBody Menu menu) {
+        menuService.updateById(menu);
+        return SaResult.ok();
+    }
+
+    @DeleteMapping("/remove/{id}")
+    @SaCheckPermission("menu.remove")
+    public SaResult removeMenu(@PathVariable Long id) {
+        menuService.removeById(id);
+        return SaResult.ok();
     }
 }

@@ -7,7 +7,7 @@
                auth_menu.pid         AS pid,
                auth_menu.path        AS path,
                auth_menu.name        AS name,
-               auth_menu.lable       AS lable,
+               auth_menu.label AS label,
                auth_group_menus.sort AS sort
         FROM auth_menu
                  INNER JOIN auth_group_menus ON auth_menu.id = auth_group_menus.menu_id
