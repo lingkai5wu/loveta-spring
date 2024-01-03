@@ -8,10 +8,10 @@
         <version>3.1.6</version>
     </parent>
     <groupId>com.github.lingkai5wu</groupId>
-    <artifactId>love-ta</artifactId>
+    <artifactId>loveta</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>love-ta</name>
-    <description>love-ta</description>
+    <name>loveta</name>
+    <description>loveta</description>
     <properties>
         <java.version>17</java.version>
     </properties>

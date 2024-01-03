@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.124.100/love-ta
+    url: jdbc:mysql://192.168.124.100/loveta
     username: root
     password: 123
   data:
