@@ -3,12 +3,12 @@
 <mapper namespace="com.github.lingkai5wu.loveta.mapper.MenuMapper">
 
     <select id="listMenuByUserId" resultType="com.github.lingkai5wu.loveta.model.po.Menu">
-        SELECT auth_menu.id          AS id,
-               auth_menu.pid         AS pid,
-               auth_menu.path        AS path,
-               auth_menu.name        AS name,
-               auth_menu.label AS label,
-               auth_group_menus.sort AS sort
+        SELECT auth_menu.id,
+               auth_menu.pid,
+               auth_menu.name,
+               auth_menu.label,
+               auth_menu.href,
+               auth_group_menus.sort
         FROM auth_menu
                  INNER JOIN auth_group_menus ON auth_menu.id = auth_group_menus.menu_id
                  INNER JOIN auth_user_groups ON auth_group_menus.group_id = auth_user_groups.group_id
