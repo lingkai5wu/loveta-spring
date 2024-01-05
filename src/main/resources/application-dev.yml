@@ -1,13 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.124.100/loveta
+    url: jdbc:mysql://localhost:3306/loveta
     username: root
-    password: 123
-  data:
-    redis:
-      host: 192.168.124.100
-      password: 123
+    password: root
 
 logging:
   level:

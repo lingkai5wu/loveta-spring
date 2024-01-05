@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# 测试环境
+/src/main/resources/application-test.yml
