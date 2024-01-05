@@ -7,7 +7,6 @@ import cn.dev33.satoken.util.SaResult;
 import com.github.lingkai5wu.loveta.model.dto.UserAuthDTO;
 import com.github.lingkai5wu.loveta.model.po.User;
 import com.github.lingkai5wu.loveta.service.IUserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +50,9 @@ public class AuthController {
             return SaResult.error("手机号已注册");
         }
         user = new User();
-        BeanUtils.copyProperties(dto, user);
+        user.setPhone(dto.getPhone());
+        String pw_hash = BCrypt.hashpw(dto.getPassword(), BCrypt.gensalt());
+        user.setPassword(pw_hash);
         userService.save(user);
         StpUtil.login(user.getId());
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();

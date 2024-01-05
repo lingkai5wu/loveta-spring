@@ -28,7 +28,7 @@ public class MenuController {
     }
 
     @GetMapping
-    public SaResult listMenuByUserId() {
+    public SaResult listCurUserMenu() {
         if (StpUtil.hasRole("super-admin")) {
             return listMenu();
         }
