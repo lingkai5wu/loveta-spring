@@ -3,6 +3,7 @@ package com.github.lingkai5wu.loveta.model.po;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.github.lingkai5wu.loveta.enums.MenuTypeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -15,7 +16,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author lingkai5wu
- * @since 2024-01-03
+ * @since 2024-01-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -37,9 +38,9 @@ public class Menu implements Serializable {
     private Integer pid;
 
     /**
-     * 路由名
+     * 菜单类型
      */
-    private String name;
+    private MenuTypeEnum type;
 
     /**
      * 菜单名
@@ -47,9 +48,9 @@ public class Menu implements Serializable {
     private String label;
 
     /**
-     * 外链URL
+     * 附加数据
      */
-    private String href;
+    private String data;
 
 
 }
