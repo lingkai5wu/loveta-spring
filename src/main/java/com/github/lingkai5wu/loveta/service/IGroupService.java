@@ -15,5 +15,5 @@ import java.util.List;
  */
 public interface IGroupService extends IService<Group> {
 
-    List<String> listRoleById(Object id);
+    List<String> listRolesById(Object id);
 }

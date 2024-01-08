@@ -28,9 +28,10 @@ public class MenuController {
     }
 
     @GetMapping
-    public SaResult listCurUserMenu() {
+    public SaResult listCurUserMenus() {
+        // TODO 消除硬编码
         if (StpUtil.hasRole("super-admin")) {
-            return listMenu();
+            return listMenus();
         }
         long loginId = StpUtil.getLoginIdAsLong();
         List<Menu> menu = menuService.listMenuByUserId(loginId);
@@ -39,7 +40,7 @@ public class MenuController {
 
     @GetMapping("/list")
     @SaCheckPermission("menu.list")
-    public SaResult listMenu() {
+    public SaResult listMenus() {
         List<Menu> menu = menuService.list();
         return SaResult.data(menu);
     }

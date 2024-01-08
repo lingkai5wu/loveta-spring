@@ -15,5 +15,5 @@ import java.util.List;
  */
 public interface GroupMapper extends BaseMapper<Group> {
 
-    List<String> listRoleById(Object id);
+    List<String> listRolesById(Object id);
 }
