@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -16,7 +17,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author lingkai5wu
- * @since 2024-01-06
+ * @since 2024-01-08
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -51,6 +52,16 @@ public class Menu implements Serializable {
      * 附加数据
      */
     private String data;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updateTime;
 
 
 }

@@ -6,10 +6,10 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum MenuTypeEnum {
-    PARENT(0),
-    ROUTE(1),
-    LINK(2);
+public enum UserSexEnum {
+    MALE(0),
+    FEMALE(1),
+    OTHER(2);
 
     @EnumValue
     private final int value;

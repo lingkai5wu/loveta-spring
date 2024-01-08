@@ -3,7 +3,7 @@ package com.github.lingkai5wu.loveta.model.po;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.lingkai5wu.loveta.enums.UserSexEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author lingkai5wu
- * @since 2023-12-25
+ * @since 2024-01-08
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -41,19 +41,16 @@ public class User implements Serializable {
     /**
      * 密码
      */
-    @JsonIgnore
     private String password;
 
     /**
      * 微信唯一标识
      */
-    @JsonIgnore
     private String wxOpenid;
 
     /**
      * 微信统一标识
      */
-    @JsonIgnore
     private String wxUnionid;
 
     /**
@@ -67,6 +64,11 @@ public class User implements Serializable {
     private String nickname;
 
     /**
+     * 姓名
+     */
+    private String realname;
+
+    /**
      * 头像
      */
     private String avatar;
@@ -74,12 +76,17 @@ public class User implements Serializable {
     /**
      * 性别
      */
-    private Integer sex;
+    private UserSexEnum sex;
 
     /**
      * 创建时间
      */
     private LocalDateTime createTime;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updateTime;
 
 
 }

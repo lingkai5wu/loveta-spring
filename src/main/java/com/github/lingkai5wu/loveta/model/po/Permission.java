@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -15,7 +16,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author lingkai5wu
- * @since 2023-12-25
+ * @since 2024-01-08
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -35,6 +36,16 @@ public class Permission implements Serializable {
      * 权限码
      */
     private String code;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updateTime;
 
 
 }
