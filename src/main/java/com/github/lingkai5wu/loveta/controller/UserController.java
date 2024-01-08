@@ -5,11 +5,14 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import com.github.lingkai5wu.loveta.model.po.User;
+import com.github.lingkai5wu.loveta.model.vo.UserVo;
 import com.github.lingkai5wu.loveta.service.IUserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -40,5 +43,11 @@ public class UserController {
     public SaResult getUserById(@PathVariable Long id) {
         User user = userService.getById(id);
         return SaResult.data(user);
+    }
+
+    @GetMapping("/list")
+    public SaResult listUsers() {
+        List<UserVo> userList = userService.listUsers();
+        return SaResult.data(userList);
     }
 }
