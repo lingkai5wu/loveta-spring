@@ -45,14 +45,13 @@ public class AuthController {
 
     @PostMapping("/register")
     public SaResult register(@RequestBody UserAuthDTO dto) {
-        User user = userService.getByPhone(dto.getPhone());
-        if (user != null) {
+        if (userService.getByPhone(dto.getPhone()) != null) {
             return SaResult.error("手机号已注册");
         }
-        user = new User();
-        user.setPhone(dto.getPhone());
-        String pw_hash = BCrypt.hashpw(dto.getPassword(), BCrypt.gensalt());
-        user.setPassword(pw_hash);
+
+        User user = new User()
+                .setPhone(dto.getPhone())
+                .setPassword(BCrypt.hashpw(dto.getPassword(), BCrypt.gensalt()));
         userService.save(user);
         StpUtil.login(user.getId());
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
