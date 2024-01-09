@@ -14,6 +14,7 @@
     <description>loveta</description>
     <properties>
         <java.version>17</java.version>
+        <hutool.version>5.8.24</hutool.version>
     </properties>
     <dependencies>
         <dependency>
@@ -62,6 +63,23 @@
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-redis</artifactId>
             <version>1.37.0</version>
+        </dependency>
+
+        <!-- Hutool 🍬A set of tools that keep Java sweet. -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <version>${hutool.version}</version>
+            <artifactId>hutool-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <version>${hutool.version}</version>
+            <artifactId>hutool-json</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <version>${hutool.version}</version>
+            <artifactId>hutool-crypto</artifactId>
         </dependency>
     </dependencies>
 

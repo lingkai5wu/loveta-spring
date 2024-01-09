@@ -1,9 +1,13 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/loveta
-    username: root
-    password: root
+    url: jdbc:mysql://mysql.sqlpub.com/loveta
+    username: ${LOVETA_SQLPUB_USERNAME}
+    password: ${LOVETA_SQLPUB_PASSWORD}
+
+aliyun:
+  oss:
+    bucket: loveta-dev
 
 logging:
   level:
