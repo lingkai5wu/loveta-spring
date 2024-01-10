@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
-
 /**
  * <p>
  * 对象存储 前端控制器
@@ -26,10 +24,8 @@ public class OssController {
         this.aliyunOssService = aliyunOssService;
     }
 
-
-    @GetMapping
-    public SaResult getUploadParams() {
-        Map<String, Object> params = aliyunOssService.getUploadParams();
-        return SaResult.data(params);
+    @GetMapping("/post")
+    public SaResult getDirectPostObjectParam() {
+        return SaResult.data(aliyunOssService.getDirectPostObjectParam());
     }
 }

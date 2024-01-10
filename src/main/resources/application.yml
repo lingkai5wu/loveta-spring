@@ -1,10 +1,13 @@
 spring:
   profiles:
     active: dev
+
 sa-token:
   is-read-body: false
   is-read-cookie: false
+
 aliyun:
   oss:
     access-key-id: ${LOVETA_ALIYUN_OSS_ACCESS_KEY_ID}
     access-key-secret: ${LOVETA_ALIYUN_OSS_ACCESS_KEY_SECRET}
+    endpoint: oss-cn-hangzhou.aliyuncs.com

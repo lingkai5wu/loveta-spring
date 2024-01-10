@@ -65,21 +65,11 @@
             <version>1.37.0</version>
         </dependency>
 
-        <!-- Hutool 🍬A set of tools that keep Java sweet. -->
+        <!-- 阿里云 OSS SDK -->
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <version>${hutool.version}</version>
-            <artifactId>hutool-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <version>${hutool.version}</version>
-            <artifactId>hutool-json</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <version>${hutool.version}</version>
-            <artifactId>hutool-crypto</artifactId>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>3.17.2</version>
         </dependency>
     </dependencies>
 

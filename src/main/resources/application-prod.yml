@@ -1,3 +1,7 @@
 sa-token:
   # 不允许并发登录
   is-concurrent: false
+
+aliyun:
+  oss:
+    bucket: loveta
