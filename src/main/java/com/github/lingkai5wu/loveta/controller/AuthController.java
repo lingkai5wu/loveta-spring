@@ -4,7 +4,7 @@ import cn.dev33.satoken.secure.BCrypt;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
-import com.github.lingkai5wu.loveta.model.dto.UserAuthDTO;
+import com.github.lingkai5wu.loveta.model.query.UserAuthQuery;
 import com.github.lingkai5wu.loveta.model.po.User;
 import com.github.lingkai5wu.loveta.service.IUserService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,9 +30,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public SaResult login(@RequestBody UserAuthDTO dto) {
-        User user = userService.getByPhone(dto.getPhone());
-        if (user == null || !BCrypt.checkpw(dto.getPassword(), user.getPassword())) {
+    public SaResult login(@RequestBody UserAuthQuery query) {
+        User user = userService.getByPhone(query.getPhone());
+        if (user == null || !BCrypt.checkpw(query.getPassword(), user.getPassword())) {
             return SaResult.error("手机号或密码不正确");
         }
         if (user.getStatus() != 0) {
@@ -44,14 +44,14 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public SaResult register(@RequestBody UserAuthDTO dto) {
-        if (userService.getByPhone(dto.getPhone()) != null) {
+    public SaResult register(@RequestBody UserAuthQuery query) {
+        if (userService.getByPhone(query.getPhone()) != null) {
             return SaResult.error("手机号已注册");
         }
 
         User user = new User()
-                .setPhone(dto.getPhone())
-                .setPassword(BCrypt.hashpw(dto.getPassword(), BCrypt.gensalt()));
+                .setPhone(query.getPhone())
+                .setPassword(BCrypt.hashpw(query.getPassword(), BCrypt.gensalt()));
         userService.save(user);
         StpUtil.login(user.getId());
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();

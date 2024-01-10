@@ -1,9 +1,9 @@
-package com.github.lingkai5wu.loveta.model.dto;
+package com.github.lingkai5wu.loveta.model.query;
 
 import lombok.Data;
 
 @Data
-public class UserAuthDTO {
+public class UserAuthQuery {
     private String phone;
     private String password;
 }
