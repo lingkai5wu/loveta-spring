@@ -3,10 +3,10 @@
 <mapper namespace="com.github.lingkai5wu.loveta.mapper.PermissionMapper">
 
     <select id="listPermissionsById" resultType="java.lang.String">
-        SELECT DISTINCT auth_permission.code
-        FROM auth_permission
-                 INNER JOIN auth_group_permissions ON auth_permission.id = auth_group_permissions.permission_id
-                 INNER JOIN auth_user_groups ON auth_group_permissions.group_id = auth_user_groups.group_id
-        WHERE auth_user_groups.user_id = #{id}
+        SELECT p.code
+        FROM auth_permission p
+                 INNER JOIN auth_group_permission gp ON p.id = gp.permission_id
+                 INNER JOIN auth_group_user gu ON gp.group_id = gu.group_id
+        WHERE gu.user_id = #{id}
     </select>
 </mapper>

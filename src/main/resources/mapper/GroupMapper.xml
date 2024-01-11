@@ -3,9 +3,9 @@
 <mapper namespace="com.github.lingkai5wu.loveta.mapper.GroupMapper">
 
     <select id="listRolesById" resultType="java.lang.String">
-        SELECT auth_group.name
-        FROM auth_group
-                 INNER JOIN auth_user_groups ON auth_group.id = auth_user_groups.group_id
-        WHERE auth_user_groups.user_id = #{id}
+        SELECT g.name
+        FROM auth_group g
+                 INNER JOIN auth_group_user gu ON g.id = gu.group_id
+        WHERE gu.user_id = #{id}
     </select>
 </mapper>

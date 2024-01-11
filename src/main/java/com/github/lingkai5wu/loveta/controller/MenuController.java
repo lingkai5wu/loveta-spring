@@ -39,28 +39,28 @@ public class MenuController {
     }
 
     @GetMapping("/list")
-    @SaCheckPermission("menu.list")
+    @SaCheckPermission("data:menu:list")
     public SaResult listMenus() {
         List<Menu> menu = menuService.list();
         return SaResult.data(menu);
     }
 
     @PostMapping("/save")
-    @SaCheckPermission("menu.save")
+    @SaCheckPermission("data:menu:save")
     public SaResult saveMenu(@RequestBody Menu menu) {
         menuService.save(menu);
         return SaResult.ok();
     }
 
     @PostMapping("/update")
-    @SaCheckPermission("menu.update")
+    @SaCheckPermission("data:menu:update")
     public SaResult updateMenu(@RequestBody Menu menu) {
         menuService.updateById(menu);
         return SaResult.ok();
     }
 
     @DeleteMapping("/remove/{id}")
-    @SaCheckPermission("menu.remove")
+    @SaCheckPermission("data:menu:remove")
     public SaResult removeMenu(@PathVariable Long id) {
         menuService.removeById(id);
         return SaResult.ok();
