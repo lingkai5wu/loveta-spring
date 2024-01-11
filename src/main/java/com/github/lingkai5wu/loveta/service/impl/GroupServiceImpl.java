@@ -20,7 +20,7 @@ import java.util.List;
 public class GroupServiceImpl extends ServiceImpl<GroupMapper, Group> implements IGroupService {
 
     @Override
-    public List<String> listRolesById(Object id) {
-        return baseMapper.listRolesById(id);
+    public List<String> listRolesByUserId(Object id) {
+        return baseMapper.listRolesByUserId(id);
     }
 }

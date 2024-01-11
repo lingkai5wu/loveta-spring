@@ -26,7 +26,7 @@ public class StpInterfaceImpl implements StpInterface {
      */
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
-        return permissionService.listPermissionsById(loginId);
+        return permissionService.listPermissionsByUserId(loginId);
     }
 
     /**
@@ -34,7 +34,7 @@ public class StpInterfaceImpl implements StpInterface {
      */
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
-        return groupService.listRolesById(loginId);
+        return groupService.listRolesByUserId(loginId);
     }
 
 }
