@@ -31,7 +31,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public SaResult login(@RequestBody UserAuthQuery query) {
-        User user = userService.getByPhone(query.getPhone());
+        User user = userService.getUserByPhone(query.getPhone());
         if (user == null || !BCrypt.checkpw(query.getPassword(), user.getPassword())) {
             return SaResult.error("手机号或密码不正确");
         }
@@ -45,7 +45,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public SaResult register(@RequestBody UserAuthQuery query) {
-        if (userService.getByPhone(query.getPhone()) != null) {
+        if (userService.getUserByPhone(query.getPhone()) != null) {
             return SaResult.error("手机号已注册");
         }
 

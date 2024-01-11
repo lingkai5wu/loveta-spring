@@ -3,7 +3,7 @@ package com.github.lingkai5wu.loveta.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.lingkai5wu.loveta.mapper.UserMapper;
 import com.github.lingkai5wu.loveta.model.po.User;
-import com.github.lingkai5wu.loveta.model.vo.UserVo;
+import com.github.lingkai5wu.loveta.model.vo.UserVO;
 import com.github.lingkai5wu.loveta.service.IUserService;
 import org.springframework.stereotype.Service;
 
@@ -26,14 +26,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public User getByPhone(String phone) {
+    public User getUserByPhone(String phone) {
         return lambdaQuery()
                 .eq(User::getPhone, phone)
                 .one();
     }
 
     @Override
-    public List<UserVo> listUsers() {
-        return userMapper.listUsers();
+    public UserVO getUserVoById(long id) {
+        return userMapper.getUserVO(id);
+    }
+
+    @Override
+    public List<UserVO> listUserVOs() {
+        return userMapper.listUserVOs();
     }
 }

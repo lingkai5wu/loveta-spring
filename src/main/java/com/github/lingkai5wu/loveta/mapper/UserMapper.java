@@ -2,7 +2,7 @@ package com.github.lingkai5wu.loveta.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.lingkai5wu.loveta.model.po.User;
-import com.github.lingkai5wu.loveta.model.vo.UserVo;
+import com.github.lingkai5wu.loveta.model.vo.UserVO;
 
 import java.util.List;
 
@@ -16,5 +16,7 @@ import java.util.List;
  */
 public interface UserMapper extends BaseMapper<User> {
 
-    List<UserVo> listUsers();
+    UserVO getUserVO(long id);
+
+    List<UserVO> listUserVOs();
 }
