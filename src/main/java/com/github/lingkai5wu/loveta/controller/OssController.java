@@ -24,8 +24,8 @@ public class OssController {
         this.aliyunOssService = aliyunOssService;
     }
 
-    @GetMapping("/post")
-    public SaResult getDirectPostObjectParam() {
-        return SaResult.data(aliyunOssService.getDirectPostObjectParam());
+    @GetMapping("/post-info")
+    public SaResult getDirectPostObjectInfo() {
+        return SaResult.data(aliyunOssService.getDirectPostObjectInfo());
     }
 }

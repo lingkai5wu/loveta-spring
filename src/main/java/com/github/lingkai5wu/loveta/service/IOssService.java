@@ -12,7 +12,7 @@ import java.util.Map;
  * @since 2024-01-08
  */
 public interface IOssService {
-    Map<String, Object> getDirectPostObjectParam();
+    Map<String, Object> getDirectPostObjectInfo();
 
     URL getGetObjectUrl(String objectName);
 }

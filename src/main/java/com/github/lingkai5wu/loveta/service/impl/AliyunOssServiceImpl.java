@@ -34,7 +34,7 @@ public class AliyunOssServiceImpl implements IOssService {
     }
 
     @Override
-    public Map<String, Object> getDirectPostObjectParam() {
+    public Map<String, Object> getDirectPostObjectInfo() {
         Map<String, Object> param = new HashMap<>();
 
         String host = String.format("https://%s.%s", config.getBucket(), config.getEndpoint());

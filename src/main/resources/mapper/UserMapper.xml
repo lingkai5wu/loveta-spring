@@ -11,7 +11,7 @@
         </collection>
     </resultMap>
 
-    <select id="getUserVO" resultMap="userVOResultMap" parameterType="long">
+    <select id="getUserVOById" resultMap="userVOResultMap" parameterType="long">
         SELECT u.id,
                u.phone,
                u.status,

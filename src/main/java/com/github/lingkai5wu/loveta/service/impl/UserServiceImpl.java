@@ -33,8 +33,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public UserVO getUserVoById(long id) {
-        return userMapper.getUserVO(id);
+    public UserVO getUserVOById(long id) {
+        return userMapper.getUserVOById(id);
     }
 
     @Override

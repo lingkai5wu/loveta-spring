@@ -18,7 +18,7 @@ public interface IUserService extends IService<User> {
 
     User getUserByPhone(String phone);
 
-    UserVO getUserVoById(long id);
+    UserVO getUserVOById(long id);
 
     List<UserVO> listUserVOs();
 }
