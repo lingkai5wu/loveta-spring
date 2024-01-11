@@ -4,7 +4,6 @@ import com.github.lingkai5wu.loveta.service.IOssService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Component;
 
 import java.net.URL;
 
