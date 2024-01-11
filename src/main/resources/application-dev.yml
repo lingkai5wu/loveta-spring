@@ -8,7 +8,6 @@ spring:
 aliyun:
   oss:
     bucket: loveta-dev
-    max-content-length-mebibyte: 1
 
 logging:
   level:

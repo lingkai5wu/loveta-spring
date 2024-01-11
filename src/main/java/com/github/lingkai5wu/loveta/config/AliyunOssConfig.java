@@ -17,8 +17,9 @@ public class AliyunOssConfig {
     private String accessKeySecret;
     private String endpoint = "oss.aliyuncs.com";
     private String bucket;
-    private Double policyValiditySecond = 60.0;
-    private Double maxContentLengthMebibyte = 10.0;
+    private Double postObjectPolicyValiditySecond = 60.0;
+    private Double postObjectMaxContentLengthMebibyte = 10.0;
+    private Double getObjectUrlValiditySecond = 60.0;
 
     @Bean
     public OSS aliyunOSSClient() {

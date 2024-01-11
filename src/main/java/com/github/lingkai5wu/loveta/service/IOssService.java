@@ -1,5 +1,6 @@
 package com.github.lingkai5wu.loveta.service;
 
+import java.net.URL;
 import java.util.Map;
 
 /**
@@ -12,4 +13,6 @@ import java.util.Map;
  */
 public interface IOssService {
     Map<String, Object> getDirectPostObjectParam();
+
+    URL getGetObjectUrl(String objectName);
 }
