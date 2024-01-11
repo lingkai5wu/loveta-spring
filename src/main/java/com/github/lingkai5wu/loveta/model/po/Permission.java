@@ -1,6 +1,7 @@
 package com.github.lingkai5wu.loveta.model.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -8,7 +9,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author lingkai5wu
- * @since 2024-01-08
+ * @since 2024-01-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -35,17 +35,8 @@ public class Permission implements Serializable {
     /**
      * 权限码
      */
+    @TableField("code")
     private String code;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
 
 
 }

@@ -1,6 +1,7 @@
 package com.github.lingkai5wu.loveta.model.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.lingkai5wu.loveta.enums.MenuTypeEnum;
@@ -9,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author lingkai5wu
- * @since 2024-01-08
+ * @since 2024-01-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -36,32 +36,26 @@ public class Menu implements Serializable {
     /**
      * 父菜单ID
      */
+    @TableField("pid")
     private Integer pid;
 
     /**
      * 菜单类型
      */
+    @TableField("type")
     private MenuTypeEnum type;
 
     /**
      * 菜单名
      */
+    @TableField("label")
     private String label;
 
     /**
      * 附加数据
      */
+    @TableField("data")
     private String data;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
 
 
 }
