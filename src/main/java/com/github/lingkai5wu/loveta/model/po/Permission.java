@@ -17,7 +17,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author lingkai5wu
- * @since 2024-01-11
+ * @since 2024-01-12
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -39,6 +39,12 @@ public class Permission implements Serializable {
      */
     @TableField("code")
     private String code;
+
+    /**
+     * 描述
+     */
+    @TableField("description")
+    private String description;
 
 
 }

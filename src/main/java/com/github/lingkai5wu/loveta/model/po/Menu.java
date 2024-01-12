@@ -18,7 +18,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author lingkai5wu
- * @since 2024-01-11
+ * @since 2024-01-12
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -54,10 +54,10 @@ public class Menu implements Serializable {
     private String label;
 
     /**
-     * 附加数据
+     * 跳转目标
      */
-    @TableField("data")
-    private String data;
+    @TableField("target")
+    private String target;
 
 
 }
