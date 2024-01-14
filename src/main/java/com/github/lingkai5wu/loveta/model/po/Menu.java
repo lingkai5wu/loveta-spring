@@ -18,7 +18,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author lingkai5wu
- * @since 2024-01-12
+ * @since 2024-01-14
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -42,22 +42,34 @@ public class Menu implements Serializable {
     private Integer pid;
 
     /**
-     * 菜单类型
+     * 类型
      */
     @TableField("type")
     private MenuTypeEnum type;
 
     /**
-     * 菜单名
+     * 标签
      */
     @TableField("label")
     private String label;
 
     /**
-     * 跳转目标
+     * 图标
      */
-    @TableField("target")
-    private String target;
+    @TableField("icon")
+    private String icon;
+
+    /**
+     * 路径
+     */
+    @TableField("path")
+    private String path;
+
+    /**
+     * 组件
+     */
+    @TableField("component")
+    private String component;
 
 
 }

@@ -7,7 +7,9 @@
                m.pid,
                m.type,
                m.label,
-               m.target,
+               m.icon,
+               m.path,
+               m.component,
                gm.sort
         FROM auth_menu m
                  INNER JOIN auth_group_menu gm ON m.id = gm.menu_id
