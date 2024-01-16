@@ -7,10 +7,7 @@ import cn.dev33.satoken.util.SaResult;
 import com.github.lingkai5wu.loveta.model.po.User;
 import com.github.lingkai5wu.loveta.model.query.UserAuthQuery;
 import com.github.lingkai5wu.loveta.service.IUserService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -56,5 +53,11 @@ public class AuthController {
         StpUtil.login(user.getId());
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
         return SaResult.data(tokenInfo);
+    }
+
+    @GetMapping("/logout")
+    public SaResult logout() {
+        StpUtil.logout();
+        return SaResult.ok();
     }
 }
