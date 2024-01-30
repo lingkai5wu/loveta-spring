@@ -13,12 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * <p>
- * 用户 前端控制器
- * </p>
- *
- * @author lingkai5wu
- * @since 2023-12-25
+ * 用户
  */
 @RestController
 @RequestMapping("/user")
@@ -29,6 +24,9 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * 获取当前用户
+     */
     @GetMapping("/current")
     public SaResult getCurrentUserVO() {
         long id = StpUtil.getLoginIdAsLong();
@@ -36,6 +34,9 @@ public class UserController {
         return SaResult.data(userVO);
     }
 
+    /**
+     * 列出全部用户
+     */
     @GetMapping()
     @SaCheckPermission("data:user:list")
     public SaResult listUserVOs() {

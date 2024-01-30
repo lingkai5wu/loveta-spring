@@ -7,15 +7,11 @@ import cn.dev33.satoken.util.SaResult;
 import com.github.lingkai5wu.loveta.model.po.User;
 import com.github.lingkai5wu.loveta.model.query.UserAuthQuery;
 import com.github.lingkai5wu.loveta.service.IUserService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * <p>
- * 认证 前端控制器
- * </p>
- *
- * @author lingkai5wu
- * @since 2023-12-25
+ * 认证
  */
 @RestController
 @RequestMapping("/auth")
@@ -26,8 +22,11 @@ public class AuthController {
         this.userService = userService;
     }
 
+    /**
+     * 登录
+     */
     @PostMapping("/login")
-    public SaResult login(@RequestBody UserAuthQuery query) {
+    public SaResult login(@RequestBody @Validated UserAuthQuery query) {
         User user = userService.getUserByPhone(query.getPhone());
         if (user == null || !BCrypt.checkpw(query.getPassword(), user.getPassword())) {
             return SaResult.error("手机号或密码不正确");
@@ -40,21 +39,25 @@ public class AuthController {
         return SaResult.data(tokenInfo);
     }
 
+    /**
+     * 注册
+     */
     @PostMapping("/register")
-    public SaResult register(@RequestBody UserAuthQuery query) {
+    public SaResult register(@RequestBody @Validated UserAuthQuery query) {
         if (userService.getUserByPhone(query.getPhone()) != null) {
             return SaResult.error("手机号已注册");
         }
 
-        User user = new User()
-                .setPhone(query.getPhone())
-                .setPassword(BCrypt.hashpw(query.getPassword(), BCrypt.gensalt()));
+        User user = new User().setPhone(query.getPhone()).setPassword(BCrypt.hashpw(query.getPassword(), BCrypt.gensalt()));
         userService.save(user);
         StpUtil.login(user.getId());
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
         return SaResult.data(tokenInfo);
     }
 
+    /**
+     * 登出
+     */
     @GetMapping("/logout")
     public SaResult logout() {
         StpUtil.logout();

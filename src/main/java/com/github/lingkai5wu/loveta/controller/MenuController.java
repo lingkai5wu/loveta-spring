@@ -10,12 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * <p>
- * 菜单 前端控制器
- * </p>
- *
- * @author lingkai5wu
- * @since 2023-12-25
+ * 菜单
  */
 @RestController
 @RequestMapping("/menu")
@@ -27,7 +22,7 @@ public class MenuController {
     }
 
     /**
-     * 当前登录用户菜单
+     * 列出当前用户菜单
      */
     @GetMapping("/current")
     public SaResult listCurrentUserMenus() {
@@ -39,6 +34,9 @@ public class MenuController {
         return SaResult.data(menuList);
     }
 
+    /**
+     * 列出全部菜单
+     */
     @GetMapping
     @SaCheckPermission("data:menu:list")
     public SaResult listMenus() {
@@ -46,6 +44,9 @@ public class MenuController {
         return SaResult.data(menuList);
     }
 
+    /**
+     * 新增菜单
+     */
     @PostMapping
     @SaCheckPermission("data:menu:save")
     public SaResult saveMenu(@RequestBody Menu menu) {
@@ -53,6 +54,9 @@ public class MenuController {
         return SaResult.ok();
     }
 
+    /**
+     * 修改菜单
+     */
     @PatchMapping
     @SaCheckPermission("data:menu:update")
     public SaResult updateMenu(@RequestBody Menu menu) {
@@ -63,6 +67,9 @@ public class MenuController {
         return SaResult.ok();
     }
 
+    /**
+     * 删除菜单
+     */
     @DeleteMapping("/{id}")
     @SaCheckPermission("data:menu:remove")
     public SaResult removeMenu(@PathVariable Long id) {

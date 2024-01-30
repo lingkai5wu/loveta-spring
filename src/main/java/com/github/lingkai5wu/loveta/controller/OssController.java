@@ -9,12 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * <p>
- * 对象存储 前端控制器
- * </p>
- *
- * @author lingkai5wu
- * @since 2024-01-08
+ * 对象存储
  */
 @RestController
 @RequestMapping("/oss")
@@ -25,6 +20,9 @@ public class OssController {
         this.aliyunOssService = aliyunOssService;
     }
 
+    /**
+     * 获取表单直传参数
+     */
     @GetMapping("/post-info")
     @SaCheckPermission("cloud:oss:post")
     public SaResult getDirectPostObjectInfo() {
