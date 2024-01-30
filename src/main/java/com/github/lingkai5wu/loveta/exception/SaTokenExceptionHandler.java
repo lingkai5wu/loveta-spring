@@ -3,16 +3,15 @@ package com.github.lingkai5wu.loveta.exception;
 import cn.dev33.satoken.exception.*;
 import cn.dev33.satoken.util.SaResult;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-/**
- * 全局异常处理
- */
 @Slf4j
 @RestControllerAdvice
-public class GlobalException {
-
+@Order(Ordered.HIGHEST_PRECEDENCE + 1)
+public class SaTokenExceptionHandler {
     // 拦截: 未登录异常
     @ExceptionHandler(NotLoginException.class)
     public SaResult handlerException(NotLoginException e) {
@@ -54,12 +53,4 @@ public class GlobalException {
         log.warn(e.getMessage());
         return SaResult.error(e.getMessage());
     }
-
-    // 拦截: 其它所有异常
-    @ExceptionHandler(Exception.class)
-    public SaResult handlerException(Exception e) {
-        log.warn(e.getMessage());
-        return SaResult.error(e.getMessage());
-    }
-
 }
