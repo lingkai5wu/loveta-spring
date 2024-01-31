@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class AllExceptionHandler {
     @ExceptionHandler(Exception.class)
     public SaResult handlerException(Exception e) {
-        log.warn("user: {}, {}\n{}\n{}", StpUtil.getLoginIdAsLong(), e.getClass().getName(), e.getMessage(), e.getStackTrace());
+        log.warn("user: {}, {}\n{}\n{}", StpUtil.getLoginIdDefaultNull(), e.getClass().getName(), e.getMessage(), e.getStackTrace());
         return SaResult.error(e.getMessage());
     }
 }

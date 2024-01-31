@@ -2,7 +2,7 @@ package com.github.lingkai5wu.loveta.controller;
 
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
-import cn.dev33.satoken.util.SaResult;
+import com.github.lingkai5wu.loveta.model.Result;
 import com.github.lingkai5wu.loveta.service.IOssService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +25,7 @@ public class OssController {
      */
     @GetMapping("/post-info")
     @SaCheckPermission("cloud:oss:post")
-    public SaResult getDirectPostObjectInfo() {
-        return SaResult.data(aliyunOssService.getDirectPostObjectInfo());
+    public Result getDirectPostObjectInfo() {
+        return Result.data(aliyunOssService.getDirectPostObjectInfo());
     }
 }

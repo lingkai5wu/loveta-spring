@@ -1,12 +1,16 @@
 package com.github.lingkai5wu.loveta.exception;
 
 import cn.dev33.satoken.exception.*;
-import cn.dev33.satoken.util.SaResult;
+import com.github.lingkai5wu.loveta.enums.ResultStatusEnum;
+import com.github.lingkai5wu.loveta.model.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Slf4j
 @RestControllerAdvice
@@ -14,43 +18,55 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class SaTokenExceptionHandler {
     // 拦截: 未登录异常
     @ExceptionHandler(NotLoginException.class)
-    public SaResult handlerException(NotLoginException e) {
+    public Result handlerException(NotLoginException e) {
         log.warn(e.getMessage());
-        return SaResult.error(e.getMessage().replace("：", ": ")).setCode(401);
+        return Result.status(ResultStatusEnum.Unauthorized);
     }
 
     // 拦截: 缺少权限异常
     @ExceptionHandler(NotPermissionException.class)
-    public SaResult handlerException(NotPermissionException e) {
+    public Result handlerException(NotPermissionException e) {
         log.warn(e.getMessage());
-        return SaResult.error("缺少权限: " + e.getPermission());
+        Map<String, String> data = new LinkedHashMap<>();
+        data.put("currentGroup", e.getLoginType());
+        data.put("needPermission", e.getPermission());
+        return Result.status(ResultStatusEnum.Forbidden).setData(data);
     }
 
     // 拦截: 缺少角色异常
     @ExceptionHandler(NotRoleException.class)
-    public SaResult handlerException(NotRoleException e) {
+    public Result handlerException(NotRoleException e) {
         log.warn(e.getMessage());
-        return SaResult.error("缺少角色: " + e.getRole());
+        Map<String, String> data = new LinkedHashMap<>();
+        data.put("currentGroup", e.getLoginType());
+        data.put("needGroup", e.getRole());
+        return Result.status(ResultStatusEnum.Forbidden).setData(data);
     }
 
     // 拦截: 二级认证校验失败异常
     @ExceptionHandler(NotSafeException.class)
-    public SaResult handlerException(NotSafeException e) {
+    public Result handlerException(NotSafeException e) {
         log.warn(e.getMessage());
-        return SaResult.error("二级认证校验失败: " + e.getService());
+        Map<String, Object> data = new LinkedHashMap<>();
+        data.put("service", e.getService());
+        return Result.error("二级认证校验失败").setData(data);
     }
 
     // 拦截: 服务封禁异常
     @ExceptionHandler(DisableServiceException.class)
-    public SaResult handlerException(DisableServiceException e) {
+    public Result handlerException(DisableServiceException e) {
         log.warn(e.getMessage());
-        return SaResult.error("当前账号 " + e.getService() + " 服务已被封禁 (level=" + e.getLevel() + "): " + e.getDisableTime() + "秒后解封");
+        Map<String, Object> data = new LinkedHashMap<>();
+        data.put("service", e.getService());
+        data.put("level", e.getLevel());
+        data.put("expire", e.getLevel());
+        return Result.status(ResultStatusEnum.Forbidden).setData(data);
     }
 
     // 拦截: Http Basic 校验失败异常
     @ExceptionHandler(NotBasicAuthException.class)
-    public SaResult handlerException(NotBasicAuthException e) {
+    public Result handlerException(NotBasicAuthException e) {
         log.warn(e.getMessage());
-        return SaResult.error(e.getMessage());
+        return Result.status(ResultStatusEnum.Unauthorized);
     }
 }
