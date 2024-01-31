@@ -12,9 +12,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * <p>
  * 用户组
- * </p>
  *
  * @author lingkai5wu
  * @since 2024-01-11

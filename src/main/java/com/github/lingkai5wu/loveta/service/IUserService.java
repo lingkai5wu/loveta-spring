@@ -7,9 +7,7 @@ import com.github.lingkai5wu.loveta.model.vo.UserVO;
 import java.util.List;
 
 /**
- * <p>
  * 用户 服务类
- * </p>
  *
  * @author lingkai5wu
  * @since 2023-12-25

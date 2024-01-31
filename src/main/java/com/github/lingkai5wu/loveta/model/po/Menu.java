@@ -13,9 +13,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * <p>
  * 菜单
- * </p>
  *
  * @author lingkai5wu
  * @since 2024-01-14

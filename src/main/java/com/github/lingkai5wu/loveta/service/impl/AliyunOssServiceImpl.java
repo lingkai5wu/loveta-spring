@@ -6,19 +6,16 @@ import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.GeneratePresignedUrlRequest;
 import com.aliyun.oss.model.PolicyConditions;
 import com.github.lingkai5wu.loveta.config.AliyunOssConfig;
+import com.github.lingkai5wu.loveta.model.vo.OssDirectPostObjectInfoVO;
 import com.github.lingkai5wu.loveta.service.IOssService;
 import org.springframework.stereotype.Service;
 
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * <p>
  * 阿里云对象存储 前端控制器
- * </p>
  *
  * @author lingkai5wu
  * @since 2024-01-08
@@ -34,17 +31,16 @@ public class AliyunOssServiceImpl implements IOssService {
     }
 
     @Override
-    public Map<String, Object> getDirectPostObjectInfo() {
-        Map<String, Object> param = new HashMap<>();
+    public OssDirectPostObjectInfoVO getDirectPostObjectInfo() {
+        OssDirectPostObjectInfoVO infoVO = new OssDirectPostObjectInfoVO();
 
         String host = String.format("https://%s.%s", config.getBucket(), config.getEndpoint());
-        param.put("host", host);
+        infoVO.setHost(host);
 
         long expire = (long) (System.currentTimeMillis() + config.getPostObjectPolicyValiditySecond() * 1000);
-        param.put("expire", expire);
+        infoVO.setExpire(expire);
 
-        Map<String, Object> auth = new HashMap<>();
-        auth.put("ossAccessKeyId", config.getAccessKeyId());
+        infoVO.setOssAccessKeyId(config.getAccessKeyId());
 
         PolicyConditions conditions = new PolicyConditions();
         conditions.addConditionItem(
@@ -55,14 +51,12 @@ public class AliyunOssServiceImpl implements IOssService {
         String policy = client.generatePostPolicy(expiration, conditions);
         byte[] policyBytes = policy.getBytes(StandardCharsets.UTF_8);
         String encodedPolicy = BinaryUtil.toBase64String(policyBytes);
-        auth.put("policy", encodedPolicy);
+        infoVO.setPolicy(encodedPolicy);
 
         String signature = client.calculatePostSignature(policy);
-        auth.put("signature", signature);
+        infoVO.setSignature(signature);
 
-        param.put("auth", auth);
-
-        return param;
+        return infoVO;
     }
 
     @Override

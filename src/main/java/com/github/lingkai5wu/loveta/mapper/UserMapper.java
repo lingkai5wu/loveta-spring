@@ -7,9 +7,7 @@ import com.github.lingkai5wu.loveta.model.vo.UserVO;
 import java.util.List;
 
 /**
- * <p>
  * 用户 Mapper 接口
- * </p>
  *
  * @author lingkai5wu
  * @since 2023-12-25

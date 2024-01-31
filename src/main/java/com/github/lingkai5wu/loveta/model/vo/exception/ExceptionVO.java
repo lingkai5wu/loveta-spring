@@ -1,12 +1,10 @@
-package com.github.lingkai5wu.loveta.model.vo;
+package com.github.lingkai5wu.loveta.model.vo.exception;
 
 import lombok.Data;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-@ToString
 public class ExceptionVO {
     /**
      * 异常类名

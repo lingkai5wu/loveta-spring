@@ -2,9 +2,11 @@ package com.github.lingkai5wu.loveta.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
+import com.github.lingkai5wu.loveta.enums.ResultStatusEnum;
 import com.github.lingkai5wu.loveta.model.Result;
 import com.github.lingkai5wu.loveta.model.po.Menu;
 import com.github.lingkai5wu.loveta.service.IMenuService;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,7 +27,7 @@ public class MenuController {
      * 列出当前用户菜单
      */
     @GetMapping("/current")
-    public Result listCurrentUserMenus() {
+    public Result<List<Menu>> listCurrentUserMenus() {
         if (StpUtil.hasRole("super-admin")) {
             return listMenus();
         }
@@ -39,7 +41,7 @@ public class MenuController {
      */
     @GetMapping
     @SaCheckPermission("data:menu:list")
-    public Result listMenus() {
+    public Result<List<Menu>> listMenus() {
         List<Menu> menuList = menuService.list();
         return Result.data(menuList);
     }
@@ -49,7 +51,7 @@ public class MenuController {
      */
     @PostMapping
     @SaCheckPermission("data:menu:save")
-    public Result saveMenu(@RequestBody Menu menu) {
+    public Result<Null> saveMenu(@RequestBody Menu menu) {
         menuService.save(menu);
         return Result.ok();
     }
@@ -59,10 +61,10 @@ public class MenuController {
      */
     @PatchMapping
     @SaCheckPermission("data:menu:update")
-    public Result updateMenu(@RequestBody Menu menu) {
+    public Result<Null> updateMenu(@RequestBody Menu menu) {
         boolean updated = menuService.updateById(menu);
         if (!updated) {
-            return Result.error("菜单不存在");
+            return Result.status(ResultStatusEnum.NotFound);
         }
         return Result.ok();
     }
@@ -72,10 +74,10 @@ public class MenuController {
      */
     @DeleteMapping("/{id}")
     @SaCheckPermission("data:menu:remove")
-    public Result removeMenu(@PathVariable Long id) {
+    public Result<Null> removeMenu(@PathVariable Long id) {
         boolean removed = menuService.removeById(id);
         if (!removed) {
-            return Result.error("菜单不存在");
+            return Result.status(ResultStatusEnum.NotFound);
         }
         return Result.ok();
     }

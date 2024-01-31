@@ -28,7 +28,7 @@ public class UserController {
      * 获取当前用户
      */
     @GetMapping("/current")
-    public Result getCurrentUserVO() {
+    public Result<UserVO> getCurrentUserVO() {
         long id = StpUtil.getLoginIdAsLong();
         UserVO userVO = userService.getUserVOById(id);
         return Result.data(userVO);
@@ -39,7 +39,7 @@ public class UserController {
      */
     @GetMapping()
     @SaCheckPermission("data:user:list")
-    public Result listUserVOs() {
+    public Result<List<UserVO>> listUserVOs() {
         List<UserVO> userVOList = userService.listUserVOs();
         return Result.data(userVOList);
     }

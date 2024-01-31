@@ -6,9 +6,7 @@ import com.github.lingkai5wu.loveta.model.po.Menu;
 import java.util.List;
 
 /**
- * <p>
  * 菜单 Mapper 接口
- * </p>
  *
  * @author lingkai5wu
  * @since 2023-12-25

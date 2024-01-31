@@ -1,7 +1,8 @@
 package com.github.lingkai5wu.loveta.exception;
 
+import com.github.lingkai5wu.loveta.enums.ResultStatusEnum;
 import com.github.lingkai5wu.loveta.model.Result;
-import com.github.lingkai5wu.loveta.model.vo.ExceptionVO;
+import com.github.lingkai5wu.loveta.model.vo.exception.ExceptionVO;
 import com.github.lingkai5wu.loveta.service.IExceptionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,9 +18,9 @@ public class AllExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public Result handlerException(Exception e) {
+    public Result<ExceptionVO> handlerException(Exception e) {
         log.warn(e.getMessage());
         ExceptionVO exceptionVO = exceptionService.getExceptionVO(e);
-        return Result.error().setData(exceptionVO);
+        return Result.status(ResultStatusEnum.InternalServerError, exceptionVO);
     }
 }

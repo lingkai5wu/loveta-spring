@@ -6,9 +6,7 @@ import com.github.lingkai5wu.loveta.model.po.Group;
 import java.util.List;
 
 /**
- * <p>
  * 用户组 服务类
- * </p>
  *
  * @author lingkai5wu
  * @since 2023-12-25
