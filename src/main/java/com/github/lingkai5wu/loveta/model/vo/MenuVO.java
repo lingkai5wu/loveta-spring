@@ -1,5 +1,6 @@
 package com.github.lingkai5wu.loveta.model.vo;
 
+import com.github.lingkai5wu.loveta.enums.MenuTypeEnum;
 import lombok.Data;
 
 @Data
@@ -17,7 +18,7 @@ public class MenuVO {
     /**
      * 类型
      */
-    private Integer type;
+    private MenuTypeEnum type;
 
     /**
      * 标签

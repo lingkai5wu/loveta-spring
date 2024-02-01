@@ -3,6 +3,7 @@ package com.github.lingkai5wu.loveta.model.po;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.github.lingkai5wu.loveta.enums.UserSexEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -64,7 +65,7 @@ public class User {
     /**
      * 性别
      */
-    private Integer sex;
+    private UserSexEnum sex;
 
     /**
      * 创建时间

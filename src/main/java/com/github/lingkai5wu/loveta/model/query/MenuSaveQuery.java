@@ -1,5 +1,6 @@
 package com.github.lingkai5wu.loveta.model.query;
 
+import com.github.lingkai5wu.loveta.enums.MenuTypeEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class MenuSaveQuery {
      * 类型
      */
     @NotNull
-    private Integer type;
+    private MenuTypeEnum type;
 
     /**
      * 标签

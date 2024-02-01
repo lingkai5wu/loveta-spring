@@ -1,5 +1,6 @@
 package com.github.lingkai5wu.loveta.model.query;
 
+import com.github.lingkai5wu.loveta.enums.MenuTypeEnum;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -19,7 +20,7 @@ public class MenuUpdateQuery {
     /**
      * 类型
      */
-    private Integer type;
+    private MenuTypeEnum type;
 
     /**
      * 标签
