@@ -9,7 +9,6 @@ import com.github.lingkai5wu.loveta.model.po.User;
 import com.github.lingkai5wu.loveta.model.query.UserAuthQuery;
 import com.github.lingkai5wu.loveta.model.vo.TokenInfoVO;
 import com.github.lingkai5wu.loveta.service.IUserService;
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +46,7 @@ public class AuthController {
      * 注册
      */
     @PostMapping("/register")
-    public Result<Null> register(@RequestBody @Validated UserAuthQuery query) {
+    public Result<Void> register(@RequestBody @Validated UserAuthQuery query) {
         if (userService.getUserByPhone(query.getPhone()) != null) {
             return Result.error("该号码已注册");
         }
@@ -60,7 +59,7 @@ public class AuthController {
      * 登出
      */
     @GetMapping("/logout")
-    public Result<Null> logout() {
+    public Result<Void> logout() {
         StpUtil.logout();
         return Result.ok();
     }

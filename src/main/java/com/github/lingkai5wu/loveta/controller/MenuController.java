@@ -6,7 +6,6 @@ import com.github.lingkai5wu.loveta.enums.ResultStatusEnum;
 import com.github.lingkai5wu.loveta.model.Result;
 import com.github.lingkai5wu.loveta.model.po.Menu;
 import com.github.lingkai5wu.loveta.service.IMenuService;
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,7 +50,7 @@ public class MenuController {
      */
     @PostMapping
     @SaCheckPermission("data:menu:save")
-    public Result<Null> saveMenu(@RequestBody Menu menu) {
+    public Result<Void> saveMenu(@RequestBody Menu menu) {
         menuService.save(menu);
         return Result.ok();
     }
@@ -61,7 +60,7 @@ public class MenuController {
      */
     @PatchMapping
     @SaCheckPermission("data:menu:update")
-    public Result<Null> updateMenu(@RequestBody Menu menu) {
+    public Result<Void> updateMenu(@RequestBody Menu menu) {
         boolean updated = menuService.updateById(menu);
         if (!updated) {
             return Result.status(ResultStatusEnum.NotFound);
@@ -74,7 +73,7 @@ public class MenuController {
      */
     @DeleteMapping("/{id}")
     @SaCheckPermission("data:menu:remove")
-    public Result<Null> removeMenu(@PathVariable Long id) {
+    public Result<Void> removeMenu(@PathVariable Long id) {
         boolean removed = menuService.removeById(id);
         if (!removed) {
             return Result.status(ResultStatusEnum.NotFound);
