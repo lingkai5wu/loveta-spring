@@ -12,12 +12,12 @@ import lombok.Data;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Result<T> {
     /**
-     * 响应状态码
+     * 状态码
      */
     private Integer code;
 
     /**
-     * 响应消息
+     * 消息
      */
     private String msg;
 

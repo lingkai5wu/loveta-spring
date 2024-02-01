@@ -2,9 +2,13 @@ package com.github.lingkai5wu.loveta.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.bean.BeanUtil;
 import com.github.lingkai5wu.loveta.enums.ResultStatusEnum;
 import com.github.lingkai5wu.loveta.model.Result;
 import com.github.lingkai5wu.loveta.model.po.Menu;
+import com.github.lingkai5wu.loveta.model.query.MenuSaveQuery;
+import com.github.lingkai5wu.loveta.model.query.MenuUpdateQuery;
+import com.github.lingkai5wu.loveta.model.vo.MenuVO;
 import com.github.lingkai5wu.loveta.service.IMenuService;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,12 +30,12 @@ public class MenuController {
      * 列出当前用户菜单
      */
     @GetMapping("/current")
-    public Result<List<Menu>> listCurrentUserMenus() {
+    public Result<List<MenuVO>> listCurrentUserMenus() {
         if (StpUtil.hasRole("super-admin")) {
             return listMenus();
         }
         long loginId = StpUtil.getLoginIdAsLong();
-        List<Menu> menuList = menuService.listMenuByUserId(loginId);
+        List<MenuVO> menuList = BeanUtil.copyToList(menuService.listMenuByUserId(loginId), MenuVO.class);
         return Result.data(menuList);
     }
 
@@ -40,8 +44,8 @@ public class MenuController {
      */
     @GetMapping
     @SaCheckPermission("data:menu:list")
-    public Result<List<Menu>> listMenus() {
-        List<Menu> menuList = menuService.list();
+    public Result<List<MenuVO>> listMenus() {
+        List<MenuVO> menuList = BeanUtil.copyToList(menuService.list(), MenuVO.class);
         return Result.data(menuList);
     }
 
@@ -50,7 +54,8 @@ public class MenuController {
      */
     @PostMapping
     @SaCheckPermission("data:menu:save")
-    public Result<Void> saveMenu(@RequestBody Menu menu) {
+    public Result<Void> saveMenu(@RequestBody MenuSaveQuery saveQuery) {
+        Menu menu = BeanUtil.copyProperties(saveQuery, Menu.class);
         menuService.save(menu);
         return Result.ok();
     }
@@ -60,7 +65,8 @@ public class MenuController {
      */
     @PatchMapping
     @SaCheckPermission("data:menu:update")
-    public Result<Void> updateMenu(@RequestBody Menu menu) {
+    public Result<Void> updateMenu(@RequestBody MenuUpdateQuery updateQuery) {
+        Menu menu = BeanUtil.copyProperties(updateQuery, Menu.class);
         boolean updated = menuService.updateById(menu);
         if (!updated) {
             return Result.status(ResultStatusEnum.NotFound);
