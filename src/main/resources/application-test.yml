@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql.sqlpub.com/loveta
+    username: ${LOVETA_SQLPUB_USERNAME}
+    password: ${LOVETA_SQLPUB_PASSWORD}
+    hikari:
+      max-lifetime: 300000
+  data:
+    redis:
+      host: ${LOVETA_REDIS_HOST}
+
+aliyun:
+  oss:
+    bucket: loveta-dev
+
+logging:
+  level:
+    com.github.lingkai5wu.loveta: debug

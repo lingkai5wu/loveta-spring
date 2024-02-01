@@ -16,4 +16,4 @@ COPY --from=package /loveta-spring/target/*.jar /loveta-spring.jar
 
 EXPOSE 8080
 
-ENTRYPOINT java -jar /loveta-spring.jar
+ENTRYPOINT java -jar /loveta-spring.jar --spring.profiles.active=test
