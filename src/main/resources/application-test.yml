@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql.sqlpub.com/loveta
+    url: jdbc:mysql://mysql.sqlpub.com/loveta_test
     username: ${LOVETA_SQLPUB_USERNAME}
     password: ${LOVETA_SQLPUB_PASSWORD}
     hikari:
@@ -12,7 +12,7 @@ spring:
 
 aliyun:
   oss:
-    bucket: loveta-dev
+    bucket: loveta-test
 
 logging:
   level:
