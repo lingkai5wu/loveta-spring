@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
-public class UserAuthQuery {
+public class AuthLoginQuery {
     /**
      * 手机号
      */
