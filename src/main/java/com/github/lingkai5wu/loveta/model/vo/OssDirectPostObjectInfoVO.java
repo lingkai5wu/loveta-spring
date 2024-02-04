@@ -5,12 +5,12 @@ import lombok.Data;
 @Data
 public class OssDirectPostObjectInfoVO {
     /**
-     * Bucket 域名
+     * 请求域名
      */
     private String host;
 
     /**
-     * 过期时间
+     * policy 过期时间
      */
     private long expire;
 
@@ -20,12 +20,12 @@ public class OssDirectPostObjectInfoVO {
     private String ossAccessKeyId;
 
     /**
-     * 请求合法性验证策略
+     * 上传策略
      */
     private String policy;
 
     /**
-     * 签名
+     * policy 签名
      */
     private String signature;
 }

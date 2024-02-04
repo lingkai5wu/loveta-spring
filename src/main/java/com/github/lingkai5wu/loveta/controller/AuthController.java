@@ -25,6 +25,12 @@ public class AuthController {
         this.userService = userService;
     }
 
+    private static TokenInfoVO loginAndGetTokenInfoVO(User user) {
+        StpUtil.login(user.getId());
+        SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
+        return BeanUtil.copyProperties(tokenInfo, TokenInfoVO.class);
+    }
+
     /**
      * 登录
      */
@@ -59,12 +65,6 @@ public class AuthController {
         // TODO 将用户加入默认用户组
         TokenInfoVO tokenInfoVO = loginAndGetTokenInfoVO(user);
         return Result.data(tokenInfoVO);
-    }
-
-    private static TokenInfoVO loginAndGetTokenInfoVO(User user) {
-        StpUtil.login(user.getId());
-        SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
-        return BeanUtil.copyProperties(tokenInfo, TokenInfoVO.class);
     }
 
     /**
