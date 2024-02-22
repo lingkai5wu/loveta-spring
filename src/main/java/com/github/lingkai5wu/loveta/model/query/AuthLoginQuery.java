@@ -14,9 +14,9 @@ public class AuthLoginQuery {
     private String phone;
 
     /**
-     * 密码
+     * 验证码
      */
     @NotNull
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-zA-Z])\\S{6,20}$")
-    private String password;
+    @Pattern(regexp = "^\\d{6}$")
+    private String smsCode;
 }
