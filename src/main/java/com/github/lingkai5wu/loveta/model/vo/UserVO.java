@@ -1,6 +1,7 @@
 package com.github.lingkai5wu.loveta.model.vo;
 
 import com.github.lingkai5wu.loveta.enums.UserSexEnum;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -11,16 +12,19 @@ public class UserVO {
     /**
      * ID
      */
+    @NotNull
     private Long id;
 
     /**
      * 手机号
      */
+    @NotNull
     private String phone;
 
     /**
      * 状态
      */
+    @NotNull
     private Integer status;
 
     /**
@@ -46,6 +50,7 @@ public class UserVO {
     /**
      * 创建时间
      */
+    @NotNull
     private LocalDateTime createTime;
 
     /**

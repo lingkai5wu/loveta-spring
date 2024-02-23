@@ -1,6 +1,7 @@
 package com.github.lingkai5wu.loveta.model;
 
 import com.github.lingkai5wu.loveta.enums.ResultStatusEnum;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,16 +15,19 @@ public class Result<T> {
     /**
      * 状态码
      */
+    @NotNull
     private Integer code;
 
     /**
      * 消息
      */
+    @NotNull
     private String msg;
 
     /**
      * 数据
      */
+    @NotNull
     private T data;
 
     private Result(ResultStatusEnum statusEnum, T data) {
