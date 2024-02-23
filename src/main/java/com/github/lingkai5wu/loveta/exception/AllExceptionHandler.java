@@ -21,6 +21,6 @@ public class AllExceptionHandler {
     public Result<ExceptionVO> handlerException(Exception e) {
         log.warn(e.getMessage());
         ExceptionVO exceptionVO = exceptionService.getExceptionVO(e);
-        return Result.status(ResultStatusEnum.InternalServerError, exceptionVO);
+        return Result.status(ResultStatusEnum.INTERNAL_SERVER_ERROR, exceptionVO);
     }
 }

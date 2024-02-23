@@ -69,7 +69,7 @@ public class MenuController {
         Menu menu = BeanUtil.copyProperties(updateQuery, Menu.class);
         boolean updated = menuService.updateById(menu);
         if (!updated) {
-            return Result.status(ResultStatusEnum.NotFound);
+            return Result.status(ResultStatusEnum.NOT_FOUND);
         }
         return Result.ok();
     }
@@ -82,7 +82,7 @@ public class MenuController {
     public Result<Void> removeMenu(@PathVariable Long id) {
         boolean removed = menuService.removeById(id);
         if (!removed) {
-            return Result.status(ResultStatusEnum.NotFound);
+            return Result.status(ResultStatusEnum.NOT_FOUND);
         }
         return Result.ok();
     }

@@ -18,14 +18,14 @@ public class SaTokenExceptionHandler {
     @ExceptionHandler({NotLoginException.class, NotBasicAuthException.class})
     public Result<Void> handlerException(NotLoginException e) {
         log.warn(e.getMessage());
-        return Result.status(ResultStatusEnum.Unauthorized);
+        return Result.status(ResultStatusEnum.UNAUTHORIZED);
     }
 
     // 拦截: 缺少权限异常 + 缺少角色异常
     @ExceptionHandler({NotPermissionException.class, NotRoleException.class})
     public Result<Void> handlerException(Exception e) {
         log.warn(e.getMessage());
-        return Result.status(ResultStatusEnum.Forbidden);
+        return Result.status(ResultStatusEnum.FORBIDDEN);
     }
 
     // 拦截: 二级认证校验失败异常
@@ -43,6 +43,6 @@ public class SaTokenExceptionHandler {
                 .setService((String) e.getService())
                 .setLevel(e.getLevel())
                 .setDisableTime(e.getDisableTime());
-        return Result.status(ResultStatusEnum.Forbidden, exceptionVO);
+        return Result.status(ResultStatusEnum.FORBIDDEN, exceptionVO);
     }
 }

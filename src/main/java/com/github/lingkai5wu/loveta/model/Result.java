@@ -14,6 +14,8 @@ import lombok.Data;
 public class Result<T> {
     /**
      * 状态码
+     *
+     * @see ResultStatusEnum#code
      */
     @NotNull
     private Integer code;
@@ -43,11 +45,11 @@ public class Result<T> {
     }
 
     public static <T> Result<T> error(String msg) {
-        return new Result<>(ResultStatusEnum.InternalServerError.getCode(), msg, null);
+        return new Result<>(ResultStatusEnum.INTERNAL_SERVER_ERROR.getCode(), msg, null);
     }
 
     public static <T> Result<T> error(String msg, T data) {
-        return new Result<>(ResultStatusEnum.InternalServerError.getCode(), msg, data);
+        return new Result<>(ResultStatusEnum.INTERNAL_SERVER_ERROR.getCode(), msg, data);
     }
 
     public static <T> Result<T> status(ResultStatusEnum statusEnum) {
