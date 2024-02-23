@@ -9,7 +9,9 @@ import lombok.Getter;
 public enum UserSexEnum {
     MALE(0),
     FEMALE(1),
-    OTHER(2);
+    OTHER(2),
+    PREFER_NOT_TO_SAY(3),
+    NEUTRAL(4);
 
     @EnumValue
     private final int value;
