@@ -108,30 +108,55 @@
                 <version>${typescript-generator.version}</version>
                 <executions>
                     <execution>
-                        <id>generate</id>
+                        <id>generate-query</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <phase>process-classes</phase>
+                        <configuration>
+                            <jsonLibrary>jackson2</jsonLibrary>
+                            <outputKind>module</outputKind>
+                            <outputFile>Z:/LoveTA/link-admin/src/types/query.d.ts</outputFile>
+                            <optionalPropertiesDeclaration>
+                                questionMarkAndNullableType
+                            </optionalPropertiesDeclaration>
+                            <classPatterns>
+                                <pattern>com.github.lingkai5wu.loveta.model.query.*</pattern>
+                            </classPatterns>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>generate-vo</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <jsonLibrary>jackson2</jsonLibrary>
+                            <outputKind>module</outputKind>
+                            <outputFile>Z:/LoveTA/link-admin/src/types/vo.d.ts</outputFile>
+                            <optionalPropertiesDeclaration>
+                                nullableType
+                            </optionalPropertiesDeclaration>
+                            <classes>
+                                <class>com.github.lingkai5wu.loveta.model.Result</class>
+                            </classes>
+                            <classPatterns>
+                                <pattern>com.github.lingkai5wu.loveta.model.vo.*</pattern>
+                            </classPatterns>
+                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
                     <jsonLibrary>jackson2</jsonLibrary>
                     <outputKind>module</outputKind>
-                    <outputFile>Z:/LoveTA/link-admin/src/types/api.d.ts</outputFile>
                     <noEslintDisable>true</noEslintDisable>
+                    <noFileComment>true</noFileComment>
                     <requiredAnnotations>
                         <annotation>jakarta.validation.constraints.NotNull</annotation>
                         <annotation>jakarta.validation.constraints.NotEmpty</annotation>
                         <annotation>jakarta.validation.constraints.NotBlank</annotation>
                     </requiredAnnotations>
-                    <classes>
-                        <class>com.github.lingkai5wu.loveta.model.Result</class>
-                    </classes>
-                    <classPatterns>
-                        <pattern>com.github.lingkai5wu.loveta.model.query.*</pattern>
-                        <pattern>com.github.lingkai5wu.loveta.model.vo.*</pattern>
-                    </classPatterns>
                 </configuration>
             </plugin>
         </plugins>
