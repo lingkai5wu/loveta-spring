@@ -27,11 +27,11 @@ public class AuthController {
      * 登录
      */
     @PostMapping("/login")
-    public Result<TokenInfoVO> login(@RequestBody @Validated AuthLoginQuery query) {
-        if (!"888888".equals(query.getSmsCode())) {
+    public Result<TokenInfoVO> login(@RequestBody @Validated AuthLoginQuery loginQuery) {
+        if (!"888888".equals(loginQuery.getSmsCode())) {
             return Result.error("验证码错误");
         }
-        User user = userService.getUserByPhone(query.getPhone());
+        User user = userService.getUserByPhone(loginQuery.getPhone());
         if (user == null) {
             return Result.error("用户不存在");
         }
