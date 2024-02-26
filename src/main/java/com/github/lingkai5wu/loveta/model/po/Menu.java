@@ -38,19 +38,9 @@ public class Menu {
     private String label;
 
     /**
-     * 图标
-     */
-    private String icon;
-
-    /**
      * 路径
      */
     private String path;
-
-    /**
-     * 组件
-     */
-    private String component;
 
     /**
      * 创建时间

@@ -27,21 +27,10 @@ public class MenuVO {
     /**
      * 标签
      */
-    @NotNull
     private String label;
-
-    /**
-     * 图标
-     */
-    private String icon;
 
     /**
      * 路径
      */
     private String path;
-
-    /**
-     * 组件
-     */
-    private String component;
 }
