@@ -116,7 +116,7 @@
                         <configuration>
                             <jsonLibrary>jackson2</jsonLibrary>
                             <outputKind>module</outputKind>
-                            <outputFile>Z:/LoveTA/link-admin/src/types/query.d.ts</outputFile>
+                            <outputFile>Z:/LoveTA/link-admin/src/types/api/query.d.ts</outputFile>
                             <optionalPropertiesDeclaration>
                                 questionMarkAndNullableType
                             </optionalPropertiesDeclaration>
@@ -134,7 +134,7 @@
                         <configuration>
                             <jsonLibrary>jackson2</jsonLibrary>
                             <outputKind>module</outputKind>
-                            <outputFile>Z:/LoveTA/link-admin/src/types/vo.d.ts</outputFile>
+                            <outputFile>Z:/LoveTA/link-admin/src/types/api/vo.d.ts</outputFile>
                             <optionalPropertiesDeclaration>
                                 nullableType
                             </optionalPropertiesDeclaration>
