@@ -19,7 +19,7 @@ public class ExceptionServiceImpl implements IExceptionService {
     }
 
     @Override
-    public MethodArgumentNotValidExceptionVO MethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public MethodArgumentNotValidExceptionVO getMethodArgumentNotValidExceptionVO(MethodArgumentNotValidException e) {
         Map<String, String> invalidArgument = new LinkedHashMap<>();
         e.getFieldErrors().forEach(fieldError -> {
             String field = fieldError.getField();

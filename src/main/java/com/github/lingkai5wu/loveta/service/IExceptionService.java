@@ -7,5 +7,5 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 public interface IExceptionService {
     ExceptionVO getExceptionVO(Exception e);
 
-    MethodArgumentNotValidExceptionVO MethodArgumentNotValidException(MethodArgumentNotValidException e);
+    MethodArgumentNotValidExceptionVO getMethodArgumentNotValidExceptionVO(MethodArgumentNotValidException e);
 }
