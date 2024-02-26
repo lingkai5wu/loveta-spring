@@ -14,28 +14,54 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE + 1)
 public class SaTokenExceptionHandler {
-    // 拦截: 未登录异常 + Http Basic 校验失败异常
-    @ExceptionHandler({NotLoginException.class, NotBasicAuthException.class})
-    public Result<Void> handlerException(NotLoginException e) {
+    /**
+     * 未登录
+     */
+    @ExceptionHandler(NotLoginException.class)
+    public Result<String> handlerException(NotLoginException e) {
         log.warn(e.getMessage());
-        return Result.status(ResultStatusEnum.UNAUTHORIZED);
+        return Result.status(ResultStatusEnum.UNAUTHORIZED, e.getMessage());
     }
 
-    // 拦截: 缺少权限异常 + 缺少角色异常
-    @ExceptionHandler({NotPermissionException.class, NotRoleException.class})
-    public Result<Void> handlerException(Exception e) {
+    /**
+     * Http Basic 校验失败
+     */
+    @ExceptionHandler(NotBasicAuthException.class)
+    public Result<String> handlerException(NotBasicAuthException e) {
         log.warn(e.getMessage());
-        return Result.status(ResultStatusEnum.FORBIDDEN);
+        return Result.status(ResultStatusEnum.UNAUTHORIZED, e.getMessage());
     }
 
-    // 拦截: 二级认证校验失败异常
+    /**
+     * 缺少权限
+     */
+    @ExceptionHandler(NotPermissionException.class)
+    public Result<String> handlerException(NotPermissionException e) {
+        log.warn(e.getMessage());
+        return Result.status(ResultStatusEnum.FORBIDDEN, e.getMessage());
+    }
+
+    /**
+     * 缺少角色
+     */
+    @ExceptionHandler(NotRoleException.class)
+    public Result<String> handlerException(NotRoleException e) {
+        log.warn(e.getMessage());
+        return Result.status(ResultStatusEnum.FORBIDDEN, e.getMessage());
+    }
+
+    /**
+     * 二级认证校验失败
+     */
     @ExceptionHandler(NotSafeException.class)
-    public Result<Void> handlerException(NotSafeException e) {
+    public Result<String> handlerException(NotSafeException e) {
         log.warn(e.getMessage());
-        return Result.error("二级认证校验失败");
+        return Result.status(ResultStatusEnum.FORBIDDEN, e.getMessage());
     }
 
-    // 拦截: 服务封禁异常
+    /**
+     * 服务封禁
+     */
     @ExceptionHandler(DisableServiceException.class)
     public Result<DisableServiceExceptionVO> handlerException(DisableServiceException e) {
         log.warn(e.getMessage());
