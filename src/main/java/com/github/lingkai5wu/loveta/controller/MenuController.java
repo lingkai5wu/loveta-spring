@@ -30,13 +30,10 @@ public class MenuController {
      * 列出当前用户菜单
      */
     @GetMapping("/current")
-    public Result<List<MenuVO>> listCurrentUserMenus() {
-        if (StpUtil.hasRole("super-admin")) {
-            return listMenus();
-        }
-        long loginId = StpUtil.getLoginIdAsLong();
-        List<MenuVO> menuList = BeanUtil.copyToList(menuService.listMenuByUserId(loginId), MenuVO.class);
-        return Result.data(menuList);
+    public Result<List<MenuVO>> listCurrentUserMenuVOs() {
+        long id = StpUtil.getLoginIdAsLong();
+        List<MenuVO> menuVOList = BeanUtil.copyToList(menuService.listMenusByUserId(id), MenuVO.class);
+        return Result.data(menuVOList);
     }
 
     /**
@@ -45,8 +42,8 @@ public class MenuController {
     @GetMapping
     @SaCheckPermission("data:menu:list")
     public Result<List<MenuVO>> listMenus() {
-        List<MenuVO> menuList = BeanUtil.copyToList(menuService.list(), MenuVO.class);
-        return Result.data(menuList);
+        List<MenuVO> menuVOList = BeanUtil.copyToList(menuService.list(), MenuVO.class);
+        return Result.data(menuVOList);
     }
 
     /**

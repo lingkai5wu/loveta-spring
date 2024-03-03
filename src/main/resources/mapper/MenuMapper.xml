@@ -2,13 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.github.lingkai5wu.loveta.mapper.MenuMapper">
 
-    <select id="listMenuByUserId" resultType="com.github.lingkai5wu.loveta.model.po.Menu" parameterType="long">
-        SELECT m.id,
-               m.pid,
-               m.type,
-               m.label,
-               m.path,
-               gm.sort
+    <select id="listMenusByUserId" resultType="com.github.lingkai5wu.loveta.model.po.Menu" parameterType="long">
+        SELECT m.*
         FROM auth_menu m
                  INNER JOIN auth_group_menu gm ON m.id = gm.menu_id
                  INNER JOIN auth_group_user gu ON gm.group_id = gu.group_id

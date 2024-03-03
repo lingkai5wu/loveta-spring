@@ -1,5 +1,6 @@
 package com.github.lingkai5wu.loveta.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.lingkai5wu.loveta.mapper.MenuMapper;
 import com.github.lingkai5wu.loveta.model.po.Menu;
@@ -18,7 +19,10 @@ import java.util.List;
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
     @Override
-    public List<Menu> listMenuByUserId(long id) {
-        return baseMapper.listMenuByUserId(id);
+    public List<Menu> listMenusByUserId(long id) {
+        if (StpUtil.hasRole("super-admin")) {
+            return list();
+        }
+        return baseMapper.listMenusByUserId(id);
     }
 }
