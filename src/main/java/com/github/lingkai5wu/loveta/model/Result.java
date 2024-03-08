@@ -1,10 +1,10 @@
 package com.github.lingkai5wu.loveta.model;
 
-import com.github.lingkai5wu.loveta.enums.ResultStatusEnum;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 
 /**
  * 结果
@@ -14,8 +14,6 @@ import lombok.Data;
 public class Result<T> {
     /**
      * 状态码
-     *
-     * @see ResultStatusEnum#code
      */
     @NotNull
     private Integer code;
@@ -32,35 +30,35 @@ public class Result<T> {
     @NotNull
     private T data;
 
-    private Result(ResultStatusEnum statusEnum, T data) {
-        this(statusEnum.getCode(), statusEnum.getMsg(), data);
+    private Result(HttpStatus status, T data) {
+        this(status.value(), status.getReasonPhrase(), data);
     }
 
     public static <T> Result<T> ok() {
-        return new Result<>(ResultStatusEnum.OK, null);
+        return new Result<>(HttpStatus.OK, null);
     }
 
     public static <T> Result<T> data(T data) {
-        return new Result<>(ResultStatusEnum.OK, data);
+        return new Result<>(HttpStatus.OK, data);
     }
 
     public static <T> Result<T> error(String msg) {
-        return new Result<>(ResultStatusEnum.INTERNAL_SERVER_ERROR.getCode(), msg, null);
+        return new Result<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), msg, null);
     }
 
     public static <T> Result<T> error(String msg, T data) {
-        return new Result<>(ResultStatusEnum.INTERNAL_SERVER_ERROR.getCode(), msg, data);
+        return new Result<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), msg, data);
     }
 
-    public static <T> Result<T> status(ResultStatusEnum statusEnum) {
-        return new Result<>(statusEnum, null);
+    public static <T> Result<T> status(HttpStatus status) {
+        return new Result<>(status, null);
     }
 
-    public static <T> Result<T> status(ResultStatusEnum statusEnum, T data) {
-        return new Result<>(statusEnum, data);
+    public static <T> Result<T> status(HttpStatus status, T data) {
+        return new Result<>(status, data);
     }
 
-    public static <T> Result<T> status(ResultStatusEnum statusEnum, String msg, T data) {
-        return new Result<>(statusEnum.getCode(), msg, data);
+    public static <T> Result<T> status(HttpStatus status, String msg, T data) {
+        return new Result<>(status.value(), msg, data);
     }
 }

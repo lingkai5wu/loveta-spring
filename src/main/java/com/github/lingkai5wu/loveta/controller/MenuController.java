@@ -3,13 +3,13 @@ package com.github.lingkai5wu.loveta.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
-import com.github.lingkai5wu.loveta.enums.ResultStatusEnum;
 import com.github.lingkai5wu.loveta.model.Result;
 import com.github.lingkai5wu.loveta.model.po.Menu;
 import com.github.lingkai5wu.loveta.model.query.MenuSaveQuery;
 import com.github.lingkai5wu.loveta.model.query.MenuUpdateQuery;
 import com.github.lingkai5wu.loveta.model.vo.MenuVO;
 import com.github.lingkai5wu.loveta.service.IMenuService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -66,7 +66,7 @@ public class MenuController {
         Menu menu = BeanUtil.copyProperties(updateQuery, Menu.class);
         boolean updated = menuService.updateById(menu);
         if (!updated) {
-            return Result.status(ResultStatusEnum.NOT_FOUND);
+            return Result.status(HttpStatus.NOT_FOUND);
         }
         return Result.ok();
     }
@@ -79,7 +79,7 @@ public class MenuController {
     public Result<Void> removeMenu(@PathVariable Long id) {
         boolean removed = menuService.removeById(id);
         if (!removed) {
-            return Result.status(ResultStatusEnum.NOT_FOUND);
+            return Result.status(HttpStatus.NOT_FOUND);
         }
         return Result.ok();
     }

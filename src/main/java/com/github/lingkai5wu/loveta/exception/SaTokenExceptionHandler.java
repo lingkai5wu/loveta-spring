@@ -1,12 +1,12 @@
 package com.github.lingkai5wu.loveta.exception;
 
 import cn.dev33.satoken.exception.*;
-import com.github.lingkai5wu.loveta.enums.ResultStatusEnum;
 import com.github.lingkai5wu.loveta.model.Result;
 import com.github.lingkai5wu.loveta.model.vo.exception.DisableServiceExceptionVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -20,7 +20,7 @@ public class SaTokenExceptionHandler {
     @ExceptionHandler(NotLoginException.class)
     public Result<String> handlerException(NotLoginException e) {
         log.warn(e.getMessage());
-        return Result.status(ResultStatusEnum.UNAUTHORIZED, e.getMessage());
+        return Result.status(HttpStatus.UNAUTHORIZED, e.getMessage());
     }
 
     /**
@@ -29,7 +29,7 @@ public class SaTokenExceptionHandler {
     @ExceptionHandler(NotBasicAuthException.class)
     public Result<String> handlerException(NotBasicAuthException e) {
         log.warn(e.getMessage());
-        return Result.status(ResultStatusEnum.UNAUTHORIZED, e.getMessage());
+        return Result.status(HttpStatus.UNAUTHORIZED, e.getMessage());
     }
 
     /**
@@ -38,7 +38,7 @@ public class SaTokenExceptionHandler {
     @ExceptionHandler(NotPermissionException.class)
     public Result<String> handlerException(NotPermissionException e) {
         log.warn(e.getMessage());
-        return Result.status(ResultStatusEnum.FORBIDDEN, e.getMessage());
+        return Result.status(HttpStatus.FORBIDDEN, e.getMessage());
     }
 
     /**
@@ -47,7 +47,7 @@ public class SaTokenExceptionHandler {
     @ExceptionHandler(NotRoleException.class)
     public Result<String> handlerException(NotRoleException e) {
         log.warn(e.getMessage());
-        return Result.status(ResultStatusEnum.FORBIDDEN, e.getMessage());
+        return Result.status(HttpStatus.FORBIDDEN, e.getMessage());
     }
 
     /**
@@ -56,7 +56,7 @@ public class SaTokenExceptionHandler {
     @ExceptionHandler(NotSafeException.class)
     public Result<String> handlerException(NotSafeException e) {
         log.warn(e.getMessage());
-        return Result.status(ResultStatusEnum.FORBIDDEN, e.getMessage());
+        return Result.status(HttpStatus.FORBIDDEN, e.getMessage());
     }
 
     /**
@@ -69,6 +69,6 @@ public class SaTokenExceptionHandler {
                 .setService((String) e.getService())
                 .setLevel(e.getLevel())
                 .setDisableTime(e.getDisableTime());
-        return Result.status(ResultStatusEnum.FORBIDDEN, exceptionVO);
+        return Result.status(HttpStatus.FORBIDDEN, exceptionVO);
     }
 }
