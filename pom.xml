@@ -117,6 +117,7 @@
                             <jsonLibrary>jackson2</jsonLibrary>
                             <outputKind>module</outputKind>
                             <outputFile>Z:/LoveTA/link-admin/src/types/api/query.d.ts</outputFile>
+                            <optionalProperties>all</optionalProperties>
                             <optionalPropertiesDeclaration>
                                 questionMarkAndNullableType
                             </optionalPropertiesDeclaration>
@@ -135,9 +136,15 @@
                             <jsonLibrary>jackson2</jsonLibrary>
                             <outputKind>module</outputKind>
                             <outputFile>Z:/LoveTA/link-admin/src/types/api/vo.d.ts</outputFile>
+                            <declarePropertiesAsReadOnly>true</declarePropertiesAsReadOnly>
                             <optionalPropertiesDeclaration>
                                 nullableType
                             </optionalPropertiesDeclaration>
+                            <requiredAnnotations>
+                                <annotation>jakarta.validation.constraints.NotNull</annotation>
+                                <annotation>jakarta.validation.constraints.NotEmpty</annotation>
+                                <annotation>jakarta.validation.constraints.NotBlank</annotation>
+                            </requiredAnnotations>
                             <classes>
                                 <class>com.github.lingkai5wu.loveta.model.Result</class>
                             </classes>
@@ -152,11 +159,6 @@
                     <outputKind>module</outputKind>
                     <noEslintDisable>true</noEslintDisable>
                     <noFileComment>true</noFileComment>
-                    <requiredAnnotations>
-                        <annotation>jakarta.validation.constraints.NotNull</annotation>
-                        <annotation>jakarta.validation.constraints.NotEmpty</annotation>
-                        <annotation>jakarta.validation.constraints.NotBlank</annotation>
-                    </requiredAnnotations>
                 </configuration>
             </plugin>
         </plugins>
