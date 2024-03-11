@@ -10,6 +10,7 @@ import com.github.lingkai5wu.loveta.model.query.MenuUpdateQuery;
 import com.github.lingkai5wu.loveta.model.vo.MenuVO;
 import com.github.lingkai5wu.loveta.service.IMenuService;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public class MenuController {
      */
     @PostMapping
     @SaCheckPermission("data:menu:save")
-    public Result<Void> saveMenu(@RequestBody MenuSaveQuery saveQuery) {
+    public Result<Void> saveMenu(@RequestBody @Validated MenuSaveQuery saveQuery) {
         Menu menu = BeanUtil.copyProperties(saveQuery, Menu.class);
         menuService.save(menu);
         return Result.ok();
@@ -62,7 +63,7 @@ public class MenuController {
      */
     @PatchMapping
     @SaCheckPermission("data:menu:update")
-    public Result<Void> updateMenu(@RequestBody MenuUpdateQuery updateQuery) {
+    public Result<Void> updateMenu(@RequestBody @Validated MenuUpdateQuery updateQuery) {
         Menu menu = BeanUtil.copyProperties(updateQuery, Menu.class);
         boolean updated = menuService.updateById(menu);
         if (!updated) {

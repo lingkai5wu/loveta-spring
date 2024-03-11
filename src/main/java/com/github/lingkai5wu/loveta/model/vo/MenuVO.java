@@ -1,6 +1,7 @@
 package com.github.lingkai5wu.loveta.model.vo;
 
 import com.github.lingkai5wu.loveta.enums.MenuTypeEnum;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -27,6 +28,7 @@ public class MenuVO {
     /**
      * 标签
      */
+    @NotEmpty
     private String label;
 
     /**
