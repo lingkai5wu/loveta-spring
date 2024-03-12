@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.github.lingkai5wu.loveta.enums.UserSexEnum;
+import com.github.lingkai5wu.loveta.enums.UserStatusEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -45,7 +46,7 @@ public class User {
     /**
      * 状态
      */
-    private Integer status;
+    private UserStatusEnum status;
 
     /**
      * 昵称

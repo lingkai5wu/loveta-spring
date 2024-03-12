@@ -1,6 +1,7 @@
 package com.github.lingkai5wu.loveta.model.vo;
 
 import com.github.lingkai5wu.loveta.enums.UserSexEnum;
+import com.github.lingkai5wu.loveta.enums.UserStatusEnum;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -25,7 +26,7 @@ public class UserVO {
      * 状态
      */
     @NotNull
-    private Integer status;
+    private UserStatusEnum status;
 
     /**
      * 昵称

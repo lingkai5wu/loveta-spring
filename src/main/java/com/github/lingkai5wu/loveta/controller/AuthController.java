@@ -3,6 +3,7 @@ package com.github.lingkai5wu.loveta.controller;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
+import com.github.lingkai5wu.loveta.enums.UserStatusEnum;
 import com.github.lingkai5wu.loveta.model.Result;
 import com.github.lingkai5wu.loveta.model.po.User;
 import com.github.lingkai5wu.loveta.model.query.AuthLoginQuery;
@@ -35,7 +36,7 @@ public class AuthController {
         if (user == null) {
             return Result.error("用户不存在");
         }
-        if (user.getStatus() != 0) {
+        if (user.getStatus() != UserStatusEnum.CONFIRMED) {
             return Result.error("用户状态异常");
         }
         StpUtil.checkDisable(user.getId());
