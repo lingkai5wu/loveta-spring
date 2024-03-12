@@ -42,7 +42,7 @@ public class MenuController {
      */
     @GetMapping
     @SaCheckPermission("data:menu:list")
-    public Result<List<MenuVO>> listMenus() {
+    public Result<List<MenuVO>> listMenuVOs() {
         List<MenuVO> menuVOList = BeanUtil.copyToList(menuService.list(), MenuVO.class);
         return Result.data(menuVOList);
     }
@@ -78,6 +78,12 @@ public class MenuController {
     @DeleteMapping("/{id}")
     @SaCheckPermission("data:menu:remove")
     public Result<Void> removeMenu(@PathVariable Long id) {
+        boolean existedSubmenus = menuService.lambdaQuery()
+                .eq(Menu::getPid, id)
+                .exists();
+        if (existedSubmenus) {
+            return Result.error("存在子菜单");
+        }
         boolean removed = menuService.removeById(id);
         if (!removed) {
             return Result.status(HttpStatus.NOT_FOUND);
