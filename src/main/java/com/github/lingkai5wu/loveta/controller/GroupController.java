@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 用户组
  */
 @RestController
-@RequestMapping("/group")
+@RequestMapping("/groups")
 public class GroupController {
 
 }

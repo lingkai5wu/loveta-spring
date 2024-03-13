@@ -1,4 +1,4 @@
-package com.github.lingkai5wu.loveta.model.query;
+package com.github.lingkai5wu.loveta.model.dto;
 
 import com.github.lingkai5wu.loveta.enums.UserSexEnum;
 import com.github.lingkai5wu.loveta.enums.UserStatusEnum;
@@ -6,11 +6,16 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class UserSaveQuery {
+public class UserUpdateDTO {
+    /**
+     * ID
+     */
+    @NotNull
+    private Long id;
+
     /**
      * 手机号
      */
-    @NotNull
     private String phone;
 
     /**

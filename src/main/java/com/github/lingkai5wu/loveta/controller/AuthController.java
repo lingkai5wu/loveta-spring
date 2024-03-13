@@ -5,8 +5,8 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
 import com.github.lingkai5wu.loveta.enums.UserStatusEnum;
 import com.github.lingkai5wu.loveta.model.Result;
+import com.github.lingkai5wu.loveta.model.dto.AuthOtpLoginDTO;
 import com.github.lingkai5wu.loveta.model.po.User;
-import com.github.lingkai5wu.loveta.model.query.AuthLoginQuery;
 import com.github.lingkai5wu.loveta.model.vo.TokenInfoVO;
 import com.github.lingkai5wu.loveta.service.IUserService;
 import org.springframework.validation.annotation.Validated;
@@ -25,14 +25,22 @@ public class AuthController {
     }
 
     /**
-     * 登录
+     * 发送验证码
      */
-    @PostMapping("/login")
-    public Result<TokenInfoVO> login(@RequestBody @Validated AuthLoginQuery loginQuery) {
-        if (!"888888".equals(loginQuery.getSmsCode())) {
+    @PostMapping("/send-otp")
+    public Result<Void> sendOtp() {
+        return Result.ok();
+    }
+
+    /**
+     * 验证码登录
+     */
+    @PostMapping("/otp-login")
+    public Result<TokenInfoVO> otpLogin(@RequestBody @Validated AuthOtpLoginDTO dto) {
+        if (!"888888".equals(dto.getOtp())) {
             return Result.error("验证码错误");
         }
-        User user = userService.getUserByPhone(loginQuery.getPhone());
+        User user = userService.getUserByPhone(dto.getPhone());
         if (user == null) {
             return Result.error("用户不存在");
         }

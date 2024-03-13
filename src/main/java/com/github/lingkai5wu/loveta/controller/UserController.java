@@ -5,9 +5,9 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
 import com.github.lingkai5wu.loveta.model.Result;
+import com.github.lingkai5wu.loveta.model.dto.UserSaveDTO;
+import com.github.lingkai5wu.loveta.model.dto.UserUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.User;
-import com.github.lingkai5wu.loveta.model.query.UserSaveQuery;
-import com.github.lingkai5wu.loveta.model.query.UserUpdateQuery;
 import com.github.lingkai5wu.loveta.model.vo.UserVO;
 import com.github.lingkai5wu.loveta.service.IUserService;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ import java.util.List;
  * 用户
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
     private final IUserService userService;
 
@@ -34,7 +34,20 @@ public class UserController {
     @GetMapping("/current")
     public Result<UserVO> getCurrentUserVO() {
         long id = StpUtil.getLoginIdAsLong();
-        UserVO userVO = userService.getUserVOById(id);
+        return getUserVO(id);
+    }
+
+    /**
+     * 获取用户
+     */
+    @GetMapping("/{id}")
+    @SaCheckPermission("users:get")
+    public Result<UserVO> getUserVO(@PathVariable long id) {
+        User user = userService.getById(id);
+        if (user == null) {
+            return Result.status(HttpStatus.NOT_FOUND);
+        }
+        UserVO userVO = BeanUtil.copyProperties(user, UserVO.class);
         return Result.data(userVO);
     }
 
@@ -42,9 +55,10 @@ public class UserController {
      * 列出全部用户
      */
     @GetMapping()
-    @SaCheckPermission("data:user:list")
+    @SaCheckPermission("users:list")
     public Result<List<UserVO>> listUserVOs() {
-        List<UserVO> userVOList = userService.listUserVOs();
+        List<User> userList = userService.list();
+        List<UserVO> userVOList = BeanUtil.copyToList(userList, UserVO.class);
         return Result.data(userVOList);
     }
 
@@ -52,9 +66,9 @@ public class UserController {
      * 新增用户
      */
     @PostMapping
-    @SaCheckPermission("data:user:save")
-    public Result<Void> saveUser(@RequestBody @Validated UserSaveQuery saveQuery) {
-        User user = BeanUtil.copyProperties(saveQuery, User.class);
+    @SaCheckPermission("users:save")
+    public Result<Void> saveUser(@RequestBody @Validated UserSaveDTO dto) {
+        User user = BeanUtil.copyProperties(dto, User.class);
         userService.save(user);
         return Result.ok();
     }
@@ -62,10 +76,10 @@ public class UserController {
     /**
      * 修改用户
      */
-    @PatchMapping
-    @SaCheckPermission("data:user:update")
-    public Result<Void> updateUser(@RequestBody @Validated UserUpdateQuery updateQuery) {
-        User user = BeanUtil.copyProperties(updateQuery, User.class);
+    @PutMapping
+    @SaCheckPermission("users:update")
+    public Result<Void> updateUser(@RequestBody @Validated UserUpdateDTO dto) {
+        User user = BeanUtil.copyProperties(dto, User.class);
         boolean updated = userService.updateById(user);
         if (!updated) {
             return Result.status(HttpStatus.NOT_FOUND);
@@ -77,8 +91,8 @@ public class UserController {
      * 删除用户
      */
     @DeleteMapping("/{id}")
-    @SaCheckPermission("data:user:remove")
-    public Result<Void> removeUser(@PathVariable Long id) {
+    @SaCheckPermission("users:remove")
+    public Result<Void> removeUser(@PathVariable long id) {
         boolean removed = userService.removeById(id);
         if (!removed) {
             return Result.status(HttpStatus.NOT_FOUND);

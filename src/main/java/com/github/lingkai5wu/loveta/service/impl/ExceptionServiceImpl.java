@@ -9,6 +9,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * 异常 服务类
+ *
+ * @author lingkai5wu
+ * @since 2024-01-31
+ */
 @Service
 public class ExceptionServiceImpl implements IExceptionService {
     @Override

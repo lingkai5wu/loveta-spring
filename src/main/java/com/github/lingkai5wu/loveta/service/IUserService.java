@@ -2,7 +2,7 @@ package com.github.lingkai5wu.loveta.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.lingkai5wu.loveta.model.po.User;
-import com.github.lingkai5wu.loveta.model.vo.UserVO;
+import com.github.lingkai5wu.loveta.model.vo.UserWithGroupsVO;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface IUserService extends IService<User> {
 
     User getUserByPhone(String phone);
 
-    UserVO getUserVOById(long id);
+    UserWithGroupsVO getUserWithGroupsVOById(long id);
 
-    List<UserVO> listUserVOs();
+    List<UserWithGroupsVO> listUserWithGroupsVOs();
 }

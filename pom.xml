@@ -122,7 +122,7 @@
                                 questionMarkAndNullableType
                             </optionalPropertiesDeclaration>
                             <classPatterns>
-                                <pattern>com.github.lingkai5wu.loveta.model.query.**</pattern>
+                                <pattern>com.github.lingkai5wu.loveta.model.dto.**</pattern>
                             </classPatterns>
                         </configuration>
                     </execution>

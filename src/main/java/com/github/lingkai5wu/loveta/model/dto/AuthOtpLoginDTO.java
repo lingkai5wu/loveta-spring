@@ -1,11 +1,11 @@
-package com.github.lingkai5wu.loveta.model.query;
+package com.github.lingkai5wu.loveta.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Data
-public class AuthLoginQuery {
+public class AuthOtpLoginDTO {
     /**
      * 手机号
      */
@@ -18,5 +18,5 @@ public class AuthLoginQuery {
      */
     @NotBlank
     @Pattern(regexp = "^\\d{6}$")
-    private String smsCode;
+    private String otp;
 }

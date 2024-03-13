@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 权限
  */
 @RestController
-@RequestMapping("/permission")
+@RequestMapping("/permissions")
 public class PermissionController {
 
 }

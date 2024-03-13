@@ -25,7 +25,7 @@ public class OssController {
      * 获取表单直传参数
      */
     @GetMapping("/direct-post-object-info")
-    @SaCheckPermission("cloud:oss:post")
+    @SaCheckPermission("oss:post")
     public Result<OssDirectPostObjectInfoVO> getDirectPostObjectInfo() {
         return Result.data(aliyunOssService.getDirectPostObjectInfo());
     }

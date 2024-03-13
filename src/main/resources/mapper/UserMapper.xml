@@ -2,16 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.github.lingkai5wu.loveta.mapper.UserMapper">
 
-    <resultMap id="userVOResultMap" type="com.github.lingkai5wu.loveta.model.vo.UserVO" autoMapping="true">
+    <resultMap id="userWithGroupsVOResultMap" type="com.github.lingkai5wu.loveta.model.vo.UserWithGroupsVO"
+               autoMapping="true">
         <id property="id" column="id"/>
-        <collection property="groupList" ofType="string">
+        <collection property="groups" ofType="string">
             <constructor>
                 <arg column="group_name"/>
             </constructor>
         </collection>
     </resultMap>
 
-    <select id="getUserVOById" resultMap="userVOResultMap" parameterType="long">
+    <select id="getUserWithGroupsVOById" resultMap="userWithGroupsVOResultMap" parameterType="long">
         SELECT u.id,
                u.phone,
                u.status,
@@ -27,7 +28,7 @@
         WHERE u.id = #{id}
     </select>
 
-    <select id="listUserVOs" resultMap="userVOResultMap">
+    <select id="listUserWithGroupsVOs" resultMap="userWithGroupsVOResultMap">
         SELECT u.id,
                u.phone,
                u.status,

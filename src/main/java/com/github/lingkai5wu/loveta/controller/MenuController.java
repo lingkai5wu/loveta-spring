@@ -4,9 +4,9 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
 import com.github.lingkai5wu.loveta.model.Result;
+import com.github.lingkai5wu.loveta.model.dto.MenuSaveDTO;
+import com.github.lingkai5wu.loveta.model.dto.MenuUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.Menu;
-import com.github.lingkai5wu.loveta.model.query.MenuSaveQuery;
-import com.github.lingkai5wu.loveta.model.query.MenuUpdateQuery;
 import com.github.lingkai5wu.loveta.model.vo.MenuVO;
 import com.github.lingkai5wu.loveta.service.IMenuService;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ import java.util.List;
  * 菜单
  */
 @RestController
-@RequestMapping("/menu")
+@RequestMapping("/menus")
 public class MenuController {
     private final IMenuService menuService;
 
@@ -38,10 +38,24 @@ public class MenuController {
     }
 
     /**
+     * 获取菜单
+     */
+    @GetMapping("/{id}")
+    @SaCheckPermission("menus:get")
+    public Result<MenuVO> getMenuVO(@PathVariable int id) {
+        Menu menu = menuService.getById(id);
+        if (menu == null) {
+            return Result.status(HttpStatus.NOT_FOUND);
+        }
+        MenuVO menuVO = BeanUtil.copyProperties(menu, MenuVO.class);
+        return Result.data(menuVO);
+    }
+
+    /**
      * 列出全部菜单
      */
     @GetMapping
-    @SaCheckPermission("data:menu:list")
+    @SaCheckPermission("menus:list")
     public Result<List<MenuVO>> listMenuVOs() {
         List<MenuVO> menuVOList = BeanUtil.copyToList(menuService.list(), MenuVO.class);
         return Result.data(menuVOList);
@@ -51,9 +65,9 @@ public class MenuController {
      * 新增菜单
      */
     @PostMapping
-    @SaCheckPermission("data:menu:save")
-    public Result<Void> saveMenu(@RequestBody @Validated MenuSaveQuery saveQuery) {
-        Menu menu = BeanUtil.copyProperties(saveQuery, Menu.class);
+    @SaCheckPermission("menus:save")
+    public Result<Void> saveMenu(@RequestBody @Validated MenuSaveDTO dto) {
+        Menu menu = BeanUtil.copyProperties(dto, Menu.class);
         menuService.save(menu);
         return Result.ok();
     }
@@ -61,10 +75,10 @@ public class MenuController {
     /**
      * 修改菜单
      */
-    @PatchMapping
-    @SaCheckPermission("data:menu:update")
-    public Result<Void> updateMenu(@RequestBody @Validated MenuUpdateQuery updateQuery) {
-        Menu menu = BeanUtil.copyProperties(updateQuery, Menu.class);
+    @PutMapping
+    @SaCheckPermission("menus:update")
+    public Result<Void> updateMenu(@RequestBody @Validated MenuUpdateDTO dto) {
+        Menu menu = BeanUtil.copyProperties(dto, Menu.class);
         boolean updated = menuService.updateById(menu);
         if (!updated) {
             return Result.status(HttpStatus.NOT_FOUND);
@@ -76,8 +90,8 @@ public class MenuController {
      * 删除菜单
      */
     @DeleteMapping("/{id}")
-    @SaCheckPermission("data:menu:remove")
-    public Result<Void> removeMenu(@PathVariable Long id) {
+    @SaCheckPermission("menus:remove")
+    public Result<Void> removeMenu(@PathVariable int id) {
         boolean existedSubmenus = menuService.lambdaQuery()
                 .eq(Menu::getPid, id)
                 .exists();

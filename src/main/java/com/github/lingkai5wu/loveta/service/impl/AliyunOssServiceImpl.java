@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 /**
- * 阿里云对象存储 前端控制器
+ * 阿里云对象存储 服务类
  *
  * @author lingkai5wu
  * @since 2024-01-08

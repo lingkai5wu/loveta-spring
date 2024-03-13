@@ -5,7 +5,7 @@ import com.github.lingkai5wu.loveta.model.vo.OssDirectPostObjectInfoVO;
 import java.net.URL;
 
 /**
- * 对象存储 前端控制器
+ * 对象存储 服务类
  *
  * @author lingkai5wu
  * @since 2024-01-08
