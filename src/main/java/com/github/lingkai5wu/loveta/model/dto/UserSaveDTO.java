@@ -2,6 +2,7 @@ package com.github.lingkai5wu.loveta.model.dto;
 
 import com.github.lingkai5wu.loveta.enums.UserSexEnum;
 import com.github.lingkai5wu.loveta.enums.UserStatusEnum;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -10,12 +11,13 @@ public class UserSaveDTO {
     /**
      * 手机号
      */
-    @NotNull
+    @NotBlank
     private String phone;
 
     /**
      * 状态
      */
+    @NotNull
     private UserStatusEnum status;
 
     /**

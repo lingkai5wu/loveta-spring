@@ -34,7 +34,7 @@ public class AggregateController {
         long id = StpUtil.getLoginIdAsLong();
         RuntimeDataVO dataVO = new RuntimeDataVO()
                 .setUserVO(BeanUtil.copyProperties(userService.getById(id), UserVO.class))
-                .setMenuVOList(BeanUtil.copyToList(menuService.listMenusByUserId(id), MenuVO.class));
+                .setMenuVOs(BeanUtil.copyToList(menuService.listMenusByUserId(id), MenuVO.class));
         return Result.data(dataVO);
     }
 }

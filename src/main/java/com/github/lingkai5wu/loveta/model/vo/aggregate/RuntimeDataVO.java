@@ -21,5 +21,5 @@ public class RuntimeDataVO {
      * 当前用户菜单
      */
     @NotNull
-    private List<MenuVO> menuVOList;
+    private List<MenuVO> menuVOs;
 }
