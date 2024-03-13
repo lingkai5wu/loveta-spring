@@ -3,6 +3,7 @@ package com.github.lingkai5wu.loveta.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
+import com.github.lingkai5wu.loveta.enums.MenuTypeEnum;
 import com.github.lingkai5wu.loveta.model.Result;
 import com.github.lingkai5wu.loveta.model.dto.MenuSaveDTO;
 import com.github.lingkai5wu.loveta.model.dto.MenuUpdateDTO;
@@ -67,6 +68,9 @@ public class MenuController {
     @PostMapping
     @SaCheckPermission("menus:save")
     public Result<Void> saveMenu(@RequestBody @Validated MenuSaveDTO dto) {
+        if (!menuService.isValidParentMenuById(dto.getPid())) {
+            return Result.error("父菜单无效");
+        }
         Menu menu = BeanUtil.copyProperties(dto, Menu.class);
         menuService.save(menu);
         return Result.ok();
@@ -78,6 +82,13 @@ public class MenuController {
     @PutMapping
     @SaCheckPermission("menus:update")
     public Result<Void> updateMenu(@RequestBody @Validated MenuUpdateDTO dto) {
+        if (!menuService.isValidParentMenuById(dto.getPid())) {
+            return Result.error("父菜单无效");
+        }
+        if (dto.getType() != MenuTypeEnum.PARENT
+                && menuService.isMenuChildExistsById(dto.getId())) {
+            return Result.error("存在子菜单");
+        }
         Menu menu = BeanUtil.copyProperties(dto, Menu.class);
         boolean updated = menuService.updateById(menu);
         if (!updated) {
@@ -92,10 +103,7 @@ public class MenuController {
     @DeleteMapping("/{id}")
     @SaCheckPermission("menus:remove")
     public Result<Void> removeMenu(@PathVariable int id) {
-        boolean existedSubmenus = menuService.lambdaQuery()
-                .eq(Menu::getPid, id)
-                .exists();
-        if (existedSubmenus) {
+        if (menuService.isMenuChildExistsById(id)) {
             return Result.error("存在子菜单");
         }
         boolean removed = menuService.removeById(id);
