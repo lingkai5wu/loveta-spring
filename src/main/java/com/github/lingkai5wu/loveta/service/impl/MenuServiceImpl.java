@@ -27,14 +27,48 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         return baseMapper.listMenusByUserId(id);
     }
 
-    public boolean isValidParentMenuById(int id) {
-        if (id == 0) {
+    public boolean isParentMenuValid(Menu menu) {
+        // 根节点始终有效
+        if (menu.getPid() == null || menu.getPid() == 0) {
             return true;
         }
-        return lambdaQuery()
-                .eq(Menu::getId, id)
+        // 新增时认为只要父菜单存在，则有效
+        if (menu.getId() == null) {
+            Menu parentMenu = lambdaQuery()
+                    .eq(Menu::getId, menu.getPid())
+                    .one();
+            return parentMenu.getType() == MenuTypeEnum.PARENT;
+        }
+        // 当前菜单与父菜单不能相同
+        if (menu.getId().equals(menu.getPid())) {
+            return false;
+        }
+        // 拿到剔除当前菜单的所有菜单 id 和 pid
+        List<Menu> parentMenuList = lambdaQuery()
+                .select(Menu::getId, Menu::getPid)
                 .eq(Menu::getType, MenuTypeEnum.PARENT)
-                .exists();
+                .ne(Menu::getId, menu.getId())
+                .list();
+        // 当前正在检查的菜单ID
+        int currentId = menu.getPid();
+        // 开始追踪父菜单
+        while (currentId != 0) {
+            // 在菜单列表中查找当前菜单的父菜单
+            boolean foundParent = false;
+            for (Menu parentMenu : parentMenuList) {
+                if (parentMenu.getId() == currentId) {
+                    // 更新当前菜单为其父菜单
+                    currentId = parentMenu.getPid();
+                    foundParent = true;
+                    break;
+                }
+            }
+            // 如果没有找到父菜单，说明存在循环依赖
+            if (!foundParent) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

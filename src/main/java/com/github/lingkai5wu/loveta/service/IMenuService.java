@@ -15,7 +15,7 @@ public interface IMenuService extends IService<Menu> {
 
     List<Menu> listMenusByUserId(long id);
 
-    boolean isValidParentMenuById(int id);
+    boolean isParentMenuValid(Menu id);
 
     boolean isMenuChildExistsById(int id);
 }

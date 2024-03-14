@@ -68,10 +68,10 @@ public class MenuController {
     @PostMapping
     @SaCheckPermission("menus:save")
     public Result<Void> saveMenu(@RequestBody @Validated MenuSaveDTO dto) {
-        if (!menuService.isValidParentMenuById(dto.getPid())) {
+        Menu menu = BeanUtil.copyProperties(dto, Menu.class);
+        if (!menuService.isParentMenuValid(menu)) {
             return Result.error("父菜单无效");
         }
-        Menu menu = BeanUtil.copyProperties(dto, Menu.class);
         menuService.save(menu);
         return Result.ok();
     }
@@ -82,14 +82,15 @@ public class MenuController {
     @PutMapping
     @SaCheckPermission("menus:update")
     public Result<Void> updateMenu(@RequestBody @Validated MenuUpdateDTO dto) {
-        if (!menuService.isValidParentMenuById(dto.getPid())) {
-            return Result.error("父菜单无效");
-        }
-        if (dto.getType() != MenuTypeEnum.PARENT
+        if (dto.getType() != null
+                && dto.getType() != MenuTypeEnum.PARENT
                 && menuService.isMenuChildExistsById(dto.getId())) {
             return Result.error("存在子菜单");
         }
         Menu menu = BeanUtil.copyProperties(dto, Menu.class);
+        if (!menuService.isParentMenuValid(menu)) {
+            return Result.error("父菜单无效");
+        }
         boolean updated = menuService.updateById(menu);
         if (!updated) {
             return Result.status(HttpStatus.NOT_FOUND);
