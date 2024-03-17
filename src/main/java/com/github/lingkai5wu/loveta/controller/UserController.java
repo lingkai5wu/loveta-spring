@@ -41,7 +41,7 @@ public class UserController {
      * 获取用户
      */
     @GetMapping("/{id}")
-    @SaCheckPermission("users:get")
+    @SaCheckPermission("user:get")
     public Result<UserVO> getUserVO(@PathVariable long id) {
         User user = userService.getById(id);
         if (user == null) {
@@ -55,7 +55,7 @@ public class UserController {
      * 列出全部用户
      */
     @GetMapping()
-    @SaCheckPermission("users:list")
+    @SaCheckPermission("user:list")
     public Result<List<UserVO>> listUserVOs() {
         List<User> userList = userService.list();
         List<UserVO> userVOList = BeanUtil.copyToList(userList, UserVO.class);
@@ -66,7 +66,7 @@ public class UserController {
      * 新增用户
      */
     @PostMapping
-    @SaCheckPermission("users:save")
+    @SaCheckPermission("user:save")
     public Result<Void> saveUser(@RequestBody @Validated UserSaveDTO dto) {
         User user = BeanUtil.copyProperties(dto, User.class);
         userService.save(user);
@@ -77,7 +77,7 @@ public class UserController {
      * 修改用户
      */
     @PutMapping
-    @SaCheckPermission("users:update")
+    @SaCheckPermission("user:update")
     public Result<Void> updateUser(@RequestBody @Validated UserUpdateDTO dto) {
         User user = BeanUtil.copyProperties(dto, User.class);
         boolean updated = userService.updateById(user);
@@ -91,7 +91,7 @@ public class UserController {
      * 删除用户
      */
     @DeleteMapping("/{id}")
-    @SaCheckPermission("users:remove")
+    @SaCheckPermission("user:remove")
     public Result<Void> removeUser(@PathVariable long id) {
         boolean removed = userService.removeById(id);
         if (!removed) {

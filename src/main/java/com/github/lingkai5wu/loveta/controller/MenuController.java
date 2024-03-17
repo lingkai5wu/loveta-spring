@@ -42,7 +42,7 @@ public class MenuController {
      * 获取菜单
      */
     @GetMapping("/{id}")
-    @SaCheckPermission("menus:get")
+    @SaCheckPermission("menu:get")
     public Result<MenuVO> getMenuVO(@PathVariable int id) {
         Menu menu = menuService.getById(id);
         if (menu == null) {
@@ -56,7 +56,7 @@ public class MenuController {
      * 列出全部菜单
      */
     @GetMapping
-    @SaCheckPermission("menus:list")
+    @SaCheckPermission("menu:list")
     public Result<List<MenuVO>> listMenuVOs() {
         List<MenuVO> menuVOList = BeanUtil.copyToList(menuService.list(), MenuVO.class);
         return Result.data(menuVOList);
@@ -66,7 +66,7 @@ public class MenuController {
      * 新增菜单
      */
     @PostMapping
-    @SaCheckPermission("menus:save")
+    @SaCheckPermission("menu:save")
     public Result<Void> saveMenu(@RequestBody @Validated MenuSaveDTO dto) {
         Menu menu = BeanUtil.copyProperties(dto, Menu.class);
         if (!menuService.isParentMenuValid(menu)) {
@@ -80,7 +80,7 @@ public class MenuController {
      * 修改菜单
      */
     @PutMapping
-    @SaCheckPermission("menus:update")
+    @SaCheckPermission("menu:update")
     public Result<Void> updateMenu(@RequestBody @Validated MenuUpdateDTO dto) {
         if (dto.getType() != null
                 && dto.getType() != MenuTypeEnum.PARENT
@@ -102,7 +102,7 @@ public class MenuController {
      * 删除菜单
      */
     @DeleteMapping("/{id}")
-    @SaCheckPermission("menus:remove")
+    @SaCheckPermission("menu:remove")
     public Result<Void> removeMenu(@PathVariable int id) {
         if (menuService.isMenuChildExistsById(id)) {
             return Result.error("存在子菜单");
