@@ -1,8 +1,8 @@
 package com.github.lingkai5wu.loveta.satoken;
 
 import cn.dev33.satoken.stp.StpInterface;
-import com.github.lingkai5wu.loveta.service.IRoleService;
 import com.github.lingkai5wu.loveta.service.IPermissionService;
+import com.github.lingkai5wu.loveta.service.IRoleService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
