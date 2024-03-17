@@ -1,17 +1,17 @@
 package com.github.lingkai5wu.loveta.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.github.lingkai5wu.loveta.model.po.Group;
+import com.github.lingkai5wu.loveta.model.po.Role;
 
 import java.util.List;
 
 /**
- * 用户组 Mapper 接口
+ * 角色 Mapper 接口
  *
  * @author lingkai5wu
  * @since 2023-12-25
  */
-public interface GroupMapper extends BaseMapper<Group> {
+public interface RoleMapper extends BaseMapper<Role> {
 
     List<String> listRolesByUserId(Object id);
 }

@@ -1,7 +1,7 @@
 package com.github.lingkai5wu.loveta.satoken;
 
 import cn.dev33.satoken.stp.StpInterface;
-import com.github.lingkai5wu.loveta.service.IGroupService;
+import com.github.lingkai5wu.loveta.service.IRoleService;
 import com.github.lingkai5wu.loveta.service.IPermissionService;
 import org.springframework.stereotype.Component;
 
@@ -13,11 +13,11 @@ import java.util.List;
 @Component
 public class StpInterfaceImpl implements StpInterface {
 
-    private final IGroupService groupService;
+    private final IRoleService roleService;
     private final IPermissionService permissionService;
 
-    public StpInterfaceImpl(IGroupService groupService, IPermissionService permissionService) {
-        this.groupService = groupService;
+    public StpInterfaceImpl(IRoleService roleService, IPermissionService permissionService) {
+        this.roleService = roleService;
         this.permissionService = permissionService;
     }
 
@@ -34,7 +34,7 @@ public class StpInterfaceImpl implements StpInterface {
      */
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
-        return groupService.listRolesByUserId(loginId);
+        return roleService.listRolesByUserId(loginId);
     }
 
 }

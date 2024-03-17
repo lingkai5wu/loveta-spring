@@ -3,7 +3,7 @@ package com.github.lingkai5wu.loveta.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.lingkai5wu.loveta.mapper.UserMapper;
 import com.github.lingkai5wu.loveta.model.po.User;
-import com.github.lingkai5wu.loveta.model.vo.UserWithGroupsVO;
+import com.github.lingkai5wu.loveta.model.vo.UserWithRolesVO;
 import com.github.lingkai5wu.loveta.service.IUserService;
 import org.springframework.stereotype.Service;
 
@@ -31,12 +31,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public UserWithGroupsVO getUserWithGroupsVOById(long id) {
-        return userMapper.getUserWithGroupsVOById(id);
+    public UserWithRolesVO getUserWithRolesVOById(long id) {
+        return userMapper.getUserWithRolesVOById(id);
     }
 
     @Override
-    public List<UserWithGroupsVO> listUserWithGroupsVOs() {
-        return userMapper.listUserWithGroupsVOs();
+    public List<UserWithRolesVO> listUserWithRolesVOs() {
+        return userMapper.listUserWithRolesVOs();
     }
 }

@@ -5,8 +5,8 @@
     <select id="listPermissionsByUserId" resultType="java.lang.String" parameterType="object">
         SELECT p.code
         FROM auth_permission p
-                 INNER JOIN auth_group_permission gp ON p.id = gp.permission_id
-                 INNER JOIN auth_group_user gu ON gp.group_id = gu.group_id
-        WHERE gu.user_id = #{id}
+                 INNER JOIN auth_role_permission rp ON p.id = rp.permission_id
+                 INNER JOIN auth_user_role ur ON rp.role_id = ur.role_id
+        WHERE ur.user_id = #{id}
     </select>
 </mapper>

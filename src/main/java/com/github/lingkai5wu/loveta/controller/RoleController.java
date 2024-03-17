@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 用户组
+ * 角色
  */
 @RestController
-@RequestMapping("/groups")
-public class GroupController {
+@RequestMapping("/roles")
+public class RoleController {
 
 }

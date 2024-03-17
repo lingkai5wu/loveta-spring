@@ -9,12 +9,12 @@ import lombok.experimental.Accessors;
 import java.time.LocalDateTime;
 
 /**
- * 用户组
+ * 角色
  */
 @Data
 @Accessors(chain = true)
-@TableName("auth_group")
-public class Group {
+@TableName("auth_role")
+public class Role {
     /**
      * ID
      */
@@ -22,7 +22,7 @@ public class Group {
     private Integer id;
 
     /**
-     * 用户组名
+     * 角色名
      */
     private String name;
 
