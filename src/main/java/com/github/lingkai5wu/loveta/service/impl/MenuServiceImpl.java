@@ -21,7 +21,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
     @Override
     public List<Menu> listMenusByUserId(long id) {
-        if (StpUtil.hasRole("super-admin")) {
+        if (StpUtil.hasPermission("menu:list")) {
             return list();
         }
         return baseMapper.listMenusByUserId(id);
