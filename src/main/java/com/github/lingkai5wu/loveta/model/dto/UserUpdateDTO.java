@@ -14,11 +14,6 @@ public class UserUpdateDTO {
     private Long id;
 
     /**
-     * 手机号
-     */
-    private String phone;
-
-    /**
      * 状态
      */
     private UserStatusEnum status;

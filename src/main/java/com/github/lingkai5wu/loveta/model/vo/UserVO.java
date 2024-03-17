@@ -1,5 +1,6 @@
 package com.github.lingkai5wu.loveta.model.vo;
 
+import cn.hutool.core.util.DesensitizedUtil;
 import com.github.lingkai5wu.loveta.enums.UserSexEnum;
 import com.github.lingkai5wu.loveta.enums.UserStatusEnum;
 import jakarta.validation.constraints.NotNull;
@@ -52,4 +53,8 @@ public class UserVO {
      */
     @NotNull
     private LocalDateTime createTime;
+
+    public String getPhone() {
+        return DesensitizedUtil.mobilePhone(phone);
+    }
 }
