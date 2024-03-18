@@ -69,7 +69,7 @@ public class MenuController {
     @SaCheckPermission("menu:save")
     public Result<Void> saveMenu(@RequestBody @Validated MenuSaveDTO dto) {
         Menu menu = BeanUtil.copyProperties(dto, Menu.class);
-        if (!menuService.isParentMenuValid(menu)) {
+        if (!menuService.verifyParent(menu)) {
             return Result.error("父菜单无效");
         }
         menuService.save(menu);
@@ -84,11 +84,11 @@ public class MenuController {
     public Result<Void> updateMenu(@RequestBody @Validated MenuUpdateDTO dto) {
         if (dto.getType() != null
                 && dto.getType() != MenuTypeEnum.PARENT
-                && menuService.isMenuChildExistsById(dto.getId())) {
+                && menuService.childExistsById(dto.getId())) {
             return Result.error("存在子菜单");
         }
         Menu menu = BeanUtil.copyProperties(dto, Menu.class);
-        if (!menuService.isParentMenuValid(menu)) {
+        if (!menuService.verifyParent(menu)) {
             return Result.error("父菜单无效");
         }
         boolean updated = menuService.updateById(menu);
@@ -104,7 +104,7 @@ public class MenuController {
     @DeleteMapping("/{id}")
     @SaCheckPermission("menu:remove")
     public Result<Void> removeMenu(@PathVariable int id) {
-        if (menuService.isMenuChildExistsById(id)) {
+        if (menuService.childExistsById(id)) {
             return Result.error("存在子菜单");
         }
         boolean removed = menuService.removeById(id);

@@ -27,7 +27,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         return baseMapper.listMenusByUserId(id);
     }
 
-    public boolean isParentMenuValid(Menu menu) {
+    public boolean verifyParent(Menu menu) {
         // 根节点始终有效
         if (menu.getPid() == null || menu.getPid() == 0) {
             return true;
@@ -72,7 +72,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
-    public boolean isMenuChildExistsById(int id) {
+    public boolean childExistsById(int id) {
         return lambdaQuery()
                 .eq(Menu::getPid, id)
                 .exists();
