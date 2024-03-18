@@ -1,6 +1,7 @@
 package com.github.lingkai5wu.loveta.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.lingkai5wu.loveta.model.dto.BatchManyToManyDTO;
 import com.github.lingkai5wu.loveta.model.po.User;
 
 /**
@@ -14,4 +15,6 @@ public interface IUserService extends IService<User> {
     User getUserByPhone(String phone);
 
     boolean existsById(long id);
+
+    void updateUserRoleByBatch(long userId, BatchManyToManyDTO dto);
 }

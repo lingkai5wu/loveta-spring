@@ -5,6 +5,7 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
 import com.github.lingkai5wu.loveta.model.Result;
+import com.github.lingkai5wu.loveta.model.dto.BatchManyToManyDTO;
 import com.github.lingkai5wu.loveta.model.dto.UserSaveDTO;
 import com.github.lingkai5wu.loveta.model.dto.UserUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.Permission;
@@ -124,6 +125,20 @@ public class UserController {
         if (!updated) {
             return Result.status(HttpStatus.NOT_FOUND);
         }
+        return Result.ok();
+    }
+
+    /**
+     * 修改用户角色
+     */
+    @PutMapping("/{id}/roles")
+    @SaCheckPermission({"user:update", "role:update"})
+    public Result<Void> updateUserRoleByBatch(@PathVariable long id, @RequestBody @Validated BatchManyToManyDTO dto) {
+        boolean exists = userService.existsById(id);
+        if (!exists) {
+            return Result.status(HttpStatus.NOT_FOUND);
+        }
+        userService.updateUserRoleByBatch(id, dto);
         return Result.ok();
     }
 

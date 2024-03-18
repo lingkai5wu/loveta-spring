@@ -3,6 +3,8 @@ package com.github.lingkai5wu.loveta.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.lingkai5wu.loveta.model.po.User;
 
+import java.util.List;
+
 /**
  * 用户 Mapper 接口
  *
@@ -11,4 +13,7 @@ import com.github.lingkai5wu.loveta.model.po.User;
  */
 public interface UserMapper extends BaseMapper<User> {
 
+    boolean batchInsertUserRoles(long userId, List<Long> roleIdsToInsert);
+
+    boolean batchDeleteUserRoles(long userId, List<Long> roleIdsToDelete);
 }

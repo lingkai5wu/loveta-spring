@@ -20,6 +20,7 @@ public class AllExceptionHandler {
     @ExceptionHandler(Exception.class)
     public Result<ExceptionVO> handlerException(Exception e) {
         log.warn(e.getMessage());
+        e.printStackTrace();
         ExceptionVO exceptionVO = exceptionService.getExceptionVO(e);
         return Result.status(HttpStatus.INTERNAL_SERVER_ERROR, exceptionVO);
     }

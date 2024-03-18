@@ -2,6 +2,7 @@ package com.github.lingkai5wu.loveta.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.lingkai5wu.loveta.mapper.UserMapper;
+import com.github.lingkai5wu.loveta.model.dto.BatchManyToManyDTO;
 import com.github.lingkai5wu.loveta.model.po.User;
 import com.github.lingkai5wu.loveta.service.IUserService;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return lambdaQuery()
                 .eq(User::getId, id)
                 .exists();
+    }
+
+    @Override
+    public void updateUserRoleByBatch(long userId, BatchManyToManyDTO dto) {
+        if (dto.getTargetIdsToInsert() != null && !dto.getTargetIdsToInsert().isEmpty()) {
+            baseMapper.batchInsertUserRoles(userId, dto.getTargetIdsToInsert());
+        }
+        if (dto.getTargetIdsToDelete() != null && !dto.getTargetIdsToDelete().isEmpty()) {
+            baseMapper.batchDeleteUserRoles(userId, dto.getTargetIdsToDelete());
+        }
     }
 }
