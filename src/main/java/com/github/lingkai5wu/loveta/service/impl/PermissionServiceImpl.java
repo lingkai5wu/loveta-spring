@@ -18,7 +18,12 @@ import java.util.List;
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permission> implements IPermissionService {
 
     @Override
-    public List<String> listPermissionsByUserId(Object id) {
+    public List<String> listPermissionCodesByUserId(Object id) {
+        return baseMapper.listPermissionCodesByUserId(id);
+    }
+
+    @Override
+    public List<Permission> listPermissionsByUserId(Long id) {
         return baseMapper.listPermissionsByUserId(id);
     }
 }

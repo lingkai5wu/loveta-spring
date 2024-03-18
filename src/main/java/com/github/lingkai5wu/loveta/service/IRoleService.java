@@ -12,5 +12,7 @@ import java.util.List;
  * @since 2023-12-25
  */
 public interface IRoleService extends IService<Role> {
-    List<String> listRolesByUserId(Object id);
+    List<String> listRoleNamesByUserId(Object id);
+
+    List<Role> listRolesByUserId(long id);
 }

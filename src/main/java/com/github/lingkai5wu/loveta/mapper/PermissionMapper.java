@@ -13,5 +13,7 @@ import java.util.List;
  */
 public interface PermissionMapper extends BaseMapper<Permission> {
 
-    List<String> listPermissionsByUserId(Object id);
+    List<String> listPermissionCodesByUserId(Object id);
+
+    List<Permission> listPermissionsByUserId(Long id);
 }

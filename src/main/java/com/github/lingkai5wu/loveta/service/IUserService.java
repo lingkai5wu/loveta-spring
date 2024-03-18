@@ -12,4 +12,6 @@ import com.github.lingkai5wu.loveta.model.po.User;
 public interface IUserService extends IService<User> {
 
     User getUserByPhone(String phone);
+
+    boolean existsById(long id);
 }

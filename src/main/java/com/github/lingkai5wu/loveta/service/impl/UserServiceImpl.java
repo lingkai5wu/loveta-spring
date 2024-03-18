@@ -20,4 +20,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .eq(User::getPhone, phone)
                 .one();
     }
+
+    @Override
+    public boolean existsById(long id) {
+        return lambdaQuery()
+                .eq(User::getId, id)
+                .exists();
+    }
 }
