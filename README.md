@@ -8,4 +8,4 @@
 
 ### 其他一些零散的东西
 
-- [权限码设计](doc/Permission.md#权限码)
+- [权限编码设计](doc/Permission.md#权限编码)

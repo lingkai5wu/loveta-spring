@@ -15,7 +15,7 @@ public class PermissionVO {
     private Integer id;
 
     /**
-     * 权限码
+     * 权限编码
      */
     @NotNull
     private String code;

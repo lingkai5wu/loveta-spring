@@ -22,7 +22,7 @@ public class Permission {
     private Integer id;
 
     /**
-     * 权限码
+     * 权限编码
      */
     private String code;
 
