@@ -1,8 +1,6 @@
 package com.github.lingkai5wu.loveta.model.po;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.github.lingkai5wu.loveta.enums.MenuTypeEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -35,11 +33,13 @@ public class Menu {
     /**
      * 标签
      */
+    @TableField(condition = SqlCondition.LIKE)
     private String label;
 
     /**
      * 路径
      */
+    @TableField(condition = SqlCondition.LIKE)
     private String path;
 
     /**

@@ -1,8 +1,6 @@
 package com.github.lingkai5wu.loveta.model.po;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.github.lingkai5wu.loveta.enums.UserSexEnum;
 import com.github.lingkai5wu.loveta.enums.UserStatusEnum;
 import lombok.Data;
@@ -26,6 +24,7 @@ public class User {
     /**
      * 手机号
      */
+    @TableField(condition = SqlCondition.LIKE)
     private String phone;
 
     /**
@@ -51,11 +50,13 @@ public class User {
     /**
      * 昵称
      */
+    @TableField(condition = SqlCondition.LIKE)
     private String nickname;
 
     /**
      * 姓名
      */
+    @TableField(condition = SqlCondition.LIKE)
     private String realname;
 
     /**

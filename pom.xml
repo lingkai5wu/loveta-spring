@@ -123,6 +123,7 @@
                             </optionalPropertiesDeclaration>
                             <classPatterns>
                                 <pattern>com.github.lingkai5wu.loveta.model.dto.**</pattern>
+                                <pattern>com.github.lingkai5wu.loveta.model.query.**</pattern>
                             </classPatterns>
                         </configuration>
                     </execution>

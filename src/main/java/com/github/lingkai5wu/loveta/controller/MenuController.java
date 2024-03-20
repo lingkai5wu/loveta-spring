@@ -3,11 +3,13 @@ package com.github.lingkai5wu.loveta.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.lingkai5wu.loveta.enums.MenuTypeEnum;
 import com.github.lingkai5wu.loveta.model.Result;
 import com.github.lingkai5wu.loveta.model.dto.MenuSaveDTO;
 import com.github.lingkai5wu.loveta.model.dto.MenuUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.Menu;
+import com.github.lingkai5wu.loveta.model.query.MenuQuery;
 import com.github.lingkai5wu.loveta.model.vo.MenuVO;
 import com.github.lingkai5wu.loveta.service.IMenuService;
 import org.springframework.http.HttpStatus;
@@ -57,8 +59,9 @@ public class MenuController {
      */
     @GetMapping
     @SaCheckPermission("menu:list")
-    public Result<List<MenuVO>> listMenuVOs() {
-        List<MenuVO> menuVOList = BeanUtil.copyToList(menuService.list(), MenuVO.class);
+    public Result<List<MenuVO>> listMenuVOs(MenuQuery query) {
+        QueryWrapper<Menu> wrapper = new QueryWrapper<>(BeanUtil.copyProperties(query, Menu.class));
+        List<MenuVO> menuVOList = BeanUtil.copyToList(menuService.list(wrapper), MenuVO.class);
         return Result.data(menuVOList);
     }
 

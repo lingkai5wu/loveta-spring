@@ -4,6 +4,7 @@ package com.github.lingkai5wu.loveta.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.lingkai5wu.loveta.model.Result;
 import com.github.lingkai5wu.loveta.model.dto.BatchManyToManyDTO;
 import com.github.lingkai5wu.loveta.model.dto.UserSaveDTO;
@@ -11,6 +12,7 @@ import com.github.lingkai5wu.loveta.model.dto.UserUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.Permission;
 import com.github.lingkai5wu.loveta.model.po.Role;
 import com.github.lingkai5wu.loveta.model.po.User;
+import com.github.lingkai5wu.loveta.model.query.UserQuery;
 import com.github.lingkai5wu.loveta.model.vo.PermissionVO;
 import com.github.lingkai5wu.loveta.model.vo.RoleVO;
 import com.github.lingkai5wu.loveta.model.vo.UserVO;
@@ -97,9 +99,9 @@ public class UserController {
      */
     @GetMapping()
     @SaCheckPermission("user:list")
-    public Result<List<UserVO>> listUserVOs() {
-        List<User> userList = userService.list();
-        List<UserVO> userVOList = BeanUtil.copyToList(userList, UserVO.class);
+    public Result<List<UserVO>> listUserVOs(UserQuery query) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>(BeanUtil.copyProperties(query, User.class));
+        List<UserVO> userVOList = BeanUtil.copyToList(userService.list(wrapper), UserVO.class);
         return Result.data(userVOList);
     }
 
