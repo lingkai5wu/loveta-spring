@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface RoleMapper extends BaseMapper<Role> {
 
-    List<String> listRoleNamesByUserId(Object id);
+    List<String> listRoleCodesByUserId(Object id);
 
     List<Role> listRolesByUserId(long id);
 }

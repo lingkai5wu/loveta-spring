@@ -1,13 +1,12 @@
-package com.github.lingkai5wu.loveta.model.vo;
+package com.github.lingkai5wu.loveta.model.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-/**
- * 角色
- */
 @Data
-public class RoleVO {
+public class RoleUpdateDTO {
+
     /**
      * ID
      */
@@ -17,13 +16,12 @@ public class RoleVO {
     /**
      * 角色编码
      */
-    @NotNull
+    @NotBlank
     private String code;
 
     /**
      * 角色名
      */
-    @NotNull
     private String name;
 
     /**

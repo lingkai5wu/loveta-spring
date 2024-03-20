@@ -22,6 +22,11 @@ public class Role {
     private Integer id;
 
     /**
+     * 角色编码
+     */
+    private String code;
+
+    /**
      * 角色名
      */
     private String name;
