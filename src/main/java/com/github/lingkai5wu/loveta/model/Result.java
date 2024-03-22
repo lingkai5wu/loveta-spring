@@ -54,8 +54,8 @@ public class Result<T> {
         return new Result<>(status, null);
     }
 
-    public static <T> Result<T> status(HttpStatus status, T data) {
-        return new Result<>(status, data);
+    public static <T> Result<T> status(HttpStatus status, String msg) {
+        return new Result<>(status.value(), msg, null);
     }
 
     public static <T> Result<T> status(HttpStatus status, String msg, T data) {

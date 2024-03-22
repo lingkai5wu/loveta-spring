@@ -69,6 +69,6 @@ public class SaTokenExceptionHandler {
                 .setService((String) e.getService())
                 .setLevel(e.getLevel())
                 .setDisableTime(e.getDisableTime());
-        return Result.status(HttpStatus.FORBIDDEN, exceptionVO);
+        return Result.status(HttpStatus.FORBIDDEN, e.getMessage(), exceptionVO);
     }
 }

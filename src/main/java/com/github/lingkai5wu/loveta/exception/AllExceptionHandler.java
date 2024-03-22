@@ -22,6 +22,6 @@ public class AllExceptionHandler {
         log.warn(e.getMessage());
         e.printStackTrace();
         ExceptionVO exceptionVO = exceptionService.getExceptionVO(e);
-        return Result.status(HttpStatus.INTERNAL_SERVER_ERROR, exceptionVO);
+        return Result.status(HttpStatus.INTERNAL_SERVER_ERROR, "服务器错误", exceptionVO);
     }
 }

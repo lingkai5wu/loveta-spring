@@ -24,6 +24,6 @@ public class ValidationExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Result<MethodArgumentNotValidExceptionVO> handlerException(MethodArgumentNotValidException e) {
         log.warn(e.getMessage());
-        return Result.status(HttpStatus.BAD_REQUEST, exceptionService.getMethodArgumentNotValidExceptionVO(e));
+        return Result.status(HttpStatus.BAD_REQUEST, "参数无效", exceptionService.getMethodArgumentNotValidExceptionVO(e));
     }
 }
