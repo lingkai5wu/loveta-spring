@@ -9,7 +9,6 @@
             (#{userId}, #{roleId})
         </foreach>
     </insert>
-
     <delete id="batchDeleteUserRoles">
         DELETE FROM auth_user_role
         WHERE user_id = #{userId}

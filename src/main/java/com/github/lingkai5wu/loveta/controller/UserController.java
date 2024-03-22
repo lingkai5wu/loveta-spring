@@ -135,7 +135,7 @@ public class UserController {
      */
     @PutMapping("/{id}/roles")
     @SaCheckPermission({"user:update", "role:update"})
-    public Result<Void> updateUserRoleByBatch(@PathVariable long id, @RequestBody @Validated BatchManyToManyDTO dto) {
+    public Result<Void> updateUserRoleByBatch(@PathVariable long id, @RequestBody BatchManyToManyDTO dto) {
         boolean exists = userService.existsById(id);
         if (!exists) {
             return Result.status(HttpStatus.NOT_FOUND);

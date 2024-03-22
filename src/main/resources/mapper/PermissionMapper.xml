@@ -24,4 +24,20 @@
                  INNER JOIN auth_role_permission rp ON p.id = rp.permission_id
         WHERE rp.role_id = #{id}
     </select>
+
+    <insert id="batchInsertRolePermissions">
+        INSERT INTO auth_role_permission(role_id, permission_id)
+        VALUES
+        <foreach item="permissionId" collection="permissionIdsToInsert" separator=",">
+            (#{roleId}, #{permissionId})
+        </foreach>
+    </insert>
+    <delete id="batchDeleteRolePermissions">
+        DELETE FROM auth_role_permission
+        WHERE role_id = #{roleId}
+        AND permission_id IN
+        <foreach item="permissionId" collection="permissionIdsToDelete" open="(" separator="," close=")">
+            #{permissionId}
+        </foreach>
+    </delete>
 </mapper>

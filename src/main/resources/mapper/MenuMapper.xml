@@ -15,4 +15,20 @@
                  INNER JOIN auth_role_menu rm ON m.id = rm.menu_id
         WHERE rm.role_id = #{id}
     </select>
+
+    <insert id="batchInsertRoleMenus">
+        INSERT INTO auth_role_menu(role_id, menu_id)
+        VALUES
+        <foreach item="menuId" collection="menuIdsToInsert" separator=",">
+            (#{roleId}, #{menuId})
+        </foreach>
+    </insert>
+    <delete id="batchDeleteRoleMenus">
+        DELETE FROM auth_role_menu
+        WHERE role_id = #{roleId}
+        AND menu_id IN
+        <foreach item="menuId" collection="menuIdsToDelete" open="(" separator="," close=")">
+            #{menuId}
+        </foreach>
+    </delete>
 </mapper>

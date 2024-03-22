@@ -16,4 +16,8 @@ public interface MenuMapper extends BaseMapper<Menu> {
     List<Menu> listMenusByUserId(long id);
 
     List<Menu> listMenusByRoleId(int id);
+
+    boolean batchInsertRoleMenus(int roleId, List<Long> menuIdsToInsert);
+
+    boolean batchDeleteRoleMenus(int roleId, List<Long> menuIdsToDelete);
 }

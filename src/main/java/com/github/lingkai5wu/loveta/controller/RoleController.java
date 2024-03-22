@@ -5,6 +5,7 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
 import com.github.lingkai5wu.loveta.model.Result;
+import com.github.lingkai5wu.loveta.model.dto.BatchManyToManyDTO;
 import com.github.lingkai5wu.loveta.model.dto.RoleSaveDTO;
 import com.github.lingkai5wu.loveta.model.dto.RoleUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.Menu;
@@ -124,6 +125,35 @@ public class RoleController {
         if (!updated) {
             return Result.status(HttpStatus.NOT_FOUND);
         }
+        return Result.ok();
+    }
+
+
+    /**
+     * 修改角色权限
+     */
+    @PutMapping("/{id}/permissions")
+    @SaCheckPermission({"role:update", "permission:update"})
+    public Result<Void> updateRolePermissionByBatch(@PathVariable int id, @RequestBody BatchManyToManyDTO dto) {
+        boolean exists = roleService.existsById(id);
+        if (!exists) {
+            return Result.status(HttpStatus.NOT_FOUND);
+        }
+        permissionService.updateRolePermissionByBatch(id, dto);
+        return Result.ok();
+    }
+
+    /**
+     * 修改角色菜单
+     */
+    @PutMapping("/{id}/menus")
+    @SaCheckPermission({"role:update", "menu:update"})
+    public Result<Void> updateRoleMenuByBatch(@PathVariable int id, @RequestBody BatchManyToManyDTO dto) {
+        boolean exists = roleService.existsById(id);
+        if (!exists) {
+            return Result.status(HttpStatus.NOT_FOUND);
+        }
+        menuService.updateRoleMenuByBatch(id, dto);
         return Result.ok();
     }
 
