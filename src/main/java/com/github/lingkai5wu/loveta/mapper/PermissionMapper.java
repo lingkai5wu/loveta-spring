@@ -22,4 +22,6 @@ public interface PermissionMapper extends BaseMapper<Permission> {
     boolean batchInsertRolePermissions(int roleId, List<Long> permissionIdsToInsert);
 
     boolean batchDeleteRolePermissions(int roleId, List<Long> permissionIdsToDelete);
+
+    boolean batchDeletePermissionsWithCode(List<String> permissionCodeList);
 }

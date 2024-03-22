@@ -4,8 +4,8 @@ package com.github.lingkai5wu.loveta.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollUtil;
 import com.github.lingkai5wu.loveta.model.Result;
-import com.github.lingkai5wu.loveta.model.dto.PermissionSaveDTO;
 import com.github.lingkai5wu.loveta.model.dto.PermissionUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.Permission;
 import com.github.lingkai5wu.loveta.model.vo.PermissionVO;
@@ -15,6 +15,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 权限
@@ -58,18 +60,36 @@ public class PermissionController {
     @GetMapping
     @SaCheckPermission("permission:list")
     public Result<List<PermissionVO>> listPermissionVOs() {
-        List<PermissionVO> permissionVOList = BeanUtil.copyToList(permissionService.list(), PermissionVO.class);
+        List<Permission> permissionList = permissionService.lambdaQuery()
+                .orderBy(true, true, Permission::getCode)
+                .list();
+        List<PermissionVO> permissionVOList = BeanUtil.copyToList(permissionList, PermissionVO.class);
         return Result.data(permissionVOList);
     }
 
     /**
-     * 新增权限
+     * 同步权限
      */
-    @PostMapping
-    @SaCheckPermission("permission:save")
-    public Result<Void> savePermission(@RequestBody @Validated PermissionSaveDTO dto) {
-        Permission permission = BeanUtil.copyProperties(dto, Permission.class);
-        permissionService.save(permission);
+    @PostMapping("/sync")
+    @SaCheckPermission({"permission:sync"})
+    public Result<Void> syncPermission() {
+        Set<String> reflectionPermissionCodeSet = permissionService.getPermissionCodeSetFromReflection();
+        reflectionPermissionCodeSet.add("*");
+        Set<String> dbPermissionCodeSet = permissionService.lambdaQuery()
+                .select(Permission::getCode)
+                .list()
+                .stream()
+                .map(Permission::getCode)
+                .collect(Collectors.toSet());
+
+        List<String> inDbNotInReflection = CollUtil.subtractToList(dbPermissionCodeSet, reflectionPermissionCodeSet);
+        List<String> inReflectionNotInDb = CollUtil.subtractToList(reflectionPermissionCodeSet, dbPermissionCodeSet);
+
+        permissionService.batchDeletePermissionsByCode(inDbNotInReflection);
+        List<Permission> permissionListToAdd = inReflectionNotInDb.stream()
+                .map(code -> new Permission().setCode(code))
+                .collect(Collectors.toList());
+        permissionService.saveBatch(permissionListToAdd);
         return Result.ok();
     }
 
@@ -82,19 +102,6 @@ public class PermissionController {
         Permission permission = BeanUtil.copyProperties(dto, Permission.class);
         boolean updated = permissionService.updateById(permission);
         if (!updated) {
-            return Result.status(HttpStatus.NOT_FOUND);
-        }
-        return Result.ok();
-    }
-
-    /**
-     * 删除权限
-     */
-    @DeleteMapping("/{id}")
-    @SaCheckPermission("permission:remove")
-    public Result<Void> removePermission(@PathVariable int id) {
-        boolean removed = permissionService.removeById(id);
-        if (!removed) {
             return Result.status(HttpStatus.NOT_FOUND);
         }
         return Result.ok();

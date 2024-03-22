@@ -40,4 +40,12 @@
             #{permissionId}
         </foreach>
     </delete>
+
+    <delete id="batchDeletePermissionsWithCode">
+        DELETE FROM auth_permission
+        WHERE code IN
+        <foreach item="permissionCode" collection="permissionCodeList" open="(" separator="," close=")">
+            #{permissionCode}
+        </foreach>
+    </delete>
 </mapper>

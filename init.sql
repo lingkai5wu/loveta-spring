@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS `auth_menu` (
   `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='菜单表';
 
--- 正在导出表  loveta.auth_menu 的数据：~10 rows (大约)
+-- 正在导出表  loveta.auth_menu 的数据：~12 rows (大约)
 DELETE FROM `auth_menu`;
 INSERT INTO `auth_menu` (`id`, `pid`, `type`, `label`, `path`, `create_time`, `update_time`) VALUES
 	(1, 0, 1, '菜单管理', '/menu', '2024-01-08 12:06:27', '2024-03-11 22:29:11'),
@@ -45,7 +45,9 @@ INSERT INTO `auth_menu` (`id`, `pid`, `type`, `label`, `path`, `create_time`, `u
 	(7, 29, 2, 'OSS 控制台', 'https://oss.console.aliyun.com/bucket/oss-cn-hangzhou/loveta-dev/overview', '2024-01-11 19:43:44', '2024-03-14 16:33:00'),
 	(8, 3, 2, 'TypeScript 教程', 'https://typescript.p6p.net/', '2024-03-06 15:22:09', '2024-03-12 21:42:43'),
 	(9, 3, 0, '后端', NULL, '2024-03-13 23:53:29', '2024-03-18 00:54:42'),
-	(10, 29, 2, '验证码', 'https://yundun.console.aliyun.com/?p=captcha', '2024-03-17 00:21:37', '2024-03-18 00:54:44');
+	(10, 29, 2, '验证码', 'https://yundun.console.aliyun.com/?p=captcha', '2024-03-17 00:21:37', '2024-03-18 00:54:44'),
+	(11, 0, 1, '角色管理', '/role', '2024-03-22 14:04:53', NULL),
+	(13, 0, 1, '权限管理', '/permission', '2024-03-22 15:35:06', NULL);
 
 -- 导出  表 loveta.auth_permission 结构
 DROP TABLE IF EXISTS `auth_permission`;
@@ -55,13 +57,14 @@ CREATE TABLE IF NOT EXISTS `auth_permission` (
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '描述',
   `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='权限表';
 
 -- 正在导出表  loveta.auth_permission 的数据：~1 rows (大约)
 DELETE FROM `auth_permission`;
 INSERT INTO `auth_permission` (`id`, `code`, `description`, `create_time`, `update_time`) VALUES
-	(1, '*', NULL, '2024-01-08 12:49:41', NULL);
+	(1, '*', NULL, '2024-03-22 18:44:02', '2024-03-22 21:47:56');
 
 -- 导出  表 loveta.auth_role 结构
 DROP TABLE IF EXISTS `auth_role`;
@@ -78,9 +81,9 @@ CREATE TABLE IF NOT EXISTS `auth_role` (
 -- 正在导出表  loveta.auth_role 的数据：~3 rows (大约)
 DELETE FROM `auth_role`;
 INSERT INTO `auth_role` (`id`, `code`, `name`, `description`, `create_time`, `update_time`) VALUES
-	(1, 'super-admin', '超级管理员', '', '2024-01-08 12:05:57', '2024-03-18 19:38:04'),
-	(2, 'admin', '管理员', '', '2024-01-08 14:46:59', '2024-03-18 19:38:05'),
-	(3, 'volunteer', '志愿者', '一般认为，志愿者是自愿贡献个人的时间和精力的人，在不计物质报酬的前提下为推动人类发展、社会进步和社会福利事业而提供服务的人员。', '2024-03-18 19:13:08', '2024-03-18 19:38:20');
+	(1, 'super-admin', '超级管理员', NULL, '2024-01-08 12:05:57', '2024-03-22 15:18:19'),
+	(2, 'admin', '管理员', NULL, '2024-01-08 14:46:59', '2024-03-22 15:18:24'),
+	(3, 'volunteer', '志愿者', '一般认为，志愿者是自愿贡献个人的时间和精力的人，在不计物质报酬的前提下为推动人类发展、社会进步和社会福利事业而提供服务的人员。', '2024-03-18 19:13:08', '2024-03-22 14:42:17');
 
 -- 导出  表 loveta.auth_role_menu 结构
 DROP TABLE IF EXISTS `auth_role_menu`;
@@ -88,13 +91,14 @@ CREATE TABLE IF NOT EXISTS `auth_role_menu` (
   `role_id` int unsigned NOT NULL COMMENT '角色ID',
   `menu_id` int unsigned NOT NULL COMMENT '菜单ID',
   `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
-  PRIMARY KEY (`role_id`,`menu_id`)
+  PRIMARY KEY (`role_id`,`menu_id`),
+  KEY `FK_auth_role_menu_auth_menu` (`menu_id`),
+  CONSTRAINT `FK_auth_role_menu_auth_menu` FOREIGN KEY (`menu_id`) REFERENCES `auth_menu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_auth_role_menu_auth_role` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='角色菜单关系表';
 
--- 正在导出表  loveta.auth_role_menu 的数据：~1 rows (大约)
+-- 正在导出表  loveta.auth_role_menu 的数据：~0 rows (大约)
 DELETE FROM `auth_role_menu`;
-INSERT INTO `auth_role_menu` (`role_id`, `menu_id`, `create_time`) VALUES
-	(2, 1, '2024-03-03 18:01:19');
 
 -- 导出  表 loveta.auth_role_permission 结构
 DROP TABLE IF EXISTS `auth_role_permission`;
@@ -102,13 +106,16 @@ CREATE TABLE IF NOT EXISTS `auth_role_permission` (
   `role_id` int unsigned NOT NULL COMMENT '角色ID',
   `permission_id` int unsigned NOT NULL COMMENT '权限ID',
   `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
-  PRIMARY KEY (`role_id`,`permission_id`)
+  PRIMARY KEY (`role_id`,`permission_id`),
+  KEY `FK_auth_role_permission_auth_permission` (`permission_id`),
+  CONSTRAINT `FK_auth_role_permission_auth_permission` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_auth_role_permission_auth_role` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='角色权限关系表';
 
 -- 正在导出表  loveta.auth_role_permission 的数据：~1 rows (大约)
 DELETE FROM `auth_role_permission`;
 INSERT INTO `auth_role_permission` (`role_id`, `permission_id`, `create_time`) VALUES
-	(1, 1, '2024-01-08 12:48:46');
+	(1, 1, '2024-03-22 18:44:30');
 
 -- 导出  表 loveta.auth_user 结构
 DROP TABLE IF EXISTS `auth_user`;
@@ -141,7 +148,10 @@ CREATE TABLE IF NOT EXISTS `auth_user_role` (
   `user_id` bigint unsigned NOT NULL COMMENT '用户ID',
   `role_id` int unsigned NOT NULL COMMENT '角色ID',
   `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
-  PRIMARY KEY (`user_id`,`role_id`)
+  PRIMARY KEY (`user_id`,`role_id`),
+  KEY `FK_auth_user_role_auth_role` (`role_id`),
+  CONSTRAINT `FK_auth_user_role_auth_role` FOREIGN KEY (`role_id`) REFERENCES `auth_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_auth_user_role_auth_user` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户角色关系表';
 
 -- 正在导出表  loveta.auth_user_role 的数据：~4 rows (大约)
@@ -150,7 +160,7 @@ INSERT INTO `auth_user_role` (`user_id`, `role_id`, `create_time`) VALUES
 	(1, 1, '2024-03-20 16:10:13'),
 	(1, 3, '2024-03-22 13:26:13'),
 	(2, 2, '2024-03-22 13:26:23'),
-	(2, 3, '2024-03-22 13:55:07');
+	(2, 3, '2024-03-22 14:42:21');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

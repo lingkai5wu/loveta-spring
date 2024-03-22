@@ -83,6 +83,13 @@
             <artifactId>typescript-generator-spring</artifactId>
             <version>${typescript-generator.version}</version>
         </dependency>
+        <!-- 反射框架 -->
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.10.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>

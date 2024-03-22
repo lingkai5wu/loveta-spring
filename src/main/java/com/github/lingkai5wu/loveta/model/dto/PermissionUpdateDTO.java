@@ -1,6 +1,5 @@
 package com.github.lingkai5wu.loveta.model.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -14,12 +13,6 @@ public class PermissionUpdateDTO {
      */
     @NotNull
     private Integer id;
-
-    /**
-     * 权限编码
-     */
-    @NotBlank
-    private String code;
 
     /**
      * 描述
