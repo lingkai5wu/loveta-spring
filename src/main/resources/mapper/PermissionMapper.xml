@@ -10,11 +10,18 @@
         WHERE ur.user_id = #{id}
     </select>
     <select id="listPermissionsByUserId" resultType="com.github.lingkai5wu.loveta.model.po.Permission"
-            parameterType="java.lang.Long">
+            parameterType="long">
         SELECT p.*
         FROM auth_permission p
                  INNER JOIN auth_role_permission rp ON p.id = rp.permission_id
                  INNER JOIN auth_user_role ur ON rp.role_id = ur.role_id
         WHERE ur.user_id = #{id}
+    </select>
+    <select id="listPermissionsByRoleId" resultType="com.github.lingkai5wu.loveta.model.po.Permission"
+            parameterType="int">
+        SELECT p.*
+        FROM auth_permission p
+                 INNER JOIN auth_role_permission rp ON p.id = rp.permission_id
+        WHERE rp.role_id = #{id}
     </select>
 </mapper>

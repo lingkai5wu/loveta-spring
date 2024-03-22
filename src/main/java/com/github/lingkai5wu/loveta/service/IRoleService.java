@@ -15,4 +15,6 @@ public interface IRoleService extends IService<Role> {
     List<String> listRoleCodesByUserId(Object id);
 
     List<Role> listRolesByUserId(long id);
+
+    boolean existsById(int id);
 }

@@ -7,8 +7,14 @@ import cn.hutool.core.bean.BeanUtil;
 import com.github.lingkai5wu.loveta.model.Result;
 import com.github.lingkai5wu.loveta.model.dto.RoleSaveDTO;
 import com.github.lingkai5wu.loveta.model.dto.RoleUpdateDTO;
+import com.github.lingkai5wu.loveta.model.po.Menu;
+import com.github.lingkai5wu.loveta.model.po.Permission;
 import com.github.lingkai5wu.loveta.model.po.Role;
+import com.github.lingkai5wu.loveta.model.vo.MenuVO;
+import com.github.lingkai5wu.loveta.model.vo.PermissionVO;
 import com.github.lingkai5wu.loveta.model.vo.RoleVO;
+import com.github.lingkai5wu.loveta.service.IMenuService;
+import com.github.lingkai5wu.loveta.service.IPermissionService;
 import com.github.lingkai5wu.loveta.service.IRoleService;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -23,9 +29,13 @@ import java.util.List;
 @RequestMapping("/roles")
 public class RoleController {
     private final IRoleService roleService;
+    private final IPermissionService permissionService;
+    private final IMenuService menuService;
 
-    public RoleController(IRoleService roleService) {
+    public RoleController(IRoleService roleService, IPermissionService permissionService, IMenuService menuService) {
         this.roleService = roleService;
+        this.permissionService = permissionService;
+        this.menuService = menuService;
     }
 
     /**
@@ -50,6 +60,36 @@ public class RoleController {
         }
         RoleVO roleVO = BeanUtil.copyProperties(role, RoleVO.class);
         return Result.data(roleVO);
+    }
+
+    /**
+     * 列出角色权限
+     */
+    @GetMapping("/{id}/permissions")
+    @SaCheckPermission({"role:get", "permission:list"})
+    public Result<List<PermissionVO>> listRolePermissionVOs(@PathVariable int id) {
+        boolean exists = roleService.existsById(id);
+        if (!exists) {
+            return Result.status(HttpStatus.NOT_FOUND);
+        }
+        List<Permission> permissionList = permissionService.listPermissionsByRoleId(id);
+        List<PermissionVO> permissionVOList = BeanUtil.copyToList(permissionList, PermissionVO.class);
+        return Result.data(permissionVOList);
+    }
+
+    /**
+     * 列出角色菜单
+     */
+    @GetMapping("/{id}/menus")
+    @SaCheckPermission({"role:get", "menu:list"})
+    public Result<List<MenuVO>> listRoleMenuVOs(@PathVariable int id) {
+        boolean exists = roleService.existsById(id);
+        if (!exists) {
+            return Result.status(HttpStatus.NOT_FOUND);
+        }
+        List<Menu> menuList = menuService.listMenusByRoleId(id);
+        List<MenuVO> menuVOList = BeanUtil.copyToList(menuList, MenuVO.class);
+        return Result.data(menuVOList);
     }
 
     /**

@@ -15,5 +15,7 @@ public interface IPermissionService extends IService<Permission> {
 
     List<String> listPermissionCodesByUserId(Object id);
 
-    List<Permission> listPermissionsByUserId(Long id);
+    List<Permission> listPermissionsByUserId(long id);
+
+    List<Permission> listPermissionsByRoleId(int id);
 }

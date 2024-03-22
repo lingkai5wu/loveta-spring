@@ -14,4 +14,6 @@ import java.util.List;
 public interface MenuMapper extends BaseMapper<Menu> {
 
     List<Menu> listMenusByUserId(long id);
+
+    List<Menu> listMenusByRoleId(int id);
 }

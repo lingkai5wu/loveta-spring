@@ -26,4 +26,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     public List<Role> listRolesByUserId(long id) {
         return baseMapper.listRolesByUserId(id);
     }
+
+    @Override
+    public boolean existsById(int id) {
+        return lambdaQuery()
+                .eq(Role::getId, id)
+                .exists();
+    }
 }

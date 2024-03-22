@@ -77,4 +77,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
                 .eq(Menu::getPid, id)
                 .exists();
     }
+
+    @Override
+    public List<Menu> listMenusByRoleId(int id) {
+        return baseMapper.listMenusByRoleId(id);
+    }
 }
