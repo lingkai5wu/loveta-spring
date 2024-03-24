@@ -85,7 +85,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
-    public void updateRoleMenuByBatch(int roleId, BatchManyToManyDTO dto) {
+    public void updateRoleMenuByBatch(int roleId, BatchManyToManyDTO<Integer> dto) {
         if (dto.getTargetIdsToInsert() != null && !dto.getTargetIdsToInsert().isEmpty()) {
             baseMapper.batchInsertRoleMenus(roleId, dto.getTargetIdsToInsert());
         }

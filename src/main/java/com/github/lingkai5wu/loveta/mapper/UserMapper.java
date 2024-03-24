@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface UserMapper extends BaseMapper<User> {
 
-    boolean batchInsertUserRoles(long userId, List<Long> roleIdsToInsert);
+    boolean batchInsertUserRoles(long userId, List<Integer> roleIdsToInsert);
 
-    boolean batchDeleteUserRoles(long userId, List<Long> roleIdsToDelete);
+    boolean batchDeleteUserRoles(long userId, List<Integer> roleIdsToDelete);
 }

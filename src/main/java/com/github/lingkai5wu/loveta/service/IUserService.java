@@ -16,5 +16,5 @@ public interface IUserService extends IService<User> {
 
     boolean existsById(long id);
 
-    void updateUserRoleByBatch(long userId, BatchManyToManyDTO dto);
+    void updateUserRoleByBatch(long userId, BatchManyToManyDTO<Integer> dto);
 }

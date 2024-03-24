@@ -31,7 +31,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public void updateUserRoleByBatch(long userId, BatchManyToManyDTO dto) {
+    public void updateUserRoleByBatch(long userId, BatchManyToManyDTO<Integer> dto) {
         if (dto.getTargetIdsToInsert() != null && !dto.getTargetIdsToInsert().isEmpty()) {
             baseMapper.batchInsertUserRoles(userId, dto.getTargetIdsToInsert());
         }

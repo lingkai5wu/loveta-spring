@@ -42,7 +42,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     }
 
     @Override
-    public void updateRolePermissionByBatch(int roleId, BatchManyToManyDTO dto) {
+    public void updateRolePermissionByBatch(int roleId, BatchManyToManyDTO<Integer> dto) {
         if (dto.getTargetIdsToInsert() != null && !dto.getTargetIdsToInsert().isEmpty()) {
             baseMapper.batchInsertRolePermissions(roleId, dto.getTargetIdsToInsert());
         }

@@ -22,5 +22,5 @@ public interface IMenuService extends IService<Menu> {
 
     List<Menu> listMenusByRoleId(int id);
 
-    void updateRoleMenuByBatch(int roleId, BatchManyToManyDTO dto);
+    void updateRoleMenuByBatch(int roleId, BatchManyToManyDTO<Integer> dto);
 }

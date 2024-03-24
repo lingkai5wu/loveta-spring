@@ -131,7 +131,7 @@ public class RoleController {
      */
     @PutMapping("/{id}/permissions")
     @SaCheckPermission({"role:update", "permission:update"})
-    public Result<Void> updateRolePermissionByBatch(@PathVariable int id, @RequestBody BatchManyToManyDTO dto) {
+    public Result<Void> updateRolePermissionByBatch(@PathVariable int id, @RequestBody BatchManyToManyDTO<Integer> dto) {
         boolean exists = roleService.existsById(id);
         if (!exists) {
             return Result.status(HttpStatus.NOT_FOUND);
@@ -145,7 +145,7 @@ public class RoleController {
      */
     @PutMapping("/{id}/menus")
     @SaCheckPermission({"role:update", "menu:update"})
-    public Result<Void> updateRoleMenuByBatch(@PathVariable int id, @RequestBody BatchManyToManyDTO dto) {
+    public Result<Void> updateRoleMenuByBatch(@PathVariable int id, @RequestBody BatchManyToManyDTO<Integer> dto) {
         boolean exists = roleService.existsById(id);
         if (!exists) {
             return Result.status(HttpStatus.NOT_FOUND);

@@ -21,7 +21,7 @@ public interface IPermissionService extends IService<Permission> {
 
     List<Permission> listPermissionsByRoleId(int id);
 
-    void updateRolePermissionByBatch(int roleId, BatchManyToManyDTO dto);
+    void updateRolePermissionByBatch(int roleId, BatchManyToManyDTO<Integer> dto);
 
     Set<String> getPermissionCodeSetFromReflection();
 
