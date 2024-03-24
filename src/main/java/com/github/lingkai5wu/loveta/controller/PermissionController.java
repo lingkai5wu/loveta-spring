@@ -59,9 +59,7 @@ public class PermissionController {
     @GetMapping
     @SaCheckPermission("permission:list")
     public Result<List<PermissionVO>> listPermissionVOs() {
-        List<Permission> permissionList = permissionService.lambdaQuery()
-                .orderBy(true, true, Permission::getCode)
-                .list();
+        List<Permission> permissionList = permissionService.list();
         List<PermissionVO> permissionVOList = BeanUtil.copyToList(permissionList, PermissionVO.class);
         return Result.data(permissionVOList);
     }
@@ -70,7 +68,7 @@ public class PermissionController {
      * 同步权限
      */
     @PostMapping("/sync")
-    @SaCheckPermission({"permission:sync"})
+    @SaCheckPermission("permission:sync")
     public Result<Void> syncPermission() {
         Set<String> reflectionPermissionCodeSet = permissionService.getPermissionCodeSetFromReflection();
         reflectionPermissionCodeSet.add("*");
