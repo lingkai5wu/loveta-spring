@@ -12,6 +12,7 @@ import com.github.lingkai5wu.loveta.model.po.Menu;
 import com.github.lingkai5wu.loveta.model.query.MenuQuery;
 import com.github.lingkai5wu.loveta.model.vo.MenuVO;
 import com.github.lingkai5wu.loveta.service.IMenuService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +24,10 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/menus")
+@AllArgsConstructor
 public class MenuController {
-    private final IMenuService menuService;
 
-    public MenuController(IMenuService menuService) {
-        this.menuService = menuService;
-    }
+    private final IMenuService menuService;
 
     /**
      * 列出当前用户菜单

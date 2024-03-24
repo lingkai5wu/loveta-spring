@@ -19,6 +19,7 @@ import com.github.lingkai5wu.loveta.model.vo.UserVO;
 import com.github.lingkai5wu.loveta.service.IPermissionService;
 import com.github.lingkai5wu.loveta.service.IRoleService;
 import com.github.lingkai5wu.loveta.service.IUserService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,16 +31,12 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/users")
+@AllArgsConstructor
 public class UserController {
+
     private final IUserService userService;
     private final IRoleService roleService;
     private final IPermissionService permissionService;
-
-    public UserController(IUserService userService, IRoleService roleService, IPermissionService permissionService) {
-        this.userService = userService;
-        this.roleService = roleService;
-        this.permissionService = permissionService;
-    }
 
     /**
      * 获取当前用户

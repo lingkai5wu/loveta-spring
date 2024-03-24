@@ -10,6 +10,7 @@ import com.github.lingkai5wu.loveta.model.dto.PermissionUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.Permission;
 import com.github.lingkai5wu.loveta.model.vo.PermissionVO;
 import com.github.lingkai5wu.loveta.service.IPermissionService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +24,10 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/permissions")
+@AllArgsConstructor
 public class PermissionController {
-    private final IPermissionService permissionService;
 
-    public PermissionController(IPermissionService permissionService) {
-        this.permissionService = permissionService;
-    }
+    private final IPermissionService permissionService;
 
     /**
      * 列出当前用户权限

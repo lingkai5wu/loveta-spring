@@ -8,6 +8,7 @@ import com.github.lingkai5wu.loveta.model.vo.UserVO;
 import com.github.lingkai5wu.loveta.model.vo.aggregate.RuntimeDataVO;
 import com.github.lingkai5wu.loveta.service.IMenuService;
 import com.github.lingkai5wu.loveta.service.IUserService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,14 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/aggregate")
+@AllArgsConstructor
 public class AggregateController {
+    
     private final IUserService userService;
     private final IMenuService menuService;
-
-    public AggregateController(IUserService userService, IMenuService menuService) {
-        this.userService = userService;
-        this.menuService = menuService;
-    }
 
     /**
      * 获取运行时数据

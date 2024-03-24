@@ -9,6 +9,7 @@ import com.github.lingkai5wu.loveta.model.dto.AuthOtpLoginDTO;
 import com.github.lingkai5wu.loveta.model.po.User;
 import com.github.lingkai5wu.loveta.model.vo.TokenInfoVO;
 import com.github.lingkai5wu.loveta.service.IUserService;
+import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,12 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/auth")
+@AllArgsConstructor
 public class AuthController {
-    private final IUserService userService;
 
-    public AuthController(IUserService userService) {
-        this.userService = userService;
-    }
+    private final IUserService userService;
 
     /**
      * 发送验证码

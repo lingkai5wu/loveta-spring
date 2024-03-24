@@ -8,6 +8,7 @@ import com.aliyun.oss.model.PolicyConditions;
 import com.github.lingkai5wu.loveta.config.AliyunOssConfig;
 import com.github.lingkai5wu.loveta.model.vo.OssDirectPostObjectInfoVO;
 import com.github.lingkai5wu.loveta.service.IOssService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.net.URL;
@@ -21,14 +22,11 @@ import java.util.Date;
  * @since 2024-01-08
  */
 @Service
+@AllArgsConstructor
 public class AliyunOssServiceImpl implements IOssService {
+
     private final OSS client;
     private final AliyunOssConfig config;
-
-    public AliyunOssServiceImpl(OSS client, AliyunOssConfig config) {
-        this.client = client;
-        this.config = config;
-    }
 
     @Override
     public OssDirectPostObjectInfoVO getDirectPostObjectInfo() {

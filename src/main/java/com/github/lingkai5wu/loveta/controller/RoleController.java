@@ -17,6 +17,7 @@ import com.github.lingkai5wu.loveta.model.vo.RoleVO;
 import com.github.lingkai5wu.loveta.service.IMenuService;
 import com.github.lingkai5wu.loveta.service.IPermissionService;
 import com.github.lingkai5wu.loveta.service.IRoleService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,16 +29,12 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/roles")
+@AllArgsConstructor
 public class RoleController {
+
     private final IRoleService roleService;
     private final IPermissionService permissionService;
     private final IMenuService menuService;
-
-    public RoleController(IRoleService roleService, IPermissionService permissionService, IMenuService menuService) {
-        this.roleService = roleService;
-        this.permissionService = permissionService;
-        this.menuService = menuService;
-    }
 
     /**
      * 列出当前用户角色
