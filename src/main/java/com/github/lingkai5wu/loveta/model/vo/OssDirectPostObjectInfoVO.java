@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class OssDirectPostObjectInfoVO {
+
     /**
      * 请求域名
      */

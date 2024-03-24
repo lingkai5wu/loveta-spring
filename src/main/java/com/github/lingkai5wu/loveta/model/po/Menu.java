@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @TableName("auth_menu")
 public class Menu {
+
     /**
      * ID
      */

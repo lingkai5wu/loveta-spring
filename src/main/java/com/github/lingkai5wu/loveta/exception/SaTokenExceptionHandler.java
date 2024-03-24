@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE + 1)
 public class SaTokenExceptionHandler {
+
     /**
      * 未登录
      */

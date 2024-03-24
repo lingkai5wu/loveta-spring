@@ -9,6 +9,7 @@ import java.util.Map;
 @Data
 @Accessors(chain = true)
 public class MethodArgumentNotValidExceptionVO {
+
     /**
      * 无效参数
      */

@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
  * @since 2024-01-31
  */
 public interface IExceptionService {
+
     ExceptionVO getExceptionVO(Exception e);
 
     MethodArgumentNotValidExceptionVO getMethodArgumentNotValidExceptionVO(MethodArgumentNotValidException e);

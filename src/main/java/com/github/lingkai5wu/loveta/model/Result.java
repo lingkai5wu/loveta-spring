@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 @Data
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Result<T> {
+
     /**
      * 状态码
      */

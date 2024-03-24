@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 public class RuntimeDataVO {
+
     /**
      * 当前用户
      */

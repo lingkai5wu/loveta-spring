@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum MenuTypeEnum {
+
     /**
      * 父菜单
      */

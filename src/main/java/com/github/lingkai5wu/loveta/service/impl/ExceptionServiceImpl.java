@@ -17,6 +17,7 @@ import java.util.Map;
  */
 @Service
 public class ExceptionServiceImpl implements IExceptionService {
+
     @Override
     public ExceptionVO getExceptionVO(Exception e) {
         return new ExceptionVO()

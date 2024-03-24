@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @TableName("auth_role")
 public class Role {
+
     /**
      * ID
      */

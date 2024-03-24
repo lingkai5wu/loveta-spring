@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Data
 public class MenuSaveDTO {
+
     /**
      * 父菜单ID
      */

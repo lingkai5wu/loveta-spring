@@ -11,6 +11,7 @@ import java.net.URL;
  * @since 2024-01-08
  */
 public interface IOssService {
+
     OssDirectPostObjectInfoVO getDirectPostObjectInfo();
 
     URL getGetObjectUrl(String objectName);

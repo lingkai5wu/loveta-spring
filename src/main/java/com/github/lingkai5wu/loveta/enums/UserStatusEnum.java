@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum UserStatusEnum {
+
     /**
      * 未验证
      */

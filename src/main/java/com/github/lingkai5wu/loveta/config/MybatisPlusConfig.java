@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @MapperScan("com.github.lingkai5wu.loveta.mapper")
 public class MybatisPlusConfig {
+
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();

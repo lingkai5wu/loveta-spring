@@ -9,5 +9,4 @@ class LoveTaApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

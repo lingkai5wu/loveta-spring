@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "aliyun.oss")
 public class AliyunOssConfig {
+
     private String accessKeyId;
     private String accessKeySecret;
     private String endpoint = "oss.aliyuncs.com";

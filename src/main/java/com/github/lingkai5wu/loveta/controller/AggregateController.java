@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/aggregate")
 @AllArgsConstructor
 public class AggregateController {
-    
+
     private final IUserService userService;
     private final IMenuService menuService;
 
