@@ -44,6 +44,11 @@ public class Menu {
     private String path;
 
     /**
+     * 排序
+     */
+    private Integer sortOrder;
+
+    /**
      * 创建时间
      */
     private LocalDateTime createTime;

@@ -3,6 +3,7 @@ package com.github.lingkai5wu.loveta.exception;
 import com.github.lingkai5wu.loveta.model.Result;
 import com.github.lingkai5wu.loveta.model.vo.exception.MethodArgumentNotValidExceptionVO;
 import com.github.lingkai5wu.loveta.service.IExceptionService;
+import jakarta.validation.ConstraintViolationException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
@@ -24,5 +25,11 @@ public class ValidationExceptionHandler {
     public Result<MethodArgumentNotValidExceptionVO> handlerException(MethodArgumentNotValidException e) {
         log.warn(e.getMessage());
         return Result.status(HttpStatus.BAD_REQUEST, "参数无效", exceptionService.getMethodArgumentNotValidExceptionVO(e));
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public Result<Void> handlerException(ConstraintViolationException e) {
+        log.warn(e.getMessage());
+        return Result.status(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 }

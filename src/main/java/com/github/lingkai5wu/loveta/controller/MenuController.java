@@ -6,12 +6,14 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.lingkai5wu.loveta.enums.MenuTypeEnum;
 import com.github.lingkai5wu.loveta.model.Result;
+import com.github.lingkai5wu.loveta.model.dto.MenuOrderUpdateDTO;
 import com.github.lingkai5wu.loveta.model.dto.MenuSaveDTO;
 import com.github.lingkai5wu.loveta.model.dto.MenuUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.Menu;
 import com.github.lingkai5wu.loveta.model.query.MenuQuery;
 import com.github.lingkai5wu.loveta.model.vo.MenuVO;
 import com.github.lingkai5wu.loveta.service.IMenuService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -97,6 +99,17 @@ public class MenuController {
         if (!updated) {
             return Result.status(HttpStatus.NOT_FOUND);
         }
+        return Result.ok();
+    }
+
+    /**
+     * 批量修改菜单排序
+     */
+    @PostMapping("/batch-update-order")
+    @SaCheckPermission("menu:update")
+    public Result<Void> batchUpdateMenuOrder(@RequestBody @Valid List<MenuOrderUpdateDTO> dtoList) {
+        List<Menu> menuList = BeanUtil.copyToList(dtoList, Menu.class);
+        menuService.updateBatchById(menuList);
         return Result.ok();
     }
 

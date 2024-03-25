@@ -35,4 +35,9 @@ public class MenuVO {
      * 路径
      */
     private String path;
+
+    /**
+     * 排序
+     */
+    private Integer sortOrder;
 }
