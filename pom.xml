@@ -171,6 +171,9 @@
                     <outputKind>module</outputKind>
                     <noEslintDisable>true</noEslintDisable>
                     <noFileComment>true</noFileComment>
+                    <customTypeMappings>
+                        <mapping>java.time.LocalDateTime:string</mapping>
+                    </customTypeMappings>
                 </configuration>
             </plugin>
         </plugins>
