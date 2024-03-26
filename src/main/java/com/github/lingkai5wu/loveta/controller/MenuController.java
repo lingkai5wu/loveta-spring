@@ -109,6 +109,11 @@ public class MenuController {
     @SaCheckPermission("menu:update")
     public Result<Void> batchUpdateMenuOrder(@RequestBody @Valid List<MenuOrderUpdateDTO> dtoList) {
         List<Menu> menuList = BeanUtil.copyToList(dtoList, Menu.class);
+        for (Menu menu : menuList) {
+            if (!menuService.verifyParent(menu)) {
+                return Result.error("父菜单无效");
+            }
+        }
         menuService.updateBatchById(menuList);
         return Result.ok();
     }

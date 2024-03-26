@@ -28,26 +28,27 @@ CREATE TABLE IF NOT EXISTS `auth_menu` (
   `type` tinyint NOT NULL COMMENT '类型',
   `label` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '标签',
   `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '路径',
+  `sort_order` int DEFAULT NULL COMMENT '排序',
   `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='菜单表';
 
 -- 正在导出表  loveta.auth_menu 的数据：~12 rows (大约)
 DELETE FROM `auth_menu`;
-INSERT INTO `auth_menu` (`id`, `pid`, `type`, `label`, `path`, `create_time`, `update_time`) VALUES
-	(1, 0, 1, '菜单管理', '/menu', '2024-01-08 12:06:27', '2024-03-11 22:29:11'),
-	(2, 0, 1, '用户管理', '/user', '2024-01-08 14:40:47', '2024-03-18 20:01:55'),
-	(3, 0, 0, '开发书签', NULL, '2024-01-11 21:21:27', '2024-03-16 10:26:38'),
-	(4, 3, 2, 'Vue 文档', 'https://cn.vuejs.org/guide/introduction.html', '2024-01-30 16:35:06', '2024-03-06 00:30:19'),
-	(5, 3, 2, 'Naive UI 组件', 'https://www.naiveui.com/zh-CN/os-theme/components/button', '2024-01-08 12:06:27', '2024-03-06 00:07:06'),
-	(6, 3, 2, 'Ionicons 图标', 'https://ionic.io/ionicons', '2024-01-30 17:14:02', '2024-03-06 00:08:20'),
-	(7, 29, 2, 'OSS 控制台', 'https://oss.console.aliyun.com/bucket/oss-cn-hangzhou/loveta-dev/overview', '2024-01-11 19:43:44', '2024-03-14 16:33:00'),
-	(8, 3, 2, 'TypeScript 教程', 'https://typescript.p6p.net/', '2024-03-06 15:22:09', '2024-03-12 21:42:43'),
-	(9, 3, 0, '后端', NULL, '2024-03-13 23:53:29', '2024-03-18 00:54:42'),
-	(10, 29, 2, '验证码', 'https://yundun.console.aliyun.com/?p=captcha', '2024-03-17 00:21:37', '2024-03-18 00:54:44'),
-	(11, 0, 1, '角色管理', '/role', '2024-03-22 14:04:53', NULL),
-	(13, 0, 1, '权限管理', '/permission', '2024-03-22 15:35:06', NULL);
+INSERT INTO `auth_menu` (`id`, `pid`, `type`, `label`, `path`, `sort_order`, `create_time`, `update_time`) VALUES
+	(1, 0, 1, '菜单管理', '/menu', 1, '2024-01-08 12:06:27', '2024-03-26 00:33:29'),
+	(2, 0, 1, '用户管理', '/user', 2, '2024-01-08 14:40:47', '2024-03-26 01:49:45'),
+	(3, 0, 0, '开发书签', NULL, 5, '2024-01-11 21:21:27', '2024-03-26 10:47:20'),
+	(4, 3, 2, 'Vue 文档', 'https://cn.vuejs.org/guide/introduction.html', 6, '2024-01-30 16:35:06', '2024-03-26 10:48:11'),
+	(5, 3, 2, 'Naive UI 组件', 'https://www.naiveui.com/zh-CN/os-theme/components/button', 7, '2024-01-08 12:06:27', '2024-03-26 10:48:11'),
+	(6, 3, 2, 'Ionicons 图标', 'https://ionic.io/ionicons', 9, '2024-01-30 17:14:02', '2024-03-26 10:48:11'),
+	(7, 9, 2, 'OSS 控制台', 'https://oss.console.aliyun.com/bucket/oss-cn-hangzhou/loveta-dev/overview', 11, '2024-01-11 19:43:44', '2024-03-26 01:49:46'),
+	(8, 3, 2, 'TypeScript 教程', 'https://typescript.p6p.net/', 8, '2024-03-06 15:22:09', '2024-03-26 10:48:11'),
+	(9, 3, 0, '后端', NULL, 10, '2024-03-13 23:53:29', '2024-03-26 10:48:11'),
+	(10, 9, 2, '验证码', 'https://yundun.console.aliyun.com/?p=captcha', 12, '2024-03-17 00:21:37', '2024-03-26 01:49:46'),
+	(11, 0, 1, '角色管理', '/role', 3, '2024-03-22 14:04:53', '2024-03-26 10:42:05'),
+	(13, 0, 1, '权限管理', '/permission', 4, '2024-03-22 15:35:06', '2024-03-26 10:47:20');
 
 -- 导出  表 loveta.auth_permission 结构
 DROP TABLE IF EXISTS `auth_permission`;
@@ -59,24 +60,45 @@ CREATE TABLE IF NOT EXISTS `auth_permission` (
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='权限表';
 
--- 正在导出表  loveta.auth_permission 的数据：~1 rows (大约)
+-- 正在导出表  loveta.auth_permission 的数据：~21 rows (大约)
 DELETE FROM `auth_permission`;
 INSERT INTO `auth_permission` (`id`, `code`, `description`, `create_time`, `update_time`) VALUES
-	(1, '*', NULL, '2024-03-22 18:44:02', '2024-03-22 21:47:56');
+	(1, '*', '上帝权限', '2024-03-22 18:44:02', '2024-03-24 21:49:18'),
+	(2, 'menu:remove', NULL, '2024-03-24 21:50:58', NULL),
+	(3, 'role:get', NULL, '2024-03-24 21:50:58', NULL),
+	(4, 'user:list', NULL, '2024-03-24 21:50:58', NULL),
+	(5, 'role:update', NULL, '2024-03-24 21:50:58', NULL),
+	(6, 'permission:list', NULL, '2024-03-24 21:50:58', NULL),
+	(7, 'permission:sync', NULL, '2024-03-24 21:50:58', NULL),
+	(8, 'user:update', NULL, '2024-03-24 21:50:58', NULL),
+	(9, 'permission:update', NULL, '2024-03-24 21:50:58', NULL),
+	(10, 'menu:list', NULL, '2024-03-24 21:50:58', NULL),
+	(11, 'menu:get', NULL, '2024-03-24 21:50:58', NULL),
+	(12, 'menu:save', NULL, '2024-03-24 21:50:58', NULL),
+	(13, 'user:remove', NULL, '2024-03-24 21:50:58', NULL),
+	(14, 'menu:update', NULL, '2024-03-24 21:50:58', NULL),
+	(15, 'role:remove', NULL, '2024-03-24 21:50:58', NULL),
+	(16, 'user:get', NULL, '2024-03-24 21:50:58', NULL),
+	(17, 'permission:get', NULL, '2024-03-24 21:50:58', NULL),
+	(18, 'role:list', NULL, '2024-03-24 21:50:58', NULL),
+	(19, 'oss:post', NULL, '2024-03-24 21:50:58', NULL),
+	(20, 'role:save', NULL, '2024-03-24 21:50:58', NULL),
+	(21, 'user:save', NULL, '2024-03-24 21:50:58', NULL);
 
 -- 导出  表 loveta.auth_role 结构
 DROP TABLE IF EXISTS `auth_role`;
 CREATE TABLE IF NOT EXISTS `auth_role` (
   `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '角色编码',
-  `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '角色名',
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '角色名',
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '描述',
   `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='角色表';
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='角色表';
 
 -- 正在导出表  loveta.auth_role 的数据：~3 rows (大约)
 DELETE FROM `auth_role`;
@@ -134,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `auth_user` (
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `phone` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户表';
 
 -- 正在导出表  loveta.auth_user 的数据：~2 rows (大约)
 DELETE FROM `auth_user`;
