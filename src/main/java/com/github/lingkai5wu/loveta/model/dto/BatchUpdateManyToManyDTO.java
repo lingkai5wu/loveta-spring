@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class BatchManyToManyDTO<T> {
+public class BatchUpdateManyToManyDTO<T> {
 
     /**
      * 需插入的目标实体ID

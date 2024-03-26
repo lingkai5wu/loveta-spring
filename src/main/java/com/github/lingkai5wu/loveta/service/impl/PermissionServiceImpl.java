@@ -3,7 +3,7 @@ package com.github.lingkai5wu.loveta.service.impl;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.lingkai5wu.loveta.mapper.PermissionMapper;
-import com.github.lingkai5wu.loveta.model.dto.BatchManyToManyDTO;
+import com.github.lingkai5wu.loveta.model.dto.BatchUpdateManyToManyDTO;
 import com.github.lingkai5wu.loveta.model.po.Permission;
 import com.github.lingkai5wu.loveta.service.IPermissionService;
 import org.reflections.Reflections;
@@ -42,7 +42,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     }
 
     @Override
-    public void updateRolePermissionByBatch(int roleId, BatchManyToManyDTO<Integer> dto) {
+    public void batchUpdateRolePermission(int roleId, BatchUpdateManyToManyDTO<Integer> dto) {
         if (dto.getTargetIdsToInsert() != null && !dto.getTargetIdsToInsert().isEmpty()) {
             baseMapper.batchInsertRolePermissions(roleId, dto.getTargetIdsToInsert());
         }
@@ -71,7 +71,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     @Override
     public void batchDeletePermissionsByCode(List<String> permissionCodeList) {
         if (permissionCodeList != null && !permissionCodeList.isEmpty()) {
-            baseMapper.batchDeletePermissionsWithCode(permissionCodeList);
+            baseMapper.batchDeletePermissionsByCode(permissionCodeList);
         }
     }
 }

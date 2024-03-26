@@ -1,7 +1,7 @@
 package com.github.lingkai5wu.loveta.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.github.lingkai5wu.loveta.model.dto.BatchManyToManyDTO;
+import com.github.lingkai5wu.loveta.model.dto.BatchUpdateManyToManyDTO;
 import com.github.lingkai5wu.loveta.model.po.Permission;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public interface IPermissionService extends IService<Permission> {
 
     List<Permission> listPermissionsByRoleId(int id);
 
-    void updateRolePermissionByBatch(int roleId, BatchManyToManyDTO<Integer> dto);
+    void batchUpdateRolePermission(int roleId, BatchUpdateManyToManyDTO<Integer> dto);
 
     Set<String> getPermissionCodeSetFromReflection();
 

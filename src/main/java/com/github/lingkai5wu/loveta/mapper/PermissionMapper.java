@@ -23,5 +23,5 @@ public interface PermissionMapper extends BaseMapper<Permission> {
 
     boolean batchDeleteRolePermissions(int roleId, List<Integer> permissionIdsToDelete);
 
-    boolean batchDeletePermissionsWithCode(List<String> permissionCodeList);
+    boolean batchDeletePermissionsByCode(List<String> permissionCodeList);
 }

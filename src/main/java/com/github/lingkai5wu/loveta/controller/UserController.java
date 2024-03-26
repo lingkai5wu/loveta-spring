@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.lingkai5wu.loveta.model.PageDTO;
 import com.github.lingkai5wu.loveta.model.PageVO;
 import com.github.lingkai5wu.loveta.model.Result;
-import com.github.lingkai5wu.loveta.model.dto.BatchManyToManyDTO;
+import com.github.lingkai5wu.loveta.model.dto.BatchUpdateManyToManyDTO;
 import com.github.lingkai5wu.loveta.model.dto.UserSaveDTO;
 import com.github.lingkai5wu.loveta.model.dto.UserUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.Permission;
@@ -151,12 +151,12 @@ public class UserController {
      */
     @PutMapping("/{id}/roles")
     @SaCheckPermission({"user:update", "role:update"})
-    public Result<Void> updateUserRoleByBatch(@PathVariable long id, @RequestBody BatchManyToManyDTO<Integer> dto) {
+    public Result<Void> batchUpdateUserRole(@PathVariable long id, @RequestBody BatchUpdateManyToManyDTO<Integer> dto) {
         boolean exists = userService.existsById(id);
         if (!exists) {
             return Result.status(HttpStatus.NOT_FOUND);
         }
-        userService.updateUserRoleByBatch(id, dto);
+        userService.batchUpdateUserRole(id, dto);
         return Result.ok();
     }
 

@@ -41,7 +41,7 @@
         </foreach>
     </delete>
 
-    <delete id="batchDeletePermissionsWithCode">
+    <delete id="batchDeletePermissionsByCode">
         DELETE FROM auth_permission
         WHERE code IN
         <foreach item="permissionCode" collection="permissionCodeList" open="(" separator="," close=")">
