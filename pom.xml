@@ -128,6 +128,9 @@
                             <optionalPropertiesDeclaration>
                                 questionMarkAndNullableType
                             </optionalPropertiesDeclaration>
+                            <classes>
+                                <class>com.github.lingkai5wu.loveta.model.PageDTO</class>
+                            </classes>
                             <classPatterns>
                                 <pattern>com.github.lingkai5wu.loveta.model.dto.**</pattern>
                                 <pattern>com.github.lingkai5wu.loveta.model.query.**</pattern>
@@ -155,6 +158,7 @@
                             </requiredAnnotations>
                             <classes>
                                 <class>com.github.lingkai5wu.loveta.model.Result</class>
+                                <class>com.github.lingkai5wu.loveta.model.PageVO</class>
                             </classes>
                             <classPatterns>
                                 <pattern>com.github.lingkai5wu.loveta.model.vo.**</pattern>

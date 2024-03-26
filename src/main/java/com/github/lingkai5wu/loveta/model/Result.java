@@ -1,10 +1,14 @@
 package com.github.lingkai5wu.loveta.model;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
+
+import java.util.List;
 
 /**
  * 结果
@@ -41,6 +45,13 @@ public class Result<T> {
 
     public static <T> Result<T> data(T data) {
         return new Result<>(HttpStatus.OK, data);
+    }
+
+    public static <T> Result<PageVO<T>> page(List<T> records, Page<?> page) {
+        PageVO<T> pageVO = new PageVO<>();
+        BeanUtil.copyProperties(page, pageVO);
+        pageVO.setRecords(records);
+        return new Result<>(HttpStatus.OK, pageVO);
     }
 
     public static <T> Result<T> error(String msg) {

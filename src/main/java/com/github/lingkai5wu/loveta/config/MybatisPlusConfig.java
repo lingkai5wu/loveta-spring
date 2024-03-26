@@ -18,7 +18,7 @@ public class MybatisPlusConfig {
 
         // 分页插件
         PaginationInnerInterceptor paginationInnerInterceptor = new PaginationInnerInterceptor(DbType.MYSQL);
-        paginationInnerInterceptor.setMaxLimit(1000L);
+        paginationInnerInterceptor.setMaxLimit(100L);
         interceptor.addInnerInterceptor(paginationInnerInterceptor);
 
         // 防全表更新与删除插件

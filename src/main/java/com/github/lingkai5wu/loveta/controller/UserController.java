@@ -4,7 +4,11 @@ package com.github.lingkai5wu.loveta.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.lingkai5wu.loveta.model.PageDTO;
+import com.github.lingkai5wu.loveta.model.PageVO;
 import com.github.lingkai5wu.loveta.model.Result;
 import com.github.lingkai5wu.loveta.model.dto.BatchManyToManyDTO;
 import com.github.lingkai5wu.loveta.model.dto.UserSaveDTO;
@@ -100,6 +104,21 @@ public class UserController {
         QueryWrapper<User> wrapper = new QueryWrapper<>(BeanUtil.copyProperties(query, User.class));
         List<UserVO> userVOList = BeanUtil.copyToList(userService.list(wrapper), UserVO.class);
         return Result.data(userVOList);
+    }
+
+    /**
+     * 分页列出全部用户
+     */
+    @GetMapping("/page")
+    @SaCheckPermission("user:list")
+    public Result<PageVO<UserVO>> listUserVOsWithPage(PageDTO pageDTO, UserQuery query) {
+        Page<User> page = new Page<>();
+        BeanUtil.copyProperties(pageDTO, page, new CopyOptions().ignoreNullValue());
+
+        QueryWrapper<User> wrapper = new QueryWrapper<>(BeanUtil.copyProperties(query, User.class));
+        page = userService.page(page, wrapper);
+        List<UserVO> userVOList = BeanUtil.copyToList(page.getRecords(), UserVO.class);
+        return Result.page(userVOList, page);
     }
 
     /**
