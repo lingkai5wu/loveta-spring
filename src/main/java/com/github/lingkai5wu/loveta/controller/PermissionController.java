@@ -4,7 +4,11 @@ package com.github.lingkai5wu.loveta.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.lingkai5wu.loveta.model.PageDTO;
+import com.github.lingkai5wu.loveta.model.PageVO;
 import com.github.lingkai5wu.loveta.model.Result;
 import com.github.lingkai5wu.loveta.model.dto.PermissionUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.Permission;
@@ -62,6 +66,19 @@ public class PermissionController {
         List<Permission> permissionList = permissionService.list();
         List<PermissionVO> permissionVOList = BeanUtil.copyToList(permissionList, PermissionVO.class);
         return Result.data(permissionVOList);
+    }
+
+    /**
+     * 分页列出全部权限
+     */
+    @GetMapping("/page")
+    @SaCheckPermission("permission:list")
+    public Result<PageVO<PermissionVO>> listPermissionVOsWithPage(PageDTO pageDTO) {
+        Page<Permission> page = new Page<>();
+        BeanUtil.copyProperties(pageDTO, page, new CopyOptions().ignoreNullValue());
+        page = permissionService.page(page);
+        List<PermissionVO> permissionVOList = BeanUtil.copyToList(page.getRecords(), PermissionVO.class);
+        return Result.page(permissionVOList, page);
     }
 
     /**

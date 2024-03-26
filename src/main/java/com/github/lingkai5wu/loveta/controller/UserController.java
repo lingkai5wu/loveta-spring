@@ -114,7 +114,6 @@ public class UserController {
     public Result<PageVO<UserVO>> listUserVOsWithPage(PageDTO pageDTO, UserQuery query) {
         Page<User> page = new Page<>();
         BeanUtil.copyProperties(pageDTO, page, new CopyOptions().ignoreNullValue());
-
         QueryWrapper<User> wrapper = new QueryWrapper<>(BeanUtil.copyProperties(query, User.class));
         page = userService.page(page, wrapper);
         List<UserVO> userVOList = BeanUtil.copyToList(page.getRecords(), UserVO.class);
