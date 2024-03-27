@@ -7,6 +7,7 @@ import com.github.lingkai5wu.loveta.model.vo.MenuVO;
 import com.github.lingkai5wu.loveta.model.vo.UserVO;
 import com.github.lingkai5wu.loveta.model.vo.aggregate.RuntimeDataVO;
 import com.github.lingkai5wu.loveta.service.IMenuService;
+import com.github.lingkai5wu.loveta.service.IPermissionService;
 import com.github.lingkai5wu.loveta.service.IUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ public class AggregateController {
 
     private final IUserService userService;
     private final IMenuService menuService;
+    private final IPermissionService permissionService;
 
     /**
      * 获取运行时数据
@@ -32,7 +34,8 @@ public class AggregateController {
         long id = StpUtil.getLoginIdAsLong();
         RuntimeDataVO dataVO = new RuntimeDataVO()
                 .setUserVO(BeanUtil.copyProperties(userService.getById(id), UserVO.class))
-                .setMenuVOs(BeanUtil.copyToList(menuService.listMenusByUserId(id), MenuVO.class));
+                .setMenuVOs(BeanUtil.copyToList(menuService.listMenusByUserId(id), MenuVO.class))
+                .setPermissionCodes(permissionService.listPermissionCodesByUserId(id));
         return Result.data(dataVO);
     }
 }

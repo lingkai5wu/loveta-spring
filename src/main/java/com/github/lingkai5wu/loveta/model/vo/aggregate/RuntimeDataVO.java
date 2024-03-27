@@ -23,4 +23,10 @@ public class RuntimeDataVO {
      */
     @NotNull
     private List<MenuVO> menuVOs;
+
+    /**
+     * 当前用户权限编码
+     */
+    @NotNull
+    private List<String> permissionCodes;
 }
