@@ -25,7 +25,7 @@ public class OssController {
      */
     @GetMapping("/direct-post-object-info")
     @SaCheckPermission("oss:post")
-    public Result<OssDirectPostObjectInfoVO> getDirectPostObjectInfo() {
-        return Result.data(aliyunOssService.getDirectPostObjectInfo());
+    public Result<OssDirectPostObjectInfoVO> getOssDirectPostObjectInfoVO() {
+        return Result.data(aliyunOssService.getOssDirectPostObjectInfoVO());
     }
 }

@@ -12,7 +12,7 @@ import java.net.URL;
  */
 public interface IOssService {
 
-    OssDirectPostObjectInfoVO getDirectPostObjectInfo();
+    OssDirectPostObjectInfoVO getOssDirectPostObjectInfoVO();
 
     URL getGetObjectUrl(String objectName);
 }

@@ -29,7 +29,7 @@ public class AliyunOssServiceImpl implements IOssService {
     private final AliyunOssConfig config;
 
     @Override
-    public OssDirectPostObjectInfoVO getDirectPostObjectInfo() {
+    public OssDirectPostObjectInfoVO getOssDirectPostObjectInfoVO() {
         OssDirectPostObjectInfoVO infoVO = new OssDirectPostObjectInfoVO();
 
         String host = String.format("https://%s.%s", config.getBucket(), config.getEndpoint());
