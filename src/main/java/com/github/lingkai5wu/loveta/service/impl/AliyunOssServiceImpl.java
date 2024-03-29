@@ -29,40 +29,37 @@ public class AliyunOssServiceImpl implements IOssService {
     private final AliyunOssConfig config;
 
     @Override
+    public URL generateOssGetObjectUrl(String objectName) {
+        long expire = (long) (System.currentTimeMillis() + config.getGetObjectUrlValidSeconds() * 1000);
+        Date expiration = new Date(expire);
+        GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(config.getBucket(), objectName, HttpMethod.GET);
+        request.setExpiration(expiration);
+        return client.generatePresignedUrl(request);
+    }
+
+    @Override
     public OssDirectPostObjectInfoVO getOssDirectPostObjectInfoVO() {
-        OssDirectPostObjectInfoVO infoVO = new OssDirectPostObjectInfoVO();
-
         String host = String.format("https://%s.%s", config.getBucket(), config.getEndpoint());
-        infoVO.setHost(host);
-
-        long expire = (long) (System.currentTimeMillis() + config.getPostObjectPolicyValiditySecond() * 1000);
-        infoVO.setExpire(expire);
-
-        infoVO.setOssAccessKeyId(config.getAccessKeyId());
+        long expire = (long) (System.currentTimeMillis() + config.getPostObjectPolicyValidSeconds() * 1000);
+        long maxSizeAllowed = (long) (config.getPostObjectMaxSizeAllowedMebibyte() * 1024 * 1024);
 
         PolicyConditions conditions = new PolicyConditions();
         conditions.addConditionItem(
                 PolicyConditions.COND_CONTENT_LENGTH_RANGE,
                 0,
-                (long) (config.getPostObjectMaxContentLengthMebibyte() * 1024 * 1024));
-        Date expiration = new Date(expire);
-        String policy = client.generatePostPolicy(expiration, conditions);
-        byte[] policyBytes = policy.getBytes(StandardCharsets.UTF_8);
+                maxSizeAllowed);
+        String rowPolicy = client.generatePostPolicy(new Date(expire), conditions);
+        byte[] policyBytes = rowPolicy.getBytes(StandardCharsets.UTF_8);
         String encodedPolicy = BinaryUtil.toBase64String(policyBytes);
-        infoVO.setPolicy(encodedPolicy);
 
-        String signature = client.calculatePostSignature(policy);
-        infoVO.setSignature(signature);
+        String signature = client.calculatePostSignature(rowPolicy);
 
-        return infoVO;
-    }
-
-    @Override
-    public URL getGetObjectUrl(String objectName) {
-        long expire = (long) (System.currentTimeMillis() + config.getPostObjectPolicyValiditySecond() * 1000);
-        Date expiration = new Date(expire);
-        GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(config.getBucket(), objectName, HttpMethod.GET);
-        request.setExpiration(expiration);
-        return client.generatePresignedUrl(request);
+        return new OssDirectPostObjectInfoVO()
+                .setHost(host)
+                .setExpire(expire)
+                .setMaxSize(maxSizeAllowed)
+                .setOssAccessKeyId(config.getAccessKeyId())
+                .setPolicy(encodedPolicy)
+                .setSignature(signature);
     }
 }

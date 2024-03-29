@@ -2,8 +2,10 @@ package com.github.lingkai5wu.loveta.model.vo;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 @Data
+@Accessors(chain = true)
 public class OssDirectPostObjectInfoVO {
 
     /**
@@ -17,6 +19,12 @@ public class OssDirectPostObjectInfoVO {
      */
     @NotNull
     private long expire;
+
+    /**
+     * Object 最大大小
+     */
+    @NotNull
+    private long maxSize;
 
     /**
      * AccessKey ID

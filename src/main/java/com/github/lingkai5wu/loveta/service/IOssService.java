@@ -14,5 +14,5 @@ public interface IOssService {
 
     OssDirectPostObjectInfoVO getOssDirectPostObjectInfoVO();
 
-    URL getGetObjectUrl(String objectName);
+    URL generateOssGetObjectUrl(String objectName);
 }
