@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Accessors(chain = true)
-@TableName("auth_menu")
+@TableName("menu")
 public class Menu {
 
     /**

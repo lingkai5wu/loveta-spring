@@ -4,27 +4,27 @@
 
     <select id="listMenusByUserId" resultType="com.github.lingkai5wu.loveta.model.po.Menu" parameterType="long">
         SELECT m.*
-        FROM auth_menu m
-                 INNER JOIN auth_role_menu rm ON m.id = rm.menu_id
-                 INNER JOIN auth_user_role ur ON rm.role_id = ur.role_id
+        FROM menu m
+                 INNER JOIN role_menu rm ON m.id = rm.menu_id
+                 INNER JOIN user_role ur ON rm.role_id = ur.role_id
         WHERE ur.user_id = #{id}
     </select>
     <select id="listMenusByRoleId" resultType="com.github.lingkai5wu.loveta.model.po.Menu" parameterType="int">
         SELECT m.*
-        FROM auth_menu m
-                 INNER JOIN auth_role_menu rm ON m.id = rm.menu_id
+        FROM menu m
+                 INNER JOIN role_menu rm ON m.id = rm.menu_id
         WHERE rm.role_id = #{id}
     </select>
 
     <insert id="batchInsertRoleMenus">
-        INSERT INTO auth_role_menu(role_id, menu_id)
+        INSERT INTO role_menu(role_id, menu_id)
         VALUES
         <foreach item="menuId" collection="menuIdsToInsert" separator=",">
             (#{roleId}, #{menuId})
         </foreach>
     </insert>
     <delete id="batchDeleteRoleMenus">
-        DELETE FROM auth_role_menu
+        DELETE FROM role_menu
         WHERE role_id = #{roleId}
         AND menu_id IN
         <foreach item="menuId" collection="menuIdsToDelete" open="(" separator="," close=")">

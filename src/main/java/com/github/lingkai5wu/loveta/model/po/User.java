@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Accessors(chain = true)
-@TableName("auth_user")
+@TableName("user")
 public class User {
 
     /**

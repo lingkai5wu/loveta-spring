@@ -4,15 +4,15 @@
 
     <select id="listRoleCodesByUserId" resultType="java.lang.String" parameterType="object">
         SELECT r.code
-        FROM auth_role r
-                 INNER JOIN auth_user_role ur ON r.id = ur.role_id
+        FROM role r
+                 INNER JOIN user_role ur ON r.id = ur.role_id
         WHERE ur.user_id = #{id}
     </select>
     <select id="listRolesByUserId" resultType="com.github.lingkai5wu.loveta.model.po.Role"
             parameterType="long">
         SELECT r.*
-        FROM auth_role r
-                 INNER JOIN auth_user_role ur ON r.id = ur.role_id
+        FROM role r
+                 INNER JOIN user_role ur ON r.id = ur.role_id
         WHERE ur.user_id = #{id}
     </select>
 </mapper>

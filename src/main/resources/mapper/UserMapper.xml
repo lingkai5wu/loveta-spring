@@ -3,14 +3,14 @@
 <mapper namespace="com.github.lingkai5wu.loveta.mapper.UserMapper">
 
     <insert id="batchInsertUserRoles">
-        INSERT INTO auth_user_role(user_id, role_id)
+        INSERT INTO user_role(user_id, role_id)
         VALUES
         <foreach item="roleId" collection="roleIdsToInsert" separator=",">
             (#{userId}, #{roleId})
         </foreach>
     </insert>
     <delete id="batchDeleteUserRoles">
-        DELETE FROM auth_user_role
+        DELETE FROM user_role
         WHERE user_id = #{userId}
         AND role_id IN
         <foreach item="roleId" collection="roleIdsToDelete" open="(" separator="," close=")">
