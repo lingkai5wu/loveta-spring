@@ -1,6 +1,5 @@
 package com.github.lingkai5wu.loveta.model.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -16,7 +15,6 @@ public class RoleUpdateDTO {
     /**
      * 角色编码
      */
-    @NotBlank
     private String code;
 
     /**
