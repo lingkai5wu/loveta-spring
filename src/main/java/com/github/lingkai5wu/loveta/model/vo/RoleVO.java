@@ -4,7 +4,10 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
- * 角色
+ * 角色 显示层对象
+ *
+ * @author lingkai5wu
+ * @since 2024-03-18
  */
 @Data
 public class RoleVO {

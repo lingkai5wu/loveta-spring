@@ -6,6 +6,12 @@ import lombok.experimental.Accessors;
 
 import java.util.Map;
 
+/**
+ * DisableServiceException 显示层对象
+ *
+ * @author lingkai5wu
+ * @since 2024-02-01
+ */
 @Data
 @Accessors(chain = true)
 public class MethodArgumentNotValidExceptionVO {

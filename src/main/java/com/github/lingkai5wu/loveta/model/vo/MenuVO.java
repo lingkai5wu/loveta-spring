@@ -4,6 +4,12 @@ import com.github.lingkai5wu.loveta.enums.MenuTypeEnum;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+/**
+ * 菜单 显示层对象
+ *
+ * @author lingkai5wu
+ * @since 2024-02-01
+ */
 @Data
 public class MenuVO {
 

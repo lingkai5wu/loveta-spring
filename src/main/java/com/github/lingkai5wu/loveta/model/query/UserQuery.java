@@ -5,7 +5,10 @@ import com.github.lingkai5wu.loveta.enums.UserStatusEnum;
 import lombok.Data;
 
 /**
- * 用户
+ * 用户 数据查询对象
+ *
+ * @author lingkai5wu
+ * @since 2024-03-20
  */
 @Data
 public class UserQuery {

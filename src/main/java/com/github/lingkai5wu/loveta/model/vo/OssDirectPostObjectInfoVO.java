@@ -4,6 +4,12 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+/**
+ * 对象存储表单直传参数 显示层对象
+ *
+ * @author lingkai5wu
+ * @since 2024-02-01
+ */
 @Data
 @Accessors(chain = true)
 public class OssDirectPostObjectInfoVO {

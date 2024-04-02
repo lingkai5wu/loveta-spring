@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 认证
+ *
+ * @author lingkai5wu
+ * @since 2023-12-25
  */
 @RestController
 @RequestMapping("/auth")

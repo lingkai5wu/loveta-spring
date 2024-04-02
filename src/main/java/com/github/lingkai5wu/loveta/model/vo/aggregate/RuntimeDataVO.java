@@ -8,6 +8,12 @@ import lombok.experimental.Accessors;
 
 import java.util.List;
 
+/**
+ * 运行时数据 显示层对象
+ *
+ * @author lingkai5wu
+ * @since 2024-03-03
+ */
 @Data
 @Accessors(chain = true)
 public class RuntimeDataVO {

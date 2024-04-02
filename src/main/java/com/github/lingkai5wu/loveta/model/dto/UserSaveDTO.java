@@ -6,6 +6,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+/**
+ * 新增用户 数据传输对象
+ *
+ * @author lingkai5wu
+ * @since 2024-03-13
+ */
 @Data
 public class UserSaveDTO {
 

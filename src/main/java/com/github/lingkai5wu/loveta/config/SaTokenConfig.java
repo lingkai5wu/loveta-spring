@@ -6,6 +6,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * SaToken 配置类
+ *
+ * @author lingkai5wu
+ * @since 2023-12-25
+ */
 @Configuration
 public class SaTokenConfig implements WebMvcConfigurer {
 

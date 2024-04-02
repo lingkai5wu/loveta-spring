@@ -9,6 +9,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * 阿里云对象存储 配置类
+ *
+ * @author lingkai5wu
+ * @since 2024-01-09
+ */
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "aliyun.oss")

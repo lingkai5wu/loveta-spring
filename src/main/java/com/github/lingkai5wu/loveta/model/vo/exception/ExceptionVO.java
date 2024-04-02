@@ -4,6 +4,12 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+/**
+ * Exception 显示层对象
+ *
+ * @author lingkai5wu
+ * @since 2024-01-31
+ */
 @Data
 @Accessors(chain = true)
 public class ExceptionVO {

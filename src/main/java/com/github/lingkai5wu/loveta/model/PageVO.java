@@ -5,6 +5,12 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * 分页 显示层对象
+ *
+ * @author lingkai5wu
+ * @since 2024-03-26
+ */
 @Data
 public class PageVO<T> {
 

@@ -8,6 +8,12 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * MybatisPlus 配置类
+ *
+ * @author lingkai5wu
+ * @since 2023-12-25
+ */
 @Configuration
 @MapperScan("com.github.lingkai5wu.loveta.mapper")
 public class MybatisPlusConfig {

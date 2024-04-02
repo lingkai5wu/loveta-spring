@@ -16,6 +16,9 @@ import java.net.URL;
 
 /**
  * 对象存储
+ *
+ * @author lingkai5wu
+ * @since 2024-01-09
  */
 @RestController
 @RequestMapping("/oss")

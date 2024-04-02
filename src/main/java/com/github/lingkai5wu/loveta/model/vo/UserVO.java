@@ -8,6 +8,12 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * 用户 显示层对象
+ *
+ * @author lingkai5wu
+ * @since 2024-01-08
+ */
 @Data
 public class UserVO {
 

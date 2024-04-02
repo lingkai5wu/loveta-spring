@@ -9,7 +9,10 @@ import lombok.experimental.Accessors;
 import java.time.LocalDateTime;
 
 /**
- * 角色
+ * 角色 数据源对象
+ *
+ * @author lingkai5wu
+ * @since 2023-12-25
  */
 @Data
 @Accessors(chain = true)

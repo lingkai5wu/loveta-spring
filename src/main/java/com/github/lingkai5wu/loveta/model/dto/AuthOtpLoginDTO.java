@@ -4,6 +4,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
+/**
+ * 验证码登录 数据传输对象
+ *
+ * @author lingkai5wu
+ * @since 2023-12-25
+ */
 @Data
 public class AuthOtpLoginDTO {
 

@@ -11,7 +11,10 @@ import org.springframework.http.HttpStatus;
 import java.util.List;
 
 /**
- * 结果
+ * 统一返回封装类
+ *
+ * @author lingkai5wu
+ * @since 2024-01-31
  */
 @Data
 @AllArgsConstructor(access = AccessLevel.PRIVATE)

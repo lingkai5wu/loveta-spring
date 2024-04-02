@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 聚合
+ *
+ * @author lingkai5wu
+ * @since 2024-03-03
  */
 @RestController
 @RequestMapping("/aggregate")

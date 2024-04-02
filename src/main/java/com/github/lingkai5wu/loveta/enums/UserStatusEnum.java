@@ -4,6 +4,12 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * 用户状态 枚举类
+ *
+ * @author lingkai5wu
+ * @since 2024-03-13
+ */
 @AllArgsConstructor
 @Getter
 public enum UserStatusEnum {

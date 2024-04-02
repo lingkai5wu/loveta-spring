@@ -9,7 +9,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * 自定义权限加载接口实现类
+ * 权限加载 接口实现类
+ *
+ * @author lingkai5wu
+ * @since 2023-12-25
  */
 @Component
 @AllArgsConstructor

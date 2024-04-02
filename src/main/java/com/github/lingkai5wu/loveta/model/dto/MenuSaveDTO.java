@@ -6,6 +6,12 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
+/**
+ * 新增菜单 数据传输对象
+ *
+ * @author lingkai5wu
+ * @since 2024-02-01
+ */
 @Data
 public class MenuSaveDTO {
 

@@ -21,6 +21,9 @@ import java.util.stream.Collectors;
 
 /**
  * 权限
+ *
+ * @author lingkai5wu
+ * @since 2023-12-25
  */
 @RestController
 @RequestMapping("/permissions")

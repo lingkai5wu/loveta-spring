@@ -4,6 +4,12 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * 用户性别 枚举类
+ *
+ * @author lingkai5wu
+ * @since 2024-01-08
+ */
 @AllArgsConstructor
 @Getter
 public enum UserSexEnum {

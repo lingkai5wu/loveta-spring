@@ -5,6 +5,12 @@ import com.github.lingkai5wu.loveta.enums.UserStatusEnum;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+/**
+ * 修改用户 数据传输对象
+ *
+ * @author lingkai5wu
+ * @since 2024-03-13
+ */
 @Data
 public class UserUpdateDTO {
 

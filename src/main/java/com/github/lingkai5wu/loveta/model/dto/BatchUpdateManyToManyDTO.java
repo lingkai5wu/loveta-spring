@@ -4,6 +4,12 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * 批量修改多对多关系 数据传输对象
+ *
+ * @author lingkai5wu
+ * @since 2024-03-18
+ */
 @Data
 public class BatchUpdateManyToManyDTO<T> {
 

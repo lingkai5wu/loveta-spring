@@ -4,6 +4,12 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+/**
+ * DisableServiceException 显示层对象
+ *
+ * @author lingkai5wu
+ * @since 2024-02-01
+ */
 @Data
 @Accessors(chain = true)
 public class DisableServiceExceptionVO {
