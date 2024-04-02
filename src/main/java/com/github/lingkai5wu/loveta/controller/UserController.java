@@ -113,7 +113,7 @@ public class UserController {
      * 分页列出全部用户
      */
     @GetMapping("/page")
-    @SaCheckPermission("user:list")
+    @SaCheckPermission("user:page")
     public Result<PageVO<UserVO>> listUserVOsWithPage(PageDTO pageDTO, UserQuery query) {
         Page<User> page = new Page<>();
         BeanUtil.copyProperties(pageDTO, page, new CopyOptions().ignoreNullValue());

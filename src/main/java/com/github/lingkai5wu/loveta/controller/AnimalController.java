@@ -65,7 +65,7 @@ public class AnimalController {
      * 分页列出全部动物基本信息
      */
     @GetMapping("/page")
-    @SaCheckPermission("animal:list")
+    @SaCheckPermission("animal:page")
     public Result<PageVO<AnimalBasicInfoVO>> listAnimalBasicDataVOsWithPage(PageDTO pageDTO, AnimalQuery query) {
         Page<Animal> page = new Page<>();
         BeanUtil.copyProperties(pageDTO, page, new CopyOptions().ignoreNullValue());
