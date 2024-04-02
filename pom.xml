@@ -172,8 +172,9 @@
                     <noEslintDisable>true</noEslintDisable>
                     <noFileComment>true</noFileComment>
                     <customTypeMappings>
-                        <mapping>java.time.LocalDate:string</mapping>
-                        <mapping>java.time.LocalDateTime:string</mapping>
+                        <mapping>java.time.LocalDateTime:number</mapping>
+                        <mapping>java.time.LocalDate:number</mapping>
+                        <mapping>java.time.LocalTime:number</mapping>
                     </customTypeMappings>
                 </configuration>
             </plugin>
