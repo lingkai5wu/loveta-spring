@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.lingkai5wu.loveta.mapper.AreaMapper">
+
+    <resultMap id="areaVOResultMap" type="com.github.lingkai5wu.loveta.model.vo.AreaVO" autoMapping="true">
+        <id property="id" column="area_id"/>
+        <collection property="locations" ofType="com.github.lingkai5wu.loveta.model.vo.LocationVO" autoMapping="true">
+            <id property="id" column="location_id"/>
+        </collection>
+    </resultMap>
+
+    <sql id="areaLocationSelect">
+        SELECT a.id AS area_id,
+               a.label,
+               a.description,
+               l.id AS location_id,
+               l.lng,
+               l.lat
+        FROM area a
+                 LEFT JOIN location l ON a.id = l.area_id
+    </sql>
+
+    <select id="getAreaVO" resultMap="areaVOResultMap">
+        <include refid="areaLocationSelect"/>
+        WHERE a.id = #{id}
+    </select>
+    <select id="listAreaVOs" resultMap="areaVOResultMap">
+        <include refid="areaLocationSelect"/>
+    </select>
+</mapper>
