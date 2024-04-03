@@ -50,11 +50,6 @@ public class AnimalBasicInfoVO {
     private LocalDate dateOfBirth;
 
     /**
-     * 特征
-     */
-    private String feature;
-
-    /**
      * 头像
      */
     private String avatar;
