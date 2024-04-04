@@ -29,6 +29,7 @@ import java.util.List;
 @RequestMapping("/areas")
 @AllArgsConstructor
 public class AreaController {
+
     private final IAreaService areaService;
     private final ILocationService locationService;
 
