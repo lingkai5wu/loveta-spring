@@ -2,7 +2,7 @@ package com.github.lingkai5wu.loveta.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.lingkai5wu.loveta.model.po.Population;
-import com.github.lingkai5wu.loveta.model.vo.PopulationInfoVO;
+import com.github.lingkai5wu.loveta.model.vo.PopulationBasicVO;
 
 import java.util.List;
 
@@ -14,5 +14,5 @@ import java.util.List;
  */
 public interface PopulationMapper extends BaseMapper<Population> {
 
-    List<PopulationInfoVO> listPopulationInfoVOs();
+    List<PopulationBasicVO> listPopulationBasicVOs();
 }

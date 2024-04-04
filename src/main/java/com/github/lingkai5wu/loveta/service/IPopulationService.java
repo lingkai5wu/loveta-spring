@@ -2,7 +2,7 @@ package com.github.lingkai5wu.loveta.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.lingkai5wu.loveta.model.po.Population;
-import com.github.lingkai5wu.loveta.model.vo.PopulationInfoVO;
+import com.github.lingkai5wu.loveta.model.vo.PopulationBasicVO;
 
 import java.util.List;
 
@@ -14,5 +14,5 @@ import java.util.List;
  */
 public interface IPopulationService extends IService<Population> {
 
-    List<PopulationInfoVO> listPopulationInfoVOs();
+    List<PopulationBasicVO> listPopulationBasicVOs();
 }

@@ -14,7 +14,7 @@ import java.time.LocalDate;
  * @since 2024-04-02
  */
 @Data
-public class AnimalBasicInfoVO {
+public class AnimalBasicVO {
 
     /**
      * ID

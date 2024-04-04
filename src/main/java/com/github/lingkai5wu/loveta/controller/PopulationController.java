@@ -7,7 +7,7 @@ import com.github.lingkai5wu.loveta.model.Result;
 import com.github.lingkai5wu.loveta.model.dto.PopulationSaveDTO;
 import com.github.lingkai5wu.loveta.model.dto.PopulationUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.Population;
-import com.github.lingkai5wu.loveta.model.vo.PopulationInfoVO;
+import com.github.lingkai5wu.loveta.model.vo.PopulationBasicVO;
 import com.github.lingkai5wu.loveta.model.vo.PopulationVO;
 import com.github.lingkai5wu.loveta.service.IPopulationService;
 import lombok.AllArgsConstructor;
@@ -45,13 +45,13 @@ public class PopulationController {
     }
 
     /**
-     * 列出全部种群
+     * 列出全部种群基本信息
      */
     @GetMapping
     @SaCheckPermission("population:list")
-    public Result<List<PopulationInfoVO>> listPopulationInfoVOs() {
-        List<PopulationInfoVO> populationInfoVOList = populationService.listPopulationInfoVOs();
-        return Result.data(populationInfoVOList);
+    public Result<List<PopulationBasicVO>> listPopulationBasicVOs() {
+        List<PopulationBasicVO> populationBasicVOList = populationService.listPopulationBasicVOs();
+        return Result.data(populationBasicVOList);
     }
 
     /**

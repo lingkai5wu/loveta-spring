@@ -13,7 +13,7 @@ import com.github.lingkai5wu.loveta.model.dto.AnimalSaveDTO;
 import com.github.lingkai5wu.loveta.model.dto.AnimalUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.Animal;
 import com.github.lingkai5wu.loveta.model.query.AnimalQuery;
-import com.github.lingkai5wu.loveta.model.vo.AnimalBasicInfoVO;
+import com.github.lingkai5wu.loveta.model.vo.AnimalBasicVO;
 import com.github.lingkai5wu.loveta.model.vo.AnimalVO;
 import com.github.lingkai5wu.loveta.service.IAnimalService;
 import lombok.AllArgsConstructor;
@@ -55,10 +55,10 @@ public class AnimalController {
      */
     @GetMapping
     @SaCheckPermission("animal:list")
-    public Result<List<AnimalBasicInfoVO>> listAnimalBasicDataVOs(AnimalQuery query) {
+    public Result<List<AnimalBasicVO>> listAnimalBasicVOs(AnimalQuery query) {
         QueryWrapper<Animal> wrapper = new QueryWrapper<>(BeanUtil.copyProperties(query, Animal.class));
-        List<AnimalBasicInfoVO> animalBasicInfoVOList = BeanUtil.copyToList(animalService.list(wrapper), AnimalBasicInfoVO.class);
-        return Result.data(animalBasicInfoVOList);
+        List<AnimalBasicVO> animalBasicVOList = BeanUtil.copyToList(animalService.list(wrapper), AnimalBasicVO.class);
+        return Result.data(animalBasicVOList);
     }
 
     /**
@@ -66,13 +66,13 @@ public class AnimalController {
      */
     @GetMapping("/page")
     @SaCheckPermission("animal:page")
-    public Result<PageVO<AnimalBasicInfoVO>> listAnimalBasicDataVOsWithPage(PageDTO pageDTO, AnimalQuery query) {
+    public Result<PageVO<AnimalBasicVO>> listAnimalBasicVOsWithPage(PageDTO pageDTO, AnimalQuery query) {
         Page<Animal> page = new Page<>();
         BeanUtil.copyProperties(pageDTO, page, new CopyOptions().ignoreNullValue());
         QueryWrapper<Animal> wrapper = new QueryWrapper<>(BeanUtil.copyProperties(query, Animal.class));
         page = animalService.page(page, wrapper);
-        List<AnimalBasicInfoVO> animalBasicInfoVOList = BeanUtil.copyToList(page.getRecords(), AnimalBasicInfoVO.class);
-        return Result.page(animalBasicInfoVOList, page);
+        List<AnimalBasicVO> animalBasicVOList = BeanUtil.copyToList(page.getRecords(), AnimalBasicVO.class);
+        return Result.page(animalBasicVOList, page);
     }
 
     /**

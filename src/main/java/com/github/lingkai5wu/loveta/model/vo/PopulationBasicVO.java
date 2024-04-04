@@ -10,7 +10,7 @@ import lombok.Data;
  * @since 2024-04-04
  */
 @Data
-public class PopulationInfoVO {
+public class PopulationBasicVO {
 
     /**
      * ID
