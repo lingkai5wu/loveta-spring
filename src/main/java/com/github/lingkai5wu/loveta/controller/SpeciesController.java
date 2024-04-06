@@ -48,7 +48,7 @@ public class SpeciesController {
      */
     @GetMapping
     @SaCheckPermission("species:list")
-    public Result<List<SpeciesVO>> listSpeciesBasicDataVOs() {
+    public Result<List<SpeciesVO>> listSpeciesVOs() {
         List<SpeciesVO> speciesVOList = BeanUtil.copyToList(speciesService.list(), SpeciesVO.class);
         return Result.data(speciesVOList);
     }
