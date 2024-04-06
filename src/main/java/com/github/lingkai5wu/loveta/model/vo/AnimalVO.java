@@ -93,6 +93,7 @@ public class AnimalVO {
     /**
      * 创建时间
      */
+    @NotNull
     private LocalDateTime createTime;
 
     /**
