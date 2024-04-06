@@ -1,8 +1,10 @@
 package com.github.lingkai5wu.loveta.model.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
 import com.github.lingkai5wu.loveta.enums.AnimalSexEnum;
 import com.github.lingkai5wu.loveta.enums.AnimalStatusEnum;
 import lombok.Data;
@@ -10,6 +12,7 @@ import lombok.experimental.Accessors;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 动物 数据源对象
@@ -19,7 +22,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Accessors(chain = true)
-@TableName("animal")
+@TableName(value = "animal", autoResultMap = true)
 public class Animal {
 
     /**
@@ -39,14 +42,19 @@ public class Animal {
     private AnimalStatusEnum status;
 
     /**
-     * 种群ID
+     * 物种ID
      */
-    private Integer populationId;
+    private Integer speciesId;
 
     /**
      * 品种
      */
     private String breed;
+
+    /**
+     * 区域ID
+     */
+    private Integer areaId;
 
     /**
      * 性别
@@ -59,7 +67,7 @@ public class Animal {
     private LocalDate dateOfBirth;
 
     /**
-     * 颜色
+     * 花色
      */
     private String color;
 
@@ -92,6 +100,12 @@ public class Animal {
      * 横幅
      */
     private String banner;
+
+    /**
+     * 附件
+     */
+    @TableField(typeHandler = JacksonTypeHandler.class)
+    private List<String> attachment;
 
     /**
      * 创建时间

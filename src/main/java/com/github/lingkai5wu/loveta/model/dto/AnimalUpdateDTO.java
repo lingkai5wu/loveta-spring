@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * 修改动物 数据传输对象
@@ -33,14 +34,19 @@ public class AnimalUpdateDTO {
     private AnimalStatusEnum status;
 
     /**
-     * 种群ID
+     * 物种ID
      */
-    private Integer populationId;
+    private Integer speciesId;
 
     /**
      * 品种
      */
     private String breed;
+
+    /**
+     * 区域ID
+     */
+    private Integer areaId;
 
     /**
      * 性别
@@ -53,7 +59,7 @@ public class AnimalUpdateDTO {
     private LocalDate dateOfBirth;
 
     /**
-     * 颜色
+     * 花色
      */
     private String color;
 
@@ -86,4 +92,9 @@ public class AnimalUpdateDTO {
      * 横幅
      */
     private String banner;
+
+    /**
+     * 附件
+     */
+    private List<String> attachment;
 }

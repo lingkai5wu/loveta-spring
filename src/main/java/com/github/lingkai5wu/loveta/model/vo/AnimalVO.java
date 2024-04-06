@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 动物 显示层对象
@@ -35,14 +36,20 @@ public class AnimalVO {
     private AnimalStatusEnum status;
 
     /**
-     * 种群ID
+     * 物种ID
      */
-    private Integer populationId;
+    @NotNull
+    private Integer speciesId;
 
     /**
      * 品种
      */
     private String breed;
+
+    /**
+     * 区域ID
+     */
+    private Integer areaId;
 
     /**
      * 性别
@@ -56,7 +63,7 @@ public class AnimalVO {
     private LocalDate dateOfBirth;
 
     /**
-     * 颜色
+     * 花色
      */
     private String color;
 
@@ -89,6 +96,11 @@ public class AnimalVO {
      * 横幅
      */
     private String banner;
+
+    /**
+     * 附件
+     */
+    private List<String> attachment;
 
     /**
      * 创建时间

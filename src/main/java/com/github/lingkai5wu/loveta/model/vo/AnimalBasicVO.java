@@ -34,9 +34,20 @@ public class AnimalBasicVO {
     private AnimalStatusEnum status;
 
     /**
+     * 物种
+     */
+    @NotNull
+    private String speciesId;
+
+    /**
      * 品种
      */
     private String breed;
+
+    /**
+     * 区域
+     */
+    private String areaId;
 
     /**
      * 性别

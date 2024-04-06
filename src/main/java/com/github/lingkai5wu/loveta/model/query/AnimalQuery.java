@@ -26,14 +26,19 @@ public class AnimalQuery {
     private AnimalStatusEnum status;
 
     /**
-     * 种群ID
+     * 物种ID
      */
-    private Integer populationId;
+    private Integer speciesId;
 
     /**
      * 品种
      */
     private String breed;
+
+    /**
+     * 区域ID
+     */
+    private Integer areaId;
 
     /**
      * 性别
@@ -46,7 +51,7 @@ public class AnimalQuery {
     private LocalDate dateOfBirth;
 
     /**
-     * 颜色
+     * 花色
      */
     private String color;
 
