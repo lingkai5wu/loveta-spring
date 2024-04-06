@@ -6,7 +6,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.lingkai5wu.loveta.enums.MenuTypeEnum;
 import com.github.lingkai5wu.loveta.model.Result;
-import com.github.lingkai5wu.loveta.model.dto.MenuOrderUpdateDTO;
+import com.github.lingkai5wu.loveta.model.dto.EntityOrderUpdateDTO;
 import com.github.lingkai5wu.loveta.model.dto.MenuSaveDTO;
 import com.github.lingkai5wu.loveta.model.dto.MenuUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.Menu;
@@ -110,7 +110,7 @@ public class MenuController {
      */
     @PostMapping("/batch-update-order")
     @SaCheckPermission("menu:update")
-    public Result<Void> batchUpdateMenuOrder(@RequestBody @Valid List<MenuOrderUpdateDTO> dtoList) {
+    public Result<Void> batchUpdateMenuOrder(@RequestBody @Valid List<EntityOrderUpdateDTO> dtoList) {
         List<Menu> menuList = BeanUtil.copyToList(dtoList, Menu.class);
         for (Menu menu : menuList) {
             if (!menuService.verifyParent(menu)) {

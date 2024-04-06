@@ -4,13 +4,13 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
- * 修改菜单排序 数据传输对象
+ * 修改实体排序 数据传输对象
  *
  * @author lingkai5wu
  * @since 2023-12-25
  */
 @Data
-public class MenuOrderUpdateDTO {
+public class EntityOrderUpdateDTO {
 
     /**
      * ID
@@ -19,7 +19,7 @@ public class MenuOrderUpdateDTO {
     private Integer id;
 
     /**
-     * 父菜单ID
+     * 父实体ID
      */
     private Integer pid;
 
