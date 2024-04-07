@@ -4,12 +4,14 @@ package com.github.lingkai5wu.loveta.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.bean.BeanUtil;
 import com.github.lingkai5wu.loveta.model.Result;
+import com.github.lingkai5wu.loveta.model.dto.EntityOrderUpdateDTO;
 import com.github.lingkai5wu.loveta.model.dto.ForumSaveDTO;
 import com.github.lingkai5wu.loveta.model.dto.ForumUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.Forum;
 import com.github.lingkai5wu.loveta.model.vo.ForumBasicVO;
 import com.github.lingkai5wu.loveta.model.vo.ForumVO;
 import com.github.lingkai5wu.loveta.service.IForumService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -49,7 +51,7 @@ public class ForumController {
      */
     @GetMapping
     @SaCheckPermission("forum:list")
-    public Result<List<ForumBasicVO>> listForumVOs() {
+    public Result<List<ForumBasicVO>> listForumBasicVOs() {
         List<ForumBasicVO> forumBasicVOList = BeanUtil.copyToList(forumService.list(), ForumBasicVO.class);
         return Result.data(forumBasicVOList);
     }
@@ -76,6 +78,17 @@ public class ForumController {
         if (!updated) {
             return Result.status(HttpStatus.NOT_FOUND);
         }
+        return Result.ok();
+    }
+
+    /**
+     * 批量修改板块排序
+     */
+    @PostMapping("/batch-update-order")
+    @SaCheckPermission("forum:update")
+    public Result<Void> batchUpdateForumOrder(@RequestBody @Valid List<EntityOrderUpdateDTO> dtoList) {
+        List<Forum> forumList = BeanUtil.copyToList(dtoList, Forum.class);
+        forumService.updateBatchById(forumList);
         return Result.ok();
     }
 
