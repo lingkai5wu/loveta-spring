@@ -10,7 +10,7 @@
         WHERE ur.user_id = #{id}
     </select>
     <select id="listPermissionsByUserId" resultType="com.github.lingkai5wu.loveta.model.po.Permission"
-            parameterType="long">
+            parameterType="int">
         SELECT p.*
         FROM permission p
                  INNER JOIN role_permission rp ON p.id = rp.permission_id

@@ -37,7 +37,7 @@ public class PermissionController {
      */
     @GetMapping("/current")
     public Result<List<PermissionVO>> listCurrentUserPermissionVOs() {
-        long id = StpUtil.getLoginIdAsLong();
+        int id = StpUtil.getLoginIdAsInt();
         List<PermissionVO> permissionVOList = BeanUtil.copyToList(permissionService.listPermissionsByUserId(id), PermissionVO.class);
         return Result.data(permissionVOList);
     }

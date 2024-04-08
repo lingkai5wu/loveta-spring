@@ -15,5 +15,5 @@ public interface RoleMapper extends BaseMapper<Role> {
 
     List<String> listRoleCodesByUserId(Object id);
 
-    List<Role> listRolesByUserId(long id);
+    List<Role> listRolesByUserId(int id);
 }

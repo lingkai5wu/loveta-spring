@@ -21,7 +21,7 @@ import java.util.List;
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
     @Override
-    public List<Menu> listMenusByUserId(long id) {
+    public List<Menu> listMenusByUserId(int id) {
         if (StpUtil.hasPermission("menu:list")) {
             return list();
         }

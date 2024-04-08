@@ -44,7 +44,7 @@ public class RoleController {
      */
     @GetMapping("/current")
     public Result<List<RoleVO>> listCurrentUserRoleVOs() {
-        long id = StpUtil.getLoginIdAsLong();
+        int id = StpUtil.getLoginIdAsInt();
         List<RoleVO> roleVOList = BeanUtil.copyToList(roleService.listRolesByUserId(id), RoleVO.class);
         return Result.data(roleVOList);
     }

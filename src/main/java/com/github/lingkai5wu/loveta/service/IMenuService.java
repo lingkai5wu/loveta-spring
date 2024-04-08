@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface IMenuService extends IService<Menu> {
 
-    List<Menu> listMenusByUserId(long id);
+    List<Menu> listMenusByUserId(int id);
 
     boolean verifyParent(Menu menu);
 

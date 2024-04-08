@@ -18,7 +18,7 @@ public class UserUpdateDTO {
      * ID
      */
     @NotNull
-    private Long id;
+    private Integer id;
 
     /**
      * 状态

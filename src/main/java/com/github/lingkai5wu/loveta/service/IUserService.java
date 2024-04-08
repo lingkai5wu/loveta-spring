@@ -14,7 +14,7 @@ public interface IUserService extends IService<User> {
 
     User getUserByPhone(String phone);
 
-    boolean existsById(long id);
+    boolean existsById(int id);
 
-    void batchUpdateUserRole(long userId, BatchUpdateManyToManyDTO<Integer> dto);
+    void batchUpdateUserRole(int userId, BatchUpdateManyToManyDTO<Integer> dto);
 }

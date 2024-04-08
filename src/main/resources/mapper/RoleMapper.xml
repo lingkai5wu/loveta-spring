@@ -9,7 +9,7 @@
         WHERE ur.user_id = #{id}
     </select>
     <select id="listRolesByUserId" resultType="com.github.lingkai5wu.loveta.model.po.Role"
-            parameterType="long">
+            parameterType="int">
         SELECT r.*
         FROM role r
                  INNER JOIN user_role ur ON r.id = ur.role_id

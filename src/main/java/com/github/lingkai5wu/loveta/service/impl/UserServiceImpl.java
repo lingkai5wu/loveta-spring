@@ -24,14 +24,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    public boolean existsById(long id) {
+    public boolean existsById(int id) {
         return lambdaQuery()
                 .eq(User::getId, id)
                 .exists();
     }
 
     @Override
-    public void batchUpdateUserRole(long userId, BatchUpdateManyToManyDTO<Integer> dto) {
+    public void batchUpdateUserRole(int userId, BatchUpdateManyToManyDTO<Integer> dto) {
         if (dto.getTargetIdsToInsert() != null && !dto.getTargetIdsToInsert().isEmpty()) {
             baseMapper.batchInsertUserRoles(userId, dto.getTargetIdsToInsert());
         }

@@ -39,7 +39,7 @@ public class MenuController {
      */
     @GetMapping("/current")
     public Result<List<MenuVO>> listCurrentUserMenuVOs() {
-        long id = StpUtil.getLoginIdAsLong();
+        int id = StpUtil.getLoginIdAsInt();
         List<MenuVO> menuVOList = BeanUtil.copyToList(menuService.listMenusByUserId(id), MenuVO.class);
         return Result.data(menuVOList);
     }

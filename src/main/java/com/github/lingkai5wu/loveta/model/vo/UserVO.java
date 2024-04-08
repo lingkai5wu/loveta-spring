@@ -21,7 +21,7 @@ public class UserVO {
      * ID
      */
     @NotNull
-    private Long id;
+    private Integer id;
 
     /**
      * 手机号

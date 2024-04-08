@@ -50,7 +50,7 @@ public class UserController {
      */
     @GetMapping("/current")
     public Result<UserVO> getCurrentUserVO() {
-        long id = StpUtil.getLoginIdAsLong();
+        int id = StpUtil.getLoginIdAsInt();
         return getUserVO(id);
     }
 
@@ -59,7 +59,7 @@ public class UserController {
      */
     @GetMapping("/{id}")
     @SaCheckPermission("user:get")
-    public Result<UserVO> getUserVO(@PathVariable long id) {
+    public Result<UserVO> getUserVO(@PathVariable int id) {
         User user = userService.getById(id);
         if (user == null) {
             return Result.status(HttpStatus.NOT_FOUND);
@@ -73,7 +73,7 @@ public class UserController {
      */
     @GetMapping("/{id}/roles")
     @SaCheckPermission({"user:get", "role:list"})
-    public Result<List<RoleVO>> listUserRoleVOs(@PathVariable long id) {
+    public Result<List<RoleVO>> listUserRoleVOs(@PathVariable int id) {
         boolean exists = userService.existsById(id);
         if (!exists) {
             return Result.status(HttpStatus.NOT_FOUND);
@@ -88,7 +88,7 @@ public class UserController {
      */
     @GetMapping("/{id}/permissions")
     @SaCheckPermission({"user:get", "permission:list"})
-    public Result<List<PermissionVO>> listUserPermissionVOs(@PathVariable long id) {
+    public Result<List<PermissionVO>> listUserPermissionVOs(@PathVariable int id) {
         boolean exists = userService.existsById(id);
         if (!exists) {
             return Result.status(HttpStatus.NOT_FOUND);
@@ -153,7 +153,7 @@ public class UserController {
      */
     @PutMapping("/{id}/roles")
     @SaCheckPermission({"user:update", "role:update"})
-    public Result<Void> batchUpdateUserRole(@PathVariable long id, @RequestBody BatchUpdateManyToManyDTO<Integer> dto) {
+    public Result<Void> batchUpdateUserRole(@PathVariable int id, @RequestBody BatchUpdateManyToManyDTO<Integer> dto) {
         boolean exists = userService.existsById(id);
         if (!exists) {
             return Result.status(HttpStatus.NOT_FOUND);
@@ -167,7 +167,7 @@ public class UserController {
      */
     @DeleteMapping("/{id}")
     @SaCheckPermission("user:remove")
-    public Result<Void> removeUser(@PathVariable long id) {
+    public Result<Void> removeUser(@PathVariable int id) {
         boolean removed = userService.removeById(id);
         if (!removed) {
             return Result.status(HttpStatus.NOT_FOUND);
