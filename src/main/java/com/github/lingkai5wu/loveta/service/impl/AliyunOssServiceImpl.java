@@ -1,5 +1,6 @@
 package com.github.lingkai5wu.loveta.service.impl;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.aliyun.oss.HttpMethod;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.common.utils.BinaryUtil;
@@ -48,6 +49,10 @@ public class AliyunOssServiceImpl implements IOssService {
                 PolicyConditions.COND_CONTENT_LENGTH_RANGE,
                 0,
                 maxSizeAllowed);
+        conditions.addConditionItem(
+                PolicyConditions.COND_X_OSS_META_PREFIX + "userId",
+                StpUtil.getLoginIdAsString()
+        );
         String rowPolicy = client.generatePostPolicy(new Date(expire), conditions);
         byte[] policyBytes = rowPolicy.getBytes(StandardCharsets.UTF_8);
         String encodedPolicy = BinaryUtil.toBase64String(policyBytes);
