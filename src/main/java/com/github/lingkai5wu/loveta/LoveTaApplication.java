@@ -11,5 +11,4 @@ public class LoveTaApplication {
     public static void main(String[] args) {
         SpringApplication.run(LoveTaApplication.class, args);
     }
-
 }

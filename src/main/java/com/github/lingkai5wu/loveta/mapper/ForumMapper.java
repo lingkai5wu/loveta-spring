@@ -10,5 +10,4 @@ import com.github.lingkai5wu.loveta.model.po.Forum;
  * @since 2024-04-05
  */
 public interface ForumMapper extends BaseMapper<Forum> {
-
 }

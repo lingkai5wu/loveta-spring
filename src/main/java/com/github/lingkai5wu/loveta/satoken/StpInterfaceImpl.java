@@ -36,5 +36,4 @@ public class StpInterfaceImpl implements StpInterface {
     public List<String> getRoleList(Object loginId, String loginType) {
         return roleService.listRoleCodesByUserId(loginId);
     }
-
 }

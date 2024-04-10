@@ -14,5 +14,4 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SpeciesServiceImpl extends ServiceImpl<SpeciesMapper, Species> implements ISpeciesService {
-
 }

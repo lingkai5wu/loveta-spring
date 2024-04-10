@@ -10,5 +10,4 @@ import com.github.lingkai5wu.loveta.model.po.Location;
  * @since 2024-04-03
  */
 public interface LocationMapper extends BaseMapper<Location> {
-
 }

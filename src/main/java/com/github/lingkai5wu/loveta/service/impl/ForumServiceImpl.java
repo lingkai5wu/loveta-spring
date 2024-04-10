@@ -14,5 +14,4 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ForumServiceImpl extends ServiceImpl<ForumMapper, Forum> implements IForumService {
-
 }

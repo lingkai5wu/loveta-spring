@@ -10,5 +10,4 @@ import com.github.lingkai5wu.loveta.model.po.Animal;
  * @since 2024-04-02
  */
 public interface IAnimalService extends IService<Animal> {
-
 }
