@@ -19,6 +19,7 @@ import com.github.lingkai5wu.loveta.model.po.User;
 import com.github.lingkai5wu.loveta.model.query.UserQuery;
 import com.github.lingkai5wu.loveta.model.vo.PermissionVO;
 import com.github.lingkai5wu.loveta.model.vo.RoleVO;
+import com.github.lingkai5wu.loveta.model.vo.UserBasicVO;
 import com.github.lingkai5wu.loveta.model.vo.UserVO;
 import com.github.lingkai5wu.loveta.service.IPermissionService;
 import com.github.lingkai5wu.loveta.service.IRoleService;
@@ -110,11 +111,21 @@ public class UserController {
     }
 
     /**
+     * 列出全部用户基本信息
+     */
+    @GetMapping("/basic")
+    public Result<List<UserBasicVO>> listUserBasicVOs(UserQuery query) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>(BeanUtil.copyProperties(query, User.class));
+        List<UserBasicVO> userBasicVOList = BeanUtil.copyToList(userService.list(wrapper), UserBasicVO.class);
+        return Result.data(userBasicVOList);
+    }
+
+    /**
      * 分页列出全部用户
      */
     @GetMapping("/page")
     @SaCheckPermission("user:page")
-    public Result<PageVO<UserVO>> listUserVOsWithPage(PageDTO pageDTO, UserQuery query) {
+    public Result<PageVO<UserVO>> listUserVOsWithPage(UserQuery query, PageDTO pageDTO) {
         Page<User> page = new Page<>();
         BeanUtil.copyProperties(pageDTO, page, new CopyOptions().ignoreNullValue());
         QueryWrapper<User> wrapper = new QueryWrapper<>(BeanUtil.copyProperties(query, User.class));

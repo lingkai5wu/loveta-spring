@@ -66,7 +66,7 @@ public class AnimalController {
      */
     @GetMapping("/page")
     @SaCheckPermission("animal:page")
-    public Result<PageVO<AnimalBasicVO>> listAnimalBasicVOsWithPage(PageDTO pageDTO, AnimalQuery query) {
+    public Result<PageVO<AnimalBasicVO>> listAnimalBasicVOsWithPage(AnimalQuery query, PageDTO pageDTO) {
         Page<Animal> page = new Page<>();
         BeanUtil.copyProperties(pageDTO, page, new CopyOptions().ignoreNullValue());
         QueryWrapper<Animal> wrapper = new QueryWrapper<>(BeanUtil.copyProperties(query, Animal.class));
