@@ -1,5 +1,6 @@
 package com.github.lingkai5wu.loveta.service;
 
+import com.github.lingkai5wu.loveta.model.dto.OssGetObjectUrlGenerateDTO;
 import com.github.lingkai5wu.loveta.model.vo.OssDirectPostObjectInfoVO;
 
 import java.net.URL;
@@ -14,5 +15,5 @@ public interface IOssService {
 
     OssDirectPostObjectInfoVO getOssDirectPostObjectInfoVO();
 
-    URL generateOssGetObjectUrl(String objectName);
+    URL generateOssGetObjectUrl(OssGetObjectUrlGenerateDTO dto);
 }

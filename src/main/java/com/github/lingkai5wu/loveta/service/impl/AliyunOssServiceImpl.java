@@ -7,6 +7,8 @@ import com.aliyun.oss.common.utils.BinaryUtil;
 import com.aliyun.oss.model.GeneratePresignedUrlRequest;
 import com.aliyun.oss.model.PolicyConditions;
 import com.github.lingkai5wu.loveta.config.AliyunOssConfig;
+import com.github.lingkai5wu.loveta.enums.OssImageProcessStyleEnum;
+import com.github.lingkai5wu.loveta.model.dto.OssGetObjectUrlGenerateDTO;
 import com.github.lingkai5wu.loveta.model.vo.OssDirectPostObjectInfoVO;
 import com.github.lingkai5wu.loveta.service.IOssService;
 import lombok.AllArgsConstructor;
@@ -30,11 +32,16 @@ public class AliyunOssServiceImpl implements IOssService {
     private final AliyunOssConfig config;
 
     @Override
-    public URL generateOssGetObjectUrl(String objectName) {
+    public URL generateOssGetObjectUrl(OssGetObjectUrlGenerateDTO dto) {
         long expire = (long) (System.currentTimeMillis() + config.getGetObjectUrlValidSeconds() * 1000);
         Date expiration = new Date(expire);
-        GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(config.getBucket(), objectName, HttpMethod.GET);
+        GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(config.getBucket(), dto.getObjectName(), HttpMethod.GET);
         request.setExpiration(expiration);
+        if (dto.getImageProcessStyle() == null) {
+            request.setProcess("style/" + OssImageProcessStyleEnum.NORMAL.getName());
+        } else {
+            request.setProcess("style/" + dto.getImageProcessStyle().getName());
+        }
         return client.generatePresignedUrl(request);
     }
 

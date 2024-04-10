@@ -3,9 +3,9 @@ package com.github.lingkai5wu.loveta.controller;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.github.lingkai5wu.loveta.model.Result;
+import com.github.lingkai5wu.loveta.model.dto.OssGetObjectUrlGenerateDTO;
 import com.github.lingkai5wu.loveta.model.vo.OssDirectPostObjectInfoVO;
 import com.github.lingkai5wu.loveta.service.IOssService;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,6 @@ import java.net.URL;
 @RestController
 @RequestMapping("/oss")
 @AllArgsConstructor
-@Validated
 public class OssController {
 
     private final IOssService aliyunOssService;
@@ -33,8 +32,8 @@ public class OssController {
      */
     @GetMapping("/get-object-url")
     @SaCheckPermission("oss:get")
-    public Result<URL> generateOssGetObjectUrl(@NotBlank String objectName) {
-        return Result.data(aliyunOssService.generateOssGetObjectUrl(objectName));
+    public Result<URL> generateOssGetObjectUrl(@Validated OssGetObjectUrlGenerateDTO dto) {
+        return Result.data(aliyunOssService.generateOssGetObjectUrl(dto));
     }
 
     /**
