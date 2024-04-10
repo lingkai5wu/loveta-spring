@@ -74,7 +74,6 @@ public class PermissionController {
     @SaCheckPermission("permission:sync")
     public Result<Void> syncPermission() {
         Set<String> reflectionPermissionCodeSet = permissionService.getPermissionCodeSetFromReflection();
-        reflectionPermissionCodeSet.add("*");
         Set<String> dbPermissionCodeSet = permissionService.lambdaQuery()
                 .select(Permission::getCode)
                 .list()

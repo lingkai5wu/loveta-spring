@@ -11,9 +11,7 @@ import org.reflections.util.ConfigurationBuilder;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.reflections.scanners.Scanners.MethodsAnnotated;
 
@@ -65,6 +63,26 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
             List<String> values = List.of(saCheckPermission.value());
             permissionCodeSet.addAll(values);
         });
+
+        permissionCodeSet.add("*");
+
+        Map<String, Integer> permissionCodeLeafCountMap = new HashMap<>();
+        permissionCodeSet.forEach(permissionCode -> {
+            String[] permissionCodeArray = permissionCode.split(":");
+            for (int i = 1; i < permissionCodeArray.length; i++) {
+                String parentPermissionCode = String.join(":", Arrays.copyOf(permissionCodeArray, i));
+                permissionCodeLeafCountMap.put(
+                        parentPermissionCode,
+                        permissionCodeLeafCountMap.getOrDefault(parentPermissionCode, 0) + 1
+                );
+            }
+        });
+        permissionCodeLeafCountMap.forEach((parentPermissionCode, leafCount) -> {
+            if (leafCount > 1) {
+                permissionCodeSet.add(parentPermissionCode + ":*");
+            }
+        });
+
         return permissionCodeSet;
     }
 
