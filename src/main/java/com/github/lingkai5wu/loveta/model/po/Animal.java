@@ -42,9 +42,9 @@ public class Animal {
     private AnimalStatusEnum status;
 
     /**
-     * 物种ID
+     * 分类ID
      */
-    private Integer speciesId;
+    private Integer categoryId;
 
     /**
      * 品种

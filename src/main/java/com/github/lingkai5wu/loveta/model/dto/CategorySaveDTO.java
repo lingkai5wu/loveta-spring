@@ -4,23 +4,18 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
- * 修改物种 数据传输对象
+ * 新增分类 数据传输对象
  *
  * @author lingkai5wu
  * @since 2024-04-04
  */
 @Data
-public class SpeciesUpdateDTO {
-
-    /**
-     * ID
-     */
-    @NotNull
-    private Integer id;
+public class CategorySaveDTO {
 
     /**
      * 标签
      */
+    @NotNull
     private String label;
 
     /**

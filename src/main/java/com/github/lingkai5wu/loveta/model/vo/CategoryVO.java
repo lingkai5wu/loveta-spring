@@ -4,13 +4,13 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
- * 物种 显示层对象
+ * 分类 显示层对象
  *
  * @author lingkai5wu
  * @since 2024-04-04
  */
 @Data
-public class SpeciesVO {
+public class CategoryVO {
 
     /**
      * ID

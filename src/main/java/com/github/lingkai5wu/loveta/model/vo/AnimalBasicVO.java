@@ -34,10 +34,10 @@ public class AnimalBasicVO {
     private AnimalStatusEnum status;
 
     /**
-     * 物种
+     * 分类ID
      */
     @NotNull
-    private String speciesId;
+    private String categoryId;
 
     /**
      * 品种

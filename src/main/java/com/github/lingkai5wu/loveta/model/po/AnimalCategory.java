@@ -9,15 +9,15 @@ import lombok.experimental.Accessors;
 import java.time.LocalDateTime;
 
 /**
- * 物种
+ * 动物分类
  *
  * @author lingkai5wu
  * @since 2024-04-04
  */
 @Data
 @Accessors(chain = true)
-@TableName("species")
-public class Species {
+@TableName("animal_category")
+public class AnimalCategory {
 
     /**
      * ID
