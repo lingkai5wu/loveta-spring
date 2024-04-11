@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.lingkai5wu.loveta.mapper.MaterialStockMapper">
+
+    <resultMap id="materialStockBasicVOResultMap"
+               type="com.github.lingkai5wu.loveta.model.vo.MaterialStockBasicVO"
+               autoMapping="true">
+        <id property="id" column="id"/>
+        <collection property="material" ofType="com.github.lingkai5wu.loveta.model.vo.MaterialBasicVO">
+            <id property="id" column="material_id"/>
+            <result property="status" column="material_status"/>
+            <result property="name" column="material_name"/>
+            <result property="specification" column="material_specification"/>
+            <result property="unit" column="material_unit"/>
+        </collection>
+    </resultMap>
+    <select id="listMaterialStockBasicVOs"
+            resultMap="materialStockBasicVOResultMap">
+        SELECT ms.id           AS id,
+               ms.current      AS current,
+               ms.min          AS min,
+               ms.max          AS max,
+               m.id            AS material_id,
+               m.status        AS material_status,
+               m.name          AS material_name,
+               m.specification AS material_specification,
+               m.unit          AS material_unit,
+               mw.label        AS warehouse,
+               mw.contact      AS contact
+        FROM material_stock ms
+                 INNER JOIN material_warehouse mw ON ms.warehouse_id = mw.id
+                 INNER JOIN material m ON ms.material_id = m.id
+    </select>
+</mapper>

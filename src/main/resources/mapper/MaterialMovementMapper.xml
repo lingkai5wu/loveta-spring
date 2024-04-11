@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.lingkai5wu.loveta.mapper.MaterialMovementMapper">
+
+    <select id="listMaterialMovementBasicVOs"
+            resultType="com.github.lingkai5wu.loveta.model.vo.MaterialMovementBasicVO">
+        SELECT mm.id            AS id,
+               mm.movement_type AS movementType,
+               mm.status        AS status,
+               mm.quantity      AS quantity,
+               mm.description   AS description,
+               ms.id            AS stock_id,
+               m.id             AS material_id,
+               m.name           AS material_name,
+               m.unit           AS material_unit
+        FROM material_movement mm
+                 INNER JOIN material_stock ms ON mm.stock_id = ms.id
+                 INNER JOIN material m ON ms.material_id = m.id
+    </select>
+</mapper>

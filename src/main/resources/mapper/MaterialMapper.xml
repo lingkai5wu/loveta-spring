@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.lingkai5wu.loveta.mapper.MaterialMapper">
+
+    <select id="listMaterialBasicVOs" resultType="com.github.lingkai5wu.loveta.model.vo.MaterialBasicVO">
+        SELECT m.id            AS id,
+               mc.label        AS category,
+               m.status        AS status,
+               m.name          AS name,
+               m.specification AS specification,
+               m.unit          AS unit
+        FROM material m
+                 INNER JOIN material_category mc ON m.category_id = mc.id
+    </select>
+</mapper>

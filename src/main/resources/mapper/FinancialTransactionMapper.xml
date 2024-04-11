@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.lingkai5wu.loveta.mapper.FinancialTransactionMapper">
+
+    <resultMap id="financialTransactionBasicVOResultMap"
+               type="com.github.lingkai5wu.loveta.model.vo.FinancialTransactionBasicVO"
+               autoMapping="true">
+        <id property="id" column="id"/>
+        <association property="operatorUser" javaType="com.github.lingkai5wu.loveta.model.vo.UserBasicVO">
+            <id property="id" column="user_id"/>
+            <result property="phone" column="user_phone"/>
+            <result property="nickname" column="user_nickname"/>
+            <result property="avatar" column="user_avatar"/>
+        </association>
+    </resultMap>
+    <select id="listFinancialTransactionBasicVOs"
+            resultMap="financialTransactionBasicVOResultMap">
+        SELECT fc.id          AS id,
+               fc.date        AS date,
+               fc.amount      AS amount,
+               fc.status      AS status,
+               fc.description AS description,
+               fc.attachment  AS attachment,
+               ftc.label      AS category,
+               u.id           AS user_id,
+               u.phone        AS user_phone,
+               u.nickname     AS user_nickname,
+               u.avatar       AS user_avatar
+        FROM financial_transaction fc
+                 INNER JOIN financial_transaction_category ftc ON fc.category_id = ftc.id
+                 LEFT JOIN user u ON fc.operator_user_id = u.id
+    </select>
+</mapper>
