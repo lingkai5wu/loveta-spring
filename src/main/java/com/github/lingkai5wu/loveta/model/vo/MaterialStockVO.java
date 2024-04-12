@@ -1,5 +1,6 @@
 package com.github.lingkai5wu.loveta.model.vo;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -14,21 +15,25 @@ public class MaterialStockVO {
     /**
      * ID
      */
+    @NotNull
     private Integer id;
 
     /**
      * 物资ID
      */
+    @NotNull
     private Integer materialId;
 
     /**
      * 仓库ID
      */
+    @NotNull
     private Integer warehouseId;
 
     /**
      * 当前数量
      */
+    @NotNull
     private Integer current;
 
     /**
