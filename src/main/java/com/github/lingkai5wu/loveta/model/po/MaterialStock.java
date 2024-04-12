@@ -38,7 +38,7 @@ public class MaterialStock {
     /**
      * 当前数量
      */
-    private Integer current;
+    private Integer quantity;
 
     /**
      * 最低预警

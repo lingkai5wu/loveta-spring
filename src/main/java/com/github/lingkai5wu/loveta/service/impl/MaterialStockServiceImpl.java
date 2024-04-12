@@ -5,7 +5,9 @@ import com.github.lingkai5wu.loveta.mapper.MaterialStockMapper;
 import com.github.lingkai5wu.loveta.model.po.MaterialMovement;
 import com.github.lingkai5wu.loveta.model.po.MaterialStock;
 import com.github.lingkai5wu.loveta.model.vo.MaterialStockBasicVO;
+import com.github.lingkai5wu.loveta.service.IMaterialMovementService;
 import com.github.lingkai5wu.loveta.service.IMaterialStockService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +19,10 @@ import java.util.List;
  * @since 2024-04-10
  */
 @Service
+@AllArgsConstructor
 public class MaterialStockServiceImpl extends ServiceImpl<MaterialStockMapper, MaterialStock> implements IMaterialStockService {
+
+    private final IMaterialMovementService materialMovementService;
 
     @Override
     public List<MaterialStockBasicVO> listMaterialStockBasicVOs() {
@@ -32,20 +37,28 @@ public class MaterialStockServiceImpl extends ServiceImpl<MaterialStockMapper, M
     }
 
     @Override
-    public boolean updateByMovement(MaterialMovement materialMovement) {
-        if (materialMovement.getStatus() == null ||
-                materialMovement.getStatus() != EntityStatusEnum.APPROVED) {
+    public boolean updateByMovement(MaterialMovement currentMovement) {
+        if (currentMovement.getQuantity() == null) {
             return false;
         }
-        Integer stockId = materialMovement.getStockId();
-        MaterialStock materialStock = getById(stockId);
-        int current = materialStock.getCurrent() + materialMovement.getQuantity();
-        if (current < 0) {
+        int currentQuantity;
+        if (currentMovement.getId() == null) {
+            MaterialStock currentStock = getById(currentMovement.getStockId());
+            currentQuantity = currentStock.getQuantity() + currentMovement.getQuantity();
+        } else {
+            MaterialMovement materialMovement = materialMovementService.getById(currentMovement.getId());
+            MaterialStock currentStock = getById(materialMovement.getStockId());
+            currentQuantity = currentStock.getQuantity() - materialMovement.getQuantity() + currentMovement.getQuantity();
+            if (currentMovement.getStockId() == null) {
+                currentMovement.setStockId(currentStock.getId());
+            }
+        }
+        if (currentQuantity < 0) {
             throw new IllegalArgumentException("库存不足");
         }
         return updateById(new MaterialStock()
-                .setId(stockId)
-                .setCurrent(current)
+                .setId(currentMovement.getStockId())
+                .setQuantity(currentQuantity)
         );
     }
 }

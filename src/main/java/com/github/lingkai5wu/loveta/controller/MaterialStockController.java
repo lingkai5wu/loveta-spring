@@ -58,8 +58,8 @@ public class MaterialStockController {
     @SaCheckPermission("material:stock:remove")
     public Result<Void> removeMaterialStock(@PathVariable int id) {
         MaterialStock materialStock = materialStockService.getById(id);
-        if (materialStock.getCurrent() > 0) {
-            return Result.error("库存不为空，无法删除");
+        if (materialStock.getQuantity() > 0) {
+            return Result.error("库存数量不为0，无法删除");
         }
         boolean removed = materialStockService.removeById(id);
         if (!removed) {

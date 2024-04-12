@@ -17,7 +17,7 @@
     <select id="listMaterialStockBasicVOs"
             resultMap="materialStockBasicVOResultMap">
         SELECT ms.id           AS id,
-               ms.current      AS current,
+               ms.quantity     AS quantity,
                ms.min          AS min,
                ms.max          AS max,
                m.id            AS material_id,

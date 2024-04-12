@@ -8,12 +8,16 @@
                mm.movement_type AS movementType,
                mm.quantity      AS quantity,
                mm.description   AS description,
+               mm.create_time   AS createTime,
                ms.id            AS stock_id,
+               mw.id            AS warehouse_id,
+               mw.label         AS warehouse_label,
                m.id             AS material_id,
                m.name           AS material_name,
                m.unit           AS material_unit
         FROM material_movement mm
                  INNER JOIN material_stock ms ON mm.stock_id = ms.id
                  INNER JOIN material m ON ms.material_id = m.id
+                 INNER JOIN material_warehouse mw ON ms.warehouse_id = mw.id
     </select>
 </mapper>

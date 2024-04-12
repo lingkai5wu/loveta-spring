@@ -64,8 +64,8 @@ public class MaterialMovementController {
     @Transactional
     public Result<Void> saveMaterialMovement(@RequestBody @Validated MaterialMovementSaveDTO dto) {
         MaterialMovement materialMovement = BeanUtil.copyProperties(dto, MaterialMovement.class);
-        materialMovementService.save(materialMovement);
         materialStockService.updateByMovement(materialMovement);
+        materialMovementService.save(materialMovement);
         return Result.ok();
     }
 
@@ -77,11 +77,11 @@ public class MaterialMovementController {
     @Transactional
     public Result<Void> updateMaterialMovement(@RequestBody @Validated MaterialMovementUpdateDTO dto) {
         MaterialMovement materialMovement = BeanUtil.copyProperties(dto, MaterialMovement.class);
+        materialStockService.updateByMovement(materialMovement);
         boolean updated = materialMovementService.updateById(materialMovement);
         if (!updated) {
             return Result.status(HttpStatus.NOT_FOUND);
         }
-        materialStockService.updateByMovement(materialMovement);
         return Result.ok();
     }
 
@@ -91,6 +91,10 @@ public class MaterialMovementController {
     @DeleteMapping("/{id}")
     @SaCheckPermission("material:movement:remove")
     public Result<Void> removeMaterialMovement(@PathVariable int id) {
+        MaterialMovement materialMovement = materialMovementService.getById(id);
+        if (materialMovement.getQuantity() != 0) {
+            return Result.status(HttpStatus.BAD_REQUEST, "变动数量不为0，无法删除");
+        }
         boolean removed = materialMovementService.removeById(id);
         if (!removed) {
             return Result.status(HttpStatus.NOT_FOUND);

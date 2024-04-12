@@ -4,6 +4,8 @@ import com.github.lingkai5wu.loveta.enums.MaterialMovementTypeEnum;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
  * 物资出入库记录基本信息 显示层对象
  *
@@ -44,6 +46,18 @@ public class MaterialMovementBasicVO {
     private String materialUnit;
 
     /**
+     * 仓库ID
+     */
+    @NotNull
+    private Integer warehouseId;
+
+    /**
+     * 仓库标签
+     */
+    @NotNull
+    private String warehouseLabel;
+
+    /**
      * 变动类型
      */
     @NotNull
@@ -59,4 +73,10 @@ public class MaterialMovementBasicVO {
      * 描述
      */
     private String description;
+
+    /**
+     * 创建时间
+     */
+    @NotNull
+    private LocalDateTime createTime;
 }

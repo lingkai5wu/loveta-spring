@@ -4,6 +4,7 @@ import com.github.lingkai5wu.loveta.enums.MaterialMovementTypeEnum;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -59,4 +60,10 @@ public class MaterialMovementVO {
      * 附件
      */
     private List<String> attachment;
+
+    /**
+     * 创建时间
+     */
+    @NotNull
+    private LocalDateTime createTime;
 }

@@ -34,7 +34,7 @@ public class MaterialStockVO {
      * 当前数量
      */
     @NotNull
-    private Integer current;
+    private Integer quantity;
 
     /**
      * 最低预警
