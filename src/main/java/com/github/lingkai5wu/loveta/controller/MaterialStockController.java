@@ -57,6 +57,10 @@ public class MaterialStockController {
     @DeleteMapping("/{id}")
     @SaCheckPermission("material:stock:remove")
     public Result<Void> removeMaterialStock(@PathVariable int id) {
+        MaterialStock materialStock = materialStockService.getById(id);
+        if (materialStock.getCurrent() > 0) {
+            return Result.error("库存不为空，无法删除");
+        }
         boolean removed = materialStockService.removeById(id);
         if (!removed) {
             return Result.status(HttpStatus.NOT_FOUND);
