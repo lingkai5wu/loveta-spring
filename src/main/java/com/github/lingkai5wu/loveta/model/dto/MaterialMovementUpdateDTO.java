@@ -1,6 +1,5 @@
 package com.github.lingkai5wu.loveta.model.dto;
 
-import com.github.lingkai5wu.loveta.enums.EntityStatusEnum;
 import com.github.lingkai5wu.loveta.enums.MaterialMovementTypeEnum;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -31,11 +30,6 @@ public class MaterialMovementUpdateDTO {
      * 变动类型
      */
     private MaterialMovementTypeEnum movementType;
-
-    /**
-     * 状态
-     */
-    private EntityStatusEnum status;
 
     /**
      * 操作用户ID

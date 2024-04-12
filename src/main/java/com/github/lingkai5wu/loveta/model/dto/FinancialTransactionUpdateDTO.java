@@ -1,6 +1,5 @@
 package com.github.lingkai5wu.loveta.model.dto;
 
-import com.github.lingkai5wu.loveta.enums.EntityStatusEnum;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -46,11 +45,6 @@ public class FinancialTransactionUpdateDTO {
      * 交易金额
      */
     private Integer amount;
-
-    /**
-     * 状态
-     */
-    private EntityStatusEnum status;
 
     /**
      * 描述

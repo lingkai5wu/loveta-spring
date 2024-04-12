@@ -6,7 +6,6 @@
             resultType="com.github.lingkai5wu.loveta.model.vo.MaterialMovementBasicVO">
         SELECT mm.id            AS id,
                mm.movement_type AS movementType,
-               mm.status        AS status,
                mm.quantity      AS quantity,
                mm.description   AS description,
                ms.id            AS stock_id,

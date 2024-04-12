@@ -1,6 +1,5 @@
 package com.github.lingkai5wu.loveta.model.vo;
 
-import com.github.lingkai5wu.loveta.enums.EntityStatusEnum;
 import com.github.lingkai5wu.loveta.enums.MaterialMovementTypeEnum;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -49,12 +48,6 @@ public class MaterialMovementBasicVO {
      */
     @NotNull
     private MaterialMovementTypeEnum movementType;
-
-    /**
-     * 状态
-     */
-    @NotNull
-    private EntityStatusEnum status;
 
     /**
      * 变动数量

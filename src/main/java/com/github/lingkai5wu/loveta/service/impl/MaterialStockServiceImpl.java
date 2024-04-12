@@ -1,7 +1,6 @@
 package com.github.lingkai5wu.loveta.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.lingkai5wu.loveta.enums.EntityStatusEnum;
 import com.github.lingkai5wu.loveta.mapper.MaterialStockMapper;
 import com.github.lingkai5wu.loveta.model.po.MaterialMovement;
 import com.github.lingkai5wu.loveta.model.po.MaterialStock;

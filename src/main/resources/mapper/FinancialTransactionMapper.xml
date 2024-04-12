@@ -18,7 +18,6 @@
         SELECT fc.id          AS id,
                fc.date        AS date,
                fc.amount      AS amount,
-               fc.status      AS status,
                fc.description AS description,
                fc.attachment  AS attachment,
                ftc.label      AS category,

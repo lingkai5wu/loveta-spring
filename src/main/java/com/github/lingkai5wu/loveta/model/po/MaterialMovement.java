@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler;
-import com.github.lingkai5wu.loveta.enums.EntityStatusEnum;
 import com.github.lingkai5wu.loveta.enums.MaterialMovementTypeEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -39,11 +38,6 @@ public class MaterialMovement {
      * 变动类型
      */
     private MaterialMovementTypeEnum movementType;
-
-    /**
-     * 状态
-     */
-    private EntityStatusEnum status;
 
     /**
      * 操作用户ID

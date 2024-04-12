@@ -1,6 +1,5 @@
 package com.github.lingkai5wu.loveta.model.vo;
 
-import com.github.lingkai5wu.loveta.enums.EntityStatusEnum;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -51,12 +50,6 @@ public class FinancialTransactionVO {
      */
     @NotNull
     private Integer amount;
-
-    /**
-     * 状态
-     */
-    @NotNull
-    private EntityStatusEnum status;
 
     /**
      * 描述
