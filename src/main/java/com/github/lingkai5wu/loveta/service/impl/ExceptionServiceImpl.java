@@ -1,6 +1,5 @@
 package com.github.lingkai5wu.loveta.service.impl;
 
-import com.github.lingkai5wu.loveta.model.vo.exception.ExceptionVO;
 import com.github.lingkai5wu.loveta.model.vo.exception.MethodArgumentNotValidExceptionVO;
 import com.github.lingkai5wu.loveta.service.IExceptionService;
 import org.springframework.stereotype.Service;
@@ -17,13 +16,6 @@ import java.util.Map;
  */
 @Service
 public class ExceptionServiceImpl implements IExceptionService {
-
-    @Override
-    public ExceptionVO getExceptionVO(Exception e) {
-        return new ExceptionVO()
-                .setClassName(e.getClass().getName())
-                .setMessage(e.getMessage());
-    }
 
     @Override
     public MethodArgumentNotValidExceptionVO getMethodArgumentNotValidExceptionVO(MethodArgumentNotValidException e) {
