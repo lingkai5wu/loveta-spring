@@ -4,12 +4,15 @@ package com.github.lingkai5wu.loveta.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.hutool.core.bean.BeanUtil;
 import com.github.lingkai5wu.loveta.model.Result;
+import com.github.lingkai5wu.loveta.model.dto.MaterialStockSaveDTO;
+import com.github.lingkai5wu.loveta.model.dto.MaterialStockUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.MaterialStock;
 import com.github.lingkai5wu.loveta.model.vo.MaterialStockBasicVO;
 import com.github.lingkai5wu.loveta.model.vo.MaterialStockVO;
 import com.github.lingkai5wu.loveta.service.IMaterialStockService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,6 +52,32 @@ public class MaterialStockController {
     public Result<List<MaterialStockBasicVO>> listMaterialStockBasicVOs() {
         List<MaterialStockBasicVO> materialStockBasicVOList = materialStockService.listMaterialStockBasicVOs();
         return Result.data(materialStockBasicVOList);
+    }
+
+
+    /**
+     * 新增库存
+     */
+    @PostMapping
+    @SaCheckPermission("material:stock:save")
+    public Result<Void> saveMaterialStock(@RequestBody @Validated MaterialStockSaveDTO dto) {
+        MaterialStock materialStock = BeanUtil.copyProperties(dto, MaterialStock.class);
+        materialStockService.save(materialStock);
+        return Result.ok();
+    }
+
+    /**
+     * 修改库存
+     */
+    @PutMapping
+    @SaCheckPermission("material:stock:update")
+    public Result<Void> updateMaterialStock(@RequestBody @Validated MaterialStockUpdateDTO dto) {
+        MaterialStock materialStock = BeanUtil.copyProperties(dto, MaterialStock.class);
+        boolean updated = materialStockService.updateById(materialStock);
+        if (!updated) {
+            return Result.status(HttpStatus.NOT_FOUND);
+        }
+        return Result.ok();
     }
 
     /**
