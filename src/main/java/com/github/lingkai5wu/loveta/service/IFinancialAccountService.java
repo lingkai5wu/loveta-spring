@@ -2,6 +2,7 @@ package com.github.lingkai5wu.loveta.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.lingkai5wu.loveta.model.po.FinancialAccount;
+import com.github.lingkai5wu.loveta.model.po.FinancialTransaction;
 import com.github.lingkai5wu.loveta.model.vo.FinancialAccountBasicVO;
 
 import java.util.List;
@@ -15,4 +16,6 @@ import java.util.List;
 public interface IFinancialAccountService extends IService<FinancialAccount> {
 
     List<FinancialAccountBasicVO> listFinancialAccountBasicVOs();
+
+    boolean updateByTransaction(FinancialTransaction financialTransaction);
 }

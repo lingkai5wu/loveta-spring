@@ -9,9 +9,11 @@ import com.github.lingkai5wu.loveta.model.dto.FinancialTransactionUpdateDTO;
 import com.github.lingkai5wu.loveta.model.po.FinancialTransaction;
 import com.github.lingkai5wu.loveta.model.vo.FinancialTransactionBasicVO;
 import com.github.lingkai5wu.loveta.model.vo.FinancialTransactionVO;
+import com.github.lingkai5wu.loveta.service.IFinancialAccountService;
 import com.github.lingkai5wu.loveta.service.IFinancialTransactionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +31,7 @@ import java.util.List;
 public class FinancialTransactionController {
 
     private final IFinancialTransactionService financialTransactionService;
+    private final IFinancialAccountService financialAccountService;
 
     /**
      * 获取收支明细
@@ -59,8 +62,10 @@ public class FinancialTransactionController {
      */
     @PostMapping
     @SaCheckPermission("financial:transaction:save")
+    @Transactional
     public Result<Void> saveFinancialTransaction(@RequestBody @Validated FinancialTransactionSaveDTO dto) {
         FinancialTransaction financialTransaction = BeanUtil.copyProperties(dto, FinancialTransaction.class);
+        financialAccountService.updateByTransaction(financialTransaction);
         financialTransactionService.save(financialTransaction);
         return Result.ok();
     }
@@ -70,8 +75,10 @@ public class FinancialTransactionController {
      */
     @PutMapping
     @SaCheckPermission("financial:transaction:update")
+    @Transactional
     public Result<Void> updateFinancialTransaction(@RequestBody @Validated FinancialTransactionUpdateDTO dto) {
         FinancialTransaction financialTransaction = BeanUtil.copyProperties(dto, FinancialTransaction.class);
+        financialAccountService.updateByTransaction(financialTransaction);
         boolean updated = financialTransactionService.updateById(financialTransaction);
         if (!updated) {
             return Result.status(HttpStatus.NOT_FOUND);

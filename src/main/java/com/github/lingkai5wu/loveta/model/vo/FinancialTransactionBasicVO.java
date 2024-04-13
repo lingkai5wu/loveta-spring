@@ -4,7 +4,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * 收支明细基本信息 显示层对象
@@ -49,9 +48,4 @@ public class FinancialTransactionBasicVO {
      * 描述
      */
     private String description;
-
-    /**
-     * 附件
-     */
-    private List<String> attachment;
 }
