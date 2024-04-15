@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 import java.util.Map;
 
 /**
- * DisableServiceException 显示层对象
+ * 无效参数 显示层对象
  *
  * @author lingkai5wu
  * @since 2024-02-01

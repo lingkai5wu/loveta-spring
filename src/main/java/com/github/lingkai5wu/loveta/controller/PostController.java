@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * 帖子 前端控制器
+ * 帖子
  *
  * @author lingkai5wu
  * @since 2024-04-14

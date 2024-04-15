@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
- * DisableServiceException 显示层对象
+ * 服务封禁 显示层对象
  *
  * @author lingkai5wu
  * @since 2024-02-01
