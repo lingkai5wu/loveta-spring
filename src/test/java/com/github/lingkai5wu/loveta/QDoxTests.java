@@ -1,9 +1,11 @@
 package com.github.lingkai5wu.loveta;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaField;
 import com.thoughtworks.qdox.model.JavaMethod;
+import com.thoughtworks.qdox.model.JavaType;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +13,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class QDoxTests {
     private static @NotNull FileWriter initWriter(String fileName) throws IOException {
@@ -144,5 +148,64 @@ public class QDoxTests {
 
         writer.write(sb.toString());
         destroyWriter(writer);
+    }
+
+    @Test
+    void generateDataProcessTest() throws IOException {
+        JavaProjectBuilder builder = new JavaProjectBuilder();
+        builder.addSource(new File("src/main/java/com/github/lingkai5wu/loveta/controller/AggregateController.java"));
+
+        Collection<JavaClass> javaClassCollection = builder.getClasses();
+        Pattern pattern = Pattern.compile("\\b([a-zA-Z]+)Service\\b");
+        for (JavaClass javaClass : javaClassCollection) {
+            List<JavaField> fields = javaClass.getFields();
+            List<JavaMethod> methods = javaClass.getMethods();
+            Set<String> serviceNameSet = new HashSet<>();
+            Set<String> serviceTypeNameSet = new HashSet<>();
+            for (JavaMethod method : methods) {
+                String sourceCode = method.getSourceCode();
+                Matcher matcher = pattern.matcher(sourceCode);
+                while (matcher.find()) {
+                    serviceNameSet.add(matcher.group(1));
+                }
+            }
+            serviceNameSet.forEach(serviceName -> {
+                String serviceFullName = serviceName + "Service";
+                fields.stream()
+                        .filter(field -> field.getName().equals(serviceFullName))
+                        .map(JavaField::getType)
+                        .map(JavaType::getValue)
+                        .forEach(serviceTypeNameSet::add);
+            });
+            serviceTypeNameSet.stream()
+                    .map(s -> s.replace("Service", ""))
+                    .map(s -> s.replaceAll("[A-Z]", "_$0").toLowerCase())
+                    .map(s -> s.substring(3))
+                    .forEach(System.out::println);
+        }
+    }
+
+    @Test
+    void generateDataProcessJson() throws IOException {
+        JavaProjectBuilder builder = new JavaProjectBuilder();
+        builder.addSourceTree(new File("src/main/java/com/github/lingkai5wu/loveta/controller"));
+
+        Collection<JavaClass> javaClassCollection = builder.getClasses();
+        Map<String, List<List<String>>> result = new HashMap<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        for (JavaClass javaClass : javaClassCollection) {
+            List<JavaMethod> methods = javaClass.getMethods();
+            List<List<String>> list = new ArrayList<>();
+            for (JavaMethod method : methods) {
+                List<JavaType> parameterTypeList = method.getParameterTypes();
+                List<String> parameterTypeNameList = parameterTypeList.stream()
+                        .map(JavaType::getValue)
+                        .map(typeName -> typeName.equals("int") ? "id" : typeName)
+                        .toList();
+                list.add(List.of(method.getName(), method.getComment(), parameterTypeNameList.toString(), method.getReturns().getGenericValue()));
+            }
+            result.put(javaClass.getComment(), list);
+        }
+        objectMapper.writeValue(new File("target/data-process.json"), result);
     }
 }
