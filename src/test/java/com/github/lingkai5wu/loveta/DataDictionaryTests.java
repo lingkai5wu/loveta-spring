@@ -1,25 +1,20 @@
 package com.github.lingkai5wu.loveta;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.qdox.JavaProjectBuilder;
 import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaField;
 import com.thoughtworks.qdox.model.JavaMethod;
-import com.thoughtworks.qdox.model.JavaType;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
-public class QDoxTests {
-    private static @NotNull FileWriter initWriter(String fileName) throws IOException {
+public class DataDictionaryTests {
+    private static void write(String fileName, StringBuilder stringBuilder) throws IOException {
         File file = new File("target/" + fileName + ".html");
-        file.createNewFile();
         FileWriter writer = new FileWriter(file);
         writer.write("""
                 <!DOCTYPE html>
@@ -30,10 +25,7 @@ public class QDoxTests {
                 </head>
                 <body>
                 """.formatted(fileName));
-        return writer;
-    }
-
-    private static void destroyWriter(FileWriter writer) throws IOException {
+        writer.write(stringBuilder.toString());
         writer.write("""
                 </body>
                 </html>
@@ -43,8 +35,6 @@ public class QDoxTests {
 
     @Test
     void generateDateItem() throws IOException {
-        FileWriter writer = initWriter("data-item");
-
         JavaProjectBuilder builder = new JavaProjectBuilder();
         builder.addSourceTree(new File("src/main/java/com/github/lingkai5wu/loveta/model"));
 
@@ -83,14 +73,11 @@ public class QDoxTests {
         }
         sb.append("</table>");
 
-        writer.write(sb.toString());
-        destroyWriter(writer);
+        write("data-item", sb);
     }
 
     @Test
     void generateDataFlow() throws IOException {
-        FileWriter writer = initWriter("data-flow");
-
         JavaProjectBuilder builder = new JavaProjectBuilder();
         builder.addSourceTree(new File("src/main/java/com/github/lingkai5wu/loveta/model"));
 
@@ -102,7 +89,12 @@ public class QDoxTests {
             List<JavaField> fields = javaClass.getFields();
             sb.append("<tr>");
             sb.append("<td>").append(javaClass.getName()).append("</td>");
-            sb.append("<td>").append(javaClass.getComment()).append("</td>");
+            String comment = javaClass.getComment();
+            int i = comment.lastIndexOf(" ");
+            if (i != -1) {
+                comment = comment.substring(0, i);
+            }
+            sb.append("<td>").append(comment).append("</td>");
             if (javaClass.getName().endsWith("VO")) {
                 sb.append("<td>系统</td>");
                 sb.append("<td>用户</td>");
@@ -110,20 +102,19 @@ public class QDoxTests {
                 sb.append("<td>用户</td>");
                 sb.append("<td>系统</td>");
             }
-            String joined = String.join("、", fields.stream().map(JavaField::getComment).toList());
+            String joined = fields.stream()
+                    .map(JavaField::getComment)
+                    .collect(Collectors.joining("、"));
             sb.append("<td>").append(joined).append("</td>");
             sb.append("</tr>");
         }
         sb.append("</table>\n");
 
-        writer.write(sb.toString());
-        destroyWriter(writer);
+        write("data-flow", sb);
     }
 
     @Test
     void generateDataProcess() throws IOException {
-        FileWriter writer = initWriter("data-process");
-
         JavaProjectBuilder builder = new JavaProjectBuilder();
         builder.addSourceTree(new File("src/main/java/com/github/lingkai5wu/loveta/controller"));
 
@@ -139,73 +130,15 @@ public class QDoxTests {
                 sb.append("<td>").append(method.getComment()).append("</td>");
                 sb.append("<td>").append(method.getParameters()).append("</td>");
                 String generic = method.getReturns().getGenericValue();
-                generic = generic.replace("<", "&lt;").replace(">", "&gt;");
+                generic = generic
+                        .replace("<", "&lt;")
+                        .replace(">", "&gt;");
                 sb.append("<td>").append(generic).append("</td>");
                 sb.append("</tr>");
             }
         }
         sb.append("</table>\n");
 
-        writer.write(sb.toString());
-        destroyWriter(writer);
-    }
-
-    @Test
-    void generateDataProcessTest() throws IOException {
-        JavaProjectBuilder builder = new JavaProjectBuilder();
-        builder.addSource(new File("src/main/java/com/github/lingkai5wu/loveta/controller/AggregateController.java"));
-
-        Collection<JavaClass> javaClassCollection = builder.getClasses();
-        Pattern pattern = Pattern.compile("\\b([a-zA-Z]+)Service\\b");
-        for (JavaClass javaClass : javaClassCollection) {
-            List<JavaField> fields = javaClass.getFields();
-            List<JavaMethod> methods = javaClass.getMethods();
-            Set<String> serviceNameSet = new HashSet<>();
-            Set<String> serviceTypeNameSet = new HashSet<>();
-            for (JavaMethod method : methods) {
-                String sourceCode = method.getSourceCode();
-                Matcher matcher = pattern.matcher(sourceCode);
-                while (matcher.find()) {
-                    serviceNameSet.add(matcher.group(1));
-                }
-            }
-            serviceNameSet.forEach(serviceName -> {
-                String serviceFullName = serviceName + "Service";
-                fields.stream()
-                        .filter(field -> field.getName().equals(serviceFullName))
-                        .map(JavaField::getType)
-                        .map(JavaType::getValue)
-                        .forEach(serviceTypeNameSet::add);
-            });
-            serviceTypeNameSet.stream()
-                    .map(s -> s.replace("Service", ""))
-                    .map(s -> s.replaceAll("[A-Z]", "_$0").toLowerCase())
-                    .map(s -> s.substring(3))
-                    .forEach(System.out::println);
-        }
-    }
-
-    @Test
-    void generateDataProcessJson() throws IOException {
-        JavaProjectBuilder builder = new JavaProjectBuilder();
-        builder.addSourceTree(new File("src/main/java/com/github/lingkai5wu/loveta/controller"));
-
-        Collection<JavaClass> javaClassCollection = builder.getClasses();
-        Map<String, List<List<String>>> result = new HashMap<>();
-        ObjectMapper objectMapper = new ObjectMapper();
-        for (JavaClass javaClass : javaClassCollection) {
-            List<JavaMethod> methods = javaClass.getMethods();
-            List<List<String>> list = new ArrayList<>();
-            for (JavaMethod method : methods) {
-                List<JavaType> parameterTypeList = method.getParameterTypes();
-                List<String> parameterTypeNameList = parameterTypeList.stream()
-                        .map(JavaType::getValue)
-                        .map(typeName -> typeName.equals("int") ? "id" : typeName)
-                        .toList();
-                list.add(List.of(method.getName(), method.getComment(), parameterTypeNameList.toString(), method.getReturns().getGenericValue()));
-            }
-            result.put(javaClass.getComment(), list);
-        }
-        objectMapper.writeValue(new File("target/data-process.json"), result);
+        write("data-process", sb);
     }
 }
