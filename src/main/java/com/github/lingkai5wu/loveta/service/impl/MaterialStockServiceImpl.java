@@ -48,7 +48,8 @@ public class MaterialStockServiceImpl extends ServiceImpl<MaterialStockMapper, M
         } else {
             MaterialMovement materialMovement = materialMovementService.getById(currentMovement.getId());
             MaterialStock currentStock = getById(materialMovement.getStockId());
-            currentQuantity = currentStock.getQuantity() - materialMovement.getQuantity() + currentMovement.getQuantity();
+            currentQuantity =
+                    currentStock.getQuantity() - materialMovement.getQuantity() + currentMovement.getQuantity();
             if (currentMovement.getStockId() == null) {
                 currentMovement.setStockId(currentStock.getId());
             }

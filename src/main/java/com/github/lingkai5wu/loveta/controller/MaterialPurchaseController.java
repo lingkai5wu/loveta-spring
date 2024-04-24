@@ -51,7 +51,8 @@ public class MaterialPurchaseController {
     @SaCheckPermission("material:purchase:list")
     public Result<List<MaterialPurchaseBasicVO>> listMaterialPurchaseBasicVOs() {
         List<MaterialPurchase> materialPurchases = materialPurchaseService.list();
-        List<MaterialPurchaseBasicVO> materialPurchaseBasicVOList = BeanUtil.copyToList(materialPurchases, MaterialPurchaseBasicVO.class);
+        List<MaterialPurchaseBasicVO> materialPurchaseBasicVOList = BeanUtil.copyToList(materialPurchases,
+                MaterialPurchaseBasicVO.class);
         return Result.data(materialPurchaseBasicVOList);
     }
 

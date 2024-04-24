@@ -40,7 +40,8 @@ public class FinancialAccountServiceImpl extends ServiceImpl<FinancialAccountMap
         } else {
             FinancialTransaction currentTransaction = financialTransactionService.getById(financialTransaction.getId());
             FinancialAccount currentAccount = getById(currentTransaction.getAccountId());
-            currentBalance = currentAccount.getBalance() - financialTransaction.getAmount() + currentTransaction.getAmount();
+            currentBalance =
+                    currentAccount.getBalance() - financialTransaction.getAmount() + currentTransaction.getAmount();
             if (financialTransaction.getAccountId() == null) {
                 financialTransaction.setAccountId(currentAccount.getId());
             }

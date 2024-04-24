@@ -43,7 +43,8 @@ public class FinancialTransactionController {
         if (financialTransaction == null) {
             return Result.status(HttpStatus.NOT_FOUND);
         }
-        FinancialTransactionVO financialTransactionVO = BeanUtil.copyProperties(financialTransaction, FinancialTransactionVO.class);
+        FinancialTransactionVO financialTransactionVO = BeanUtil.copyProperties(financialTransaction,
+                FinancialTransactionVO.class);
         return Result.data(financialTransactionVO);
     }
 

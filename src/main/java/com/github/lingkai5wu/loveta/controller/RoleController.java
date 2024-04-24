@@ -134,7 +134,8 @@ public class RoleController {
      */
     @PutMapping("/{id}/permissions")
     @SaCheckPermission({"role:update", "permission:update"})
-    public Result<Void> batchUpdateRolePermission(@PathVariable int id, @RequestBody BatchUpdateManyToManyDTO<Integer> dto) {
+    public Result<Void> batchUpdateRolePermission(@PathVariable int id,
+                                                  @RequestBody BatchUpdateManyToManyDTO<Integer> dto) {
         boolean exists = roleService.existsById(id);
         if (!exists) {
             return Result.status(HttpStatus.NOT_FOUND);

@@ -42,7 +42,8 @@ public class JacksonConfig {
     public static class LocalDateTimeSerializer extends JsonSerializer<LocalDateTime> {
 
         @Override
-        public void serialize(LocalDateTime localDateTime, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(LocalDateTime localDateTime, JsonGenerator jsonGenerator,
+                              SerializerProvider serializerProvider) throws IOException {
             long epochMilli = LocalDateTimeUtil.toEpochMilli(localDateTime);
             jsonGenerator.writeNumber(epochMilli);
         }
@@ -51,7 +52,8 @@ public class JacksonConfig {
     public static class LocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
 
         @Override
-        public LocalDateTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+        public LocalDateTime deserialize(JsonParser jsonParser,
+                                         DeserializationContext deserializationContext) throws IOException {
             long valueAsLong = jsonParser.getValueAsLong();
             return LocalDateTimeUtil.of(valueAsLong);
         }
@@ -60,7 +62,8 @@ public class JacksonConfig {
     public static class LocalDateSerializer extends JsonSerializer<LocalDate> {
 
         @Override
-        public void serialize(LocalDate localDate, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(LocalDate localDate, JsonGenerator jsonGenerator,
+                              SerializerProvider serializerProvider) throws IOException {
             long epochMilli = LocalDateTimeUtil.toEpochMilli(localDate);
             jsonGenerator.writeNumber(epochMilli);
         }
@@ -69,7 +72,8 @@ public class JacksonConfig {
     public static class LocalDateDeserializer extends JsonDeserializer<LocalDate> {
 
         @Override
-        public LocalDate deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+        public LocalDate deserialize(JsonParser jsonParser,
+                                     DeserializationContext deserializationContext) throws IOException {
             long valueAsLong = jsonParser.getValueAsLong();
             LocalDateTime localDateTime = LocalDateTimeUtil.of(valueAsLong);
             return localDateTime.toLocalDate();
@@ -79,7 +83,8 @@ public class JacksonConfig {
     public static class LocalTimeSerializer extends JsonSerializer<LocalTime> {
 
         @Override
-        public void serialize(LocalTime localTime, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        public void serialize(LocalTime localTime, JsonGenerator jsonGenerator,
+                              SerializerProvider serializerProvider) throws IOException {
             long epochMilli = LocalDateTimeUtil.toEpochMilli(localTime);
             jsonGenerator.writeNumber(epochMilli);
         }
@@ -88,7 +93,8 @@ public class JacksonConfig {
     public static class LocalTimeDeserializer extends JsonDeserializer<LocalTime> {
 
         @Override
-        public LocalTime deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+        public LocalTime deserialize(JsonParser jsonParser,
+                                     DeserializationContext deserializationContext) throws IOException {
             long valueAsLong = jsonParser.getValueAsLong();
             LocalDateTime localDateTime = LocalDateTimeUtil.of(valueAsLong);
             return localDateTime.toLocalTime();

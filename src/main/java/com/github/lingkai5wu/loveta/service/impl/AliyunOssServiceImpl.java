@@ -35,7 +35,8 @@ public class AliyunOssServiceImpl implements IOssService {
     public URL generateOssGetObjectUrl(OssGetObjectUrlGenerateDTO dto) {
         long expire = (long) (System.currentTimeMillis() + config.getGetObjectUrlValidSeconds() * 1000);
         Date expiration = new Date(expire);
-        GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(config.getBucket(), dto.getObjectName(), HttpMethod.GET);
+        GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(config.getBucket(), dto.getObjectName(),
+                HttpMethod.GET);
         request.setExpiration(expiration);
         if (dto.getImageProcessStyle() == null) {
             request.setProcess("style/" + OssImageProcessStyleEnum.NORMAL.getName());

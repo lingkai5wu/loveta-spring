@@ -59,7 +59,8 @@ public class FinancialTransactionCategoryController {
     @PostMapping
     @SaCheckPermission("financial:transaction:category:save")
     public Result<Void> saveCategory(@RequestBody @Validated CategorySaveDTO dto) {
-        FinancialTransactionCategory financialTransactionCategory = BeanUtil.copyProperties(dto, FinancialTransactionCategory.class);
+        FinancialTransactionCategory financialTransactionCategory = BeanUtil.copyProperties(dto,
+                FinancialTransactionCategory.class);
         categoryService.save(financialTransactionCategory);
         return Result.ok();
     }
@@ -70,7 +71,8 @@ public class FinancialTransactionCategoryController {
     @PutMapping
     @SaCheckPermission("financial:transaction:category:update")
     public Result<Void> updateCategory(@RequestBody @Validated CategoryUpdateDTO dto) {
-        FinancialTransactionCategory financialTransactionCategory = BeanUtil.copyProperties(dto, FinancialTransactionCategory.class);
+        FinancialTransactionCategory financialTransactionCategory = BeanUtil.copyProperties(dto,
+                FinancialTransactionCategory.class);
         boolean updated = categoryService.updateById(financialTransactionCategory);
         if (!updated) {
             return Result.status(HttpStatus.NOT_FOUND);
