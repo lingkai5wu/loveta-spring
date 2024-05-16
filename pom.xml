@@ -134,7 +134,7 @@
                         <configuration>
                             <jsonLibrary>jackson2</jsonLibrary>
                             <outputKind>module</outputKind>
-                            <outputFile>D:/文档/学习/毕设/项目/LoveTA/link-admin/src/types/api/query.d.ts</outputFile>
+                            <outputFile>C:/Users/lingk/WebstormProjects/link-admin/src/types/api/query.d.ts</outputFile>
                             <optionalProperties>all</optionalProperties>
                             <optionalPropertiesDeclaration>
                                 questionMarkAndNullableType
@@ -157,7 +157,7 @@
                         <configuration>
                             <jsonLibrary>jackson2</jsonLibrary>
                             <outputKind>module</outputKind>
-                            <outputFile>D:/文档/学习/毕设/项目/LoveTA/link-admin/src/types/api/vo.d.ts</outputFile>
+                            <outputFile>C:/Users/lingk/WebstormProjects/link-admin/src/types/api/vo.d.ts</outputFile>
                             <declarePropertiesAsReadOnly>true</declarePropertiesAsReadOnly>
                             <optionalPropertiesDeclaration>
                                 nullableType
