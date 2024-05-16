@@ -9,7 +9,10 @@ import com.github.lingkai5wu.loveta.model.po.Menu;
 import com.github.lingkai5wu.loveta.service.IMenuService;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * 菜单 服务实现类
@@ -25,7 +28,26 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         if (StpUtil.hasPermission("menu:list")) {
             return list();
         }
-        return baseMapper.listMenusByUserId(id);
+        List<Menu> menuList = baseMapper.listMenusByUserId(id);
+        Set<Integer> needAddMenuIds = new HashSet<>();
+        while (true) {
+            for (Menu menu : menuList) {
+                Integer pid = menu.getPid();
+                if (pid != 0 && menuList.stream()
+                        .noneMatch(m -> Objects.equals(m.getId(), pid))) {
+                    needAddMenuIds.add(pid);
+                }
+            }
+            if (needAddMenuIds.isEmpty()) {
+                break;
+            }
+            List<Menu> parentMenuList = lambdaQuery()
+                    .in(Menu::getId, needAddMenuIds)
+                    .list();
+            menuList.addAll(parentMenuList);
+            needAddMenuIds.clear();
+        }
+        return menuList;
     }
 
     public boolean verifyParent(Menu menu) {
@@ -41,7 +63,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
             return parentMenu.getType() == MenuTypeEnum.PARENT;
         }
         // 当前菜单与父菜单不能相同
-        if (menu.getId().equals(menu.getPid())) {
+        if (menu.getId()
+                .equals(menu.getPid())) {
             return false;
         }
         // 拿到剔除当前菜单的所有菜单 id 和 pid
@@ -86,10 +109,12 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
     @Override
     public void batchUpdateRoleMenu(int roleId, BatchUpdateManyToManyDTO<Integer> dto) {
-        if (dto.getTargetIdsToInsert() != null && !dto.getTargetIdsToInsert().isEmpty()) {
+        if (dto.getTargetIdsToInsert() != null && !dto.getTargetIdsToInsert()
+                .isEmpty()) {
             baseMapper.batchInsertRoleMenus(roleId, dto.getTargetIdsToInsert());
         }
-        if (dto.getTargetIdsToDelete() != null && !dto.getTargetIdsToDelete().isEmpty()) {
+        if (dto.getTargetIdsToDelete() != null && !dto.getTargetIdsToDelete()
+                .isEmpty()) {
             baseMapper.batchDeleteRoleMenus(roleId, dto.getTargetIdsToDelete());
         }
     }
