@@ -100,6 +100,16 @@ public class UserController {
     }
 
     /**
+     * 统计用户数量
+     */
+    @GetMapping("/count")
+    public Result<Long> countUsers() {
+        Long count = userService.lambdaQuery()
+                .count();
+        return Result.data(count);
+    }
+
+    /**
      * 列出全部用户
      */
     @GetMapping()
