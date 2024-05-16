@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql.sqlpub.com/loveta
-    username: ${LOVETA_SQLPUB_USERNAME}
-    password: ${LOVETA_SQLPUB_PASSWORD}
+    url: jdbc:mysql://localhost/loveta
+    username: root
+    password: root
     hikari:
       max-lifetime: 300000
 
