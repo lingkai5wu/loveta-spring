@@ -34,6 +34,12 @@ public class PostBasicVO {
     private EntityStatusEnum status;
 
     /**
+     * 用户ID
+     */
+    @NotNull
+    private Integer userId;
+
+    /**
      * 创建时间
      */
     @NotNull

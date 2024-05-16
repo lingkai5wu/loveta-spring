@@ -104,9 +104,12 @@ public class PostController {
      * 修改帖子
      */
     @PutMapping
-    @SaCheckPermission("post:update")
     public Result<Void> updatePost(@RequestBody @Validated PostUpdateDTO dto) {
         Post post = BeanUtil.copyProperties(dto, Post.class);
+        Post postById = postService.getById(post.getId());
+        if (postById.getUserId() != StpUtil.getLoginIdAsInt()) {
+            StpUtil.checkPermission("post:update");
+        }
         boolean updated = postService.updateById(post);
         if (!updated) {
             return Result.status(HttpStatus.NOT_FOUND);
