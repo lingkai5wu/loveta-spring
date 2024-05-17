@@ -7,6 +7,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.lingkai5wu.loveta.enums.EntityStatusEnum;
 import com.github.lingkai5wu.loveta.model.PageDTO;
 import com.github.lingkai5wu.loveta.model.PageVO;
 import com.github.lingkai5wu.loveta.model.Result;
@@ -70,7 +71,18 @@ public class PostController {
     @GetMapping
     @SaCheckPermission("post:list")
     public Result<List<PostBasicVO>> listPostBasicVOs() {
-        List<PostBasicVO> postBasicVOList = BeanUtil.copyToList(postService.list(), PostBasicVO.class);
+        List<Post> postList = postService.list();
+        if (!StpUtil.hasPermission("post:edit")) {
+            postList = postList.stream()
+                    .filter(post -> {
+                        if (post.getUserId() == StpUtil.getLoginIdAsInt()) {
+                            return true;
+                        }
+                        return post.getStatus() == EntityStatusEnum.APPROVED;
+                    })
+                    .toList();
+        }
+        List<PostBasicVO> postBasicVOList = BeanUtil.copyToList(postList, PostBasicVO.class);
         return Result.data(postBasicVOList);
     }
 
