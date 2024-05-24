@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 import java.time.LocalDateTime;
 
 /**
- * 权限 数据源对象
+ * 权限
  *
  * @author lingkai5wu
  * @since 2023-12-25

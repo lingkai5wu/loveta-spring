@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 import java.time.LocalDateTime;
 
 /**
- * 菜单 数据源对象
+ * 菜单
  *
  * @author lingkai5wu
  * @since 2023-12-25

@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * 动物 数据源对象
+ * 动物
  *
  * @author lingkai5wu
  * @since 2024-04-02
