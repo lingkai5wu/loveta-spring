@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
--- 主机:                           mysql.sqlpub.com
--- 服务器版本:                        8.0.33 - MySQL Community Server - GPL
--- 服务器操作系统:                      Linux
+-- 主机:                           192.168.0.110
+-- 服务器版本:                        8.0.34 - MySQL Community Server - GPL
+-- 服务器操作系统:                      Win64
 -- HeidiSQL 版本:                  12.6.0.6765
 -- --------------------------------------------------------
 
@@ -16,99 +16,364 @@
 
 
 -- 导出 loveta 的数据库结构
-DROP DATABASE IF EXISTS `loveta`;
 CREATE DATABASE IF NOT EXISTS `loveta` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `loveta`;
 
+-- 导出  表 loveta.animal 结构
+CREATE TABLE IF NOT EXISTS `animal` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '姓名',
+  `status` tinyint NOT NULL COMMENT '状态',
+  `category_id` int unsigned NOT NULL COMMENT '分类ID',
+  `breed` varchar(50) DEFAULT NULL COMMENT '品种',
+  `area_id` int unsigned NOT NULL COMMENT '区域ID',
+  `sex` tinyint unsigned NOT NULL COMMENT '性别',
+  `date_of_birth` date DEFAULT NULL COMMENT '出生日期',
+  `color` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '花色',
+  `feature` text COMMENT '特征',
+  `health` varchar(50) DEFAULT NULL COMMENT '健康状况',
+  `weight` int DEFAULT NULL COMMENT '体重',
+  `rfid` char(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '电子标签',
+  `avatar` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '头像',
+  `banner` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '横幅',
+  `attachment` json DEFAULT NULL COMMENT '附件',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `rfid` (`rfid`),
+  KEY `FK_animal_area` (`area_id`),
+  KEY `FK_animal_animal_category` (`category_id`),
+  CONSTRAINT `FK_animal_animal_category` FOREIGN KEY (`category_id`) REFERENCES `animal_category` (`id`),
+  CONSTRAINT `FK_animal_area` FOREIGN KEY (`area_id`) REFERENCES `area` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='动物';
+
+-- 数据导出被取消选择。
+
+-- 导出  表 loveta.animal_category 结构
+CREATE TABLE IF NOT EXISTS `animal_category` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `label` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '标签',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='动物分类';
+
+-- 数据导出被取消选择。
+
+-- 导出  表 loveta.area 结构
+CREATE TABLE IF NOT EXISTS `area` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `label` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '标签',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='区域';
+
+-- 数据导出被取消选择。
+
+-- 导出  表 loveta.donation 结构
+CREATE TABLE IF NOT EXISTS `donation` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `donor_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '捐赠方名称',
+  `donor_user_id` int unsigned DEFAULT NULL COMMENT '捐赠用户ID',
+  `contact` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '联系方式',
+  `date` datetime DEFAULT NULL COMMENT '捐赠时间',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
+  `financial_transaction_id` int unsigned DEFAULT NULL COMMENT '收支明细ID',
+  `material_movement_ID` int unsigned DEFAULT NULL COMMENT '物资出入库记录ID',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_donation_user` (`donor_user_id`),
+  CONSTRAINT `FK_donation_user` FOREIGN KEY (`donor_user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='捐赠';
+
+-- 数据导出被取消选择。
+
+-- 导出  表 loveta.financial_account 结构
+CREATE TABLE IF NOT EXISTS `financial_account` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '账户名',
+  `status` tinyint unsigned NOT NULL COMMENT '状态',
+  `user_id` int unsigned NOT NULL COMMENT '用户ID',
+  `balance` int NOT NULL COMMENT '当前余额',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `FK_financial_account_user` (`user_id`),
+  CONSTRAINT `FK_financial_account_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='资金账户';
+
+-- 数据导出被取消选择。
+
+-- 导出  表 loveta.financial_transaction 结构
+CREATE TABLE IF NOT EXISTS `financial_transaction` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `date` datetime NOT NULL COMMENT '交易日期',
+  `operator_user_id` int unsigned NOT NULL COMMENT '操作用户ID',
+  `account_id` int unsigned NOT NULL COMMENT '账户ID',
+  `category_id` int unsigned NOT NULL COMMENT '费用类别ID',
+  `amount` int NOT NULL COMMENT '交易金额',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
+  `attachment` json DEFAULT NULL COMMENT '附件',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `FK_financial_transaction_user` (`operator_user_id`),
+  KEY `FK_financial_transaction_financial_account` (`account_id`),
+  KEY `FK_financial_transaction_financial_transaction_category` (`category_id`),
+  CONSTRAINT `FK_financial_transaction_financial_account` FOREIGN KEY (`account_id`) REFERENCES `financial_account` (`id`),
+  CONSTRAINT `FK_financial_transaction_financial_transaction_category` FOREIGN KEY (`category_id`) REFERENCES `financial_transaction_category` (`id`),
+  CONSTRAINT `FK_financial_transaction_user` FOREIGN KEY (`operator_user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='收支明细';
+
+-- 数据导出被取消选择。
+
+-- 导出  表 loveta.financial_transaction_category 结构
+CREATE TABLE IF NOT EXISTS `financial_transaction_category` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `label` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '标签',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='收支分类';
+
+-- 数据导出被取消选择。
+
+-- 导出  表 loveta.forum 结构
+CREATE TABLE IF NOT EXISTS `forum` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `label` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '标签',
+  `status` tinyint unsigned NOT NULL COMMENT '状态',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
+  `notice` varchar(255) DEFAULT NULL COMMENT '公告',
+  `header` text COMMENT '版头',
+  `sort_order` int DEFAULT NULL COMMENT '排序',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='板块';
+
+-- 数据导出被取消选择。
+
+-- 导出  表 loveta.location 结构
+CREATE TABLE IF NOT EXISTS `location` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `area_id` int unsigned DEFAULT NULL COMMENT '区域ID',
+  `lng` decimal(9,6) NOT NULL COMMENT '经度',
+  `lat` decimal(9,6) NOT NULL COMMENT '纬度',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `FK_location_area` (`area_id`),
+  CONSTRAINT `FK_location_area` FOREIGN KEY (`area_id`) REFERENCES `area` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='位置';
+
+-- 数据导出被取消选择。
+
+-- 导出  表 loveta.material 结构
+CREATE TABLE IF NOT EXISTS `material` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `category_id` int unsigned DEFAULT NULL COMMENT '分类ID',
+  `status` tinyint unsigned NOT NULL COMMENT '状态',
+  `name` varchar(50) NOT NULL COMMENT '名称',
+  `specification` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '规格',
+  `unit` varchar(50) NOT NULL COMMENT '单位',
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT '内容',
+  `attachment` json DEFAULT NULL COMMENT '附件',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `FK_material_material_category` (`category_id`),
+  CONSTRAINT `FK_material_material_category` FOREIGN KEY (`category_id`) REFERENCES `material_category` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='物资';
+
+-- 数据导出被取消选择。
+
+-- 导出  表 loveta.material_category 结构
+CREATE TABLE IF NOT EXISTS `material_category` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `label` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '标签',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='物资分类';
+
+-- 数据导出被取消选择。
+
+-- 导出  表 loveta.material_movement 结构
+CREATE TABLE IF NOT EXISTS `material_movement` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `stock_id` int unsigned NOT NULL COMMENT '库存ID',
+  `movement_type` tinyint NOT NULL COMMENT '变动类型',
+  `operator_user_id` int unsigned NOT NULL COMMENT '操作用户ID',
+  `reference_user_id` int unsigned DEFAULT NULL COMMENT '接收用户ID',
+  `quantity` int NOT NULL COMMENT '变动数量',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
+  `attachment` json DEFAULT NULL COMMENT '附件',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_material_movement_user` (`operator_user_id`),
+  KEY `FK_material_movement_user_2` (`reference_user_id`),
+  KEY `FK_material_movement_material_stock` (`stock_id`),
+  CONSTRAINT `FK_material_movement_material_stock` FOREIGN KEY (`stock_id`) REFERENCES `material_stock` (`id`),
+  CONSTRAINT `FK_material_movement_user` FOREIGN KEY (`operator_user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_material_movement_user_2` FOREIGN KEY (`reference_user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='物资出入库记录';
+
+-- 数据导出被取消选择。
+
+-- 导出  表 loveta.material_purchase 结构
+CREATE TABLE IF NOT EXISTS `material_purchase` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `movement_id` int unsigned NOT NULL COMMENT '出入库记录ID',
+  `financial_transaction_id` int unsigned DEFAULT NULL COMMENT '收支明细ID',
+  `procurement_user_id` int unsigned NOT NULL COMMENT '采购用户ID',
+  `status` tinyint unsigned NOT NULL COMMENT '状态',
+  `total_amount` int unsigned NOT NULL COMMENT '总价',
+  `supplier` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '供应商',
+  `order_number` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '订单号',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
+  `attachment` json DEFAULT NULL COMMENT '附件',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_material_purchase_material_movement` (`movement_id`),
+  KEY `FK_material_purchase_financial_transaction` (`financial_transaction_id`),
+  KEY `FK_material_purchase_user` (`procurement_user_id`),
+  CONSTRAINT `FK_material_purchase_financial_transaction` FOREIGN KEY (`financial_transaction_id`) REFERENCES `financial_transaction` (`id`),
+  CONSTRAINT `FK_material_purchase_material_movement` FOREIGN KEY (`movement_id`) REFERENCES `material_movement` (`id`),
+  CONSTRAINT `FK_material_purchase_user` FOREIGN KEY (`procurement_user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='物资采购记录';
+
+-- 数据导出被取消选择。
+
+-- 导出  表 loveta.material_stock 结构
+CREATE TABLE IF NOT EXISTS `material_stock` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `material_id` int unsigned NOT NULL COMMENT '物资ID',
+  `warehouse_id` int unsigned NOT NULL COMMENT '仓库ID',
+  `quantity` int unsigned NOT NULL DEFAULT '0' COMMENT '当前数量',
+  `min` int unsigned DEFAULT NULL COMMENT '最低预警',
+  `max` int unsigned DEFAULT NULL COMMENT '最高上限',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_material_stock_material` (`material_id`),
+  KEY `FK_material_stock_material_warehouse` (`warehouse_id`),
+  CONSTRAINT `FK_material_stock_material` FOREIGN KEY (`material_id`) REFERENCES `material` (`id`),
+  CONSTRAINT `FK_material_stock_material_warehouse` FOREIGN KEY (`warehouse_id`) REFERENCES `material_warehouse` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='物资库存';
+
+-- 数据导出被取消选择。
+
+-- 导出  表 loveta.material_warehouse 结构
+CREATE TABLE IF NOT EXISTS `material_warehouse` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `location_id` int unsigned DEFAULT NULL COMMENT '位置ID',
+  `label` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '标签',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
+  `keeper_user_id` int unsigned DEFAULT NULL COMMENT '保管用户ID',
+  `contact` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '联系方式',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_material_warehouse_user` (`keeper_user_id`),
+  KEY `FK_material_warehouse_location` (`location_id`),
+  CONSTRAINT `FK_material_warehouse_location` FOREIGN KEY (`location_id`) REFERENCES `location` (`id`),
+  CONSTRAINT `FK_material_warehouse_user` FOREIGN KEY (`keeper_user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='物资仓库';
+
+-- 数据导出被取消选择。
+
 -- 导出  表 loveta.menu 结构
-DROP TABLE IF EXISTS `menu`;
 CREATE TABLE IF NOT EXISTS `menu` (
   `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `pid` int unsigned NOT NULL COMMENT '父菜单ID',
   `type` tinyint NOT NULL COMMENT '类型',
-  `label` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '标签',
-  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '路径',
+  `label` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '标签',
+  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '路径',
   `sort_order` int DEFAULT NULL COMMENT '排序',
   `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单';
 
--- 正在导出表  loveta.menu 的数据：~12 rows (大约)
-DELETE FROM `menu`;
-INSERT INTO `menu` (`id`, `pid`, `type`, `label`, `path`, `sort_order`, `create_time`, `update_time`) VALUES
-	(1, 0, 1, '菜单管理', '/menu', 1, '2024-01-08 12:06:27', '2024-03-26 00:33:29'),
-	(2, 0, 1, '用户管理', '/user', 2, '2024-01-08 14:40:47', '2024-03-26 01:49:45'),
-	(3, 0, 0, '开发书签', NULL, 5, '2024-01-11 21:21:27', '2024-03-26 10:47:20'),
-	(4, 3, 2, 'Vue 文档', 'https://cn.vuejs.org/guide/introduction.html', 6, '2024-01-30 16:35:06', '2024-03-26 10:48:11'),
-	(5, 3, 2, 'Naive UI 组件', 'https://www.naiveui.com/zh-CN/os-theme/components/button', 7, '2024-01-08 12:06:27', '2024-03-26 10:48:11'),
-	(6, 3, 2, 'Ionicons 图标', 'https://ionic.io/ionicons', 9, '2024-01-30 17:14:02', '2024-03-26 10:48:11'),
-	(7, 9, 2, 'OSS 控制台', 'https://oss.console.aliyun.com/bucket/oss-cn-hangzhou/loveta-dev/overview', 11, '2024-01-11 19:43:44', '2024-03-26 01:49:46'),
-	(8, 3, 2, 'TypeScript 教程', 'https://typescript.p6p.net/', 8, '2024-03-06 15:22:09', '2024-03-26 10:48:11'),
-	(9, 3, 0, '后端', NULL, 10, '2024-03-13 23:53:29', '2024-03-26 10:48:11'),
-	(10, 9, 2, '验证码', 'https://yundun.console.aliyun.com/?p=captcha', 12, '2024-03-17 00:21:37', '2024-03-26 01:49:46'),
-	(11, 0, 1, '角色管理', '/role', 3, '2024-03-22 14:04:53', '2024-03-26 10:42:05'),
-	(13, 0, 1, '权限管理', '/permission', 4, '2024-03-22 15:35:06', '2024-03-26 10:47:20');
+-- 数据导出被取消选择。
 
 -- 导出  表 loveta.permission 结构
-DROP TABLE IF EXISTS `permission`;
 CREATE TABLE IF NOT EXISTS `permission` (
   `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '权限编码',
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '描述',
+  `code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '权限编码',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
   `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='权限';
 
--- 正在导出表  loveta.permission 的数据：~21 rows (大约)
-DELETE FROM `permission`;
-INSERT INTO `permission` (`id`, `code`, `description`, `create_time`, `update_time`) VALUES
-	(1, '*', '上帝权限', '2024-03-22 18:44:02', '2024-03-24 21:49:18'),
-	(2, 'menu:remove', NULL, '2024-03-24 21:50:58', NULL),
-	(3, 'role:get', NULL, '2024-03-24 21:50:58', NULL),
-	(4, 'user:list', NULL, '2024-03-24 21:50:58', NULL),
-	(5, 'role:update', NULL, '2024-03-24 21:50:58', NULL),
-	(6, 'permission:list', NULL, '2024-03-24 21:50:58', NULL),
-	(7, 'permission:sync', NULL, '2024-03-24 21:50:58', NULL),
-	(8, 'user:update', NULL, '2024-03-24 21:50:58', NULL),
-	(9, 'permission:update', NULL, '2024-03-24 21:50:58', NULL),
-	(10, 'menu:list', NULL, '2024-03-24 21:50:58', NULL),
-	(11, 'menu:get', NULL, '2024-03-24 21:50:58', NULL),
-	(12, 'menu:save', NULL, '2024-03-24 21:50:58', NULL),
-	(13, 'user:remove', NULL, '2024-03-24 21:50:58', NULL),
-	(14, 'menu:update', NULL, '2024-03-24 21:50:58', NULL),
-	(15, 'role:remove', NULL, '2024-03-24 21:50:58', NULL),
-	(16, 'user:get', NULL, '2024-03-24 21:50:58', NULL),
-	(17, 'permission:get', NULL, '2024-03-24 21:50:58', NULL),
-	(18, 'role:list', NULL, '2024-03-24 21:50:58', NULL),
-	(19, 'oss:post', NULL, '2024-03-24 21:50:58', NULL),
-	(20, 'role:save', NULL, '2024-03-24 21:50:58', NULL),
-	(21, 'user:save', NULL, '2024-03-24 21:50:58', NULL);
+-- 数据导出被取消选择。
+
+-- 导出  表 loveta.post 结构
+CREATE TABLE IF NOT EXISTS `post` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `forum_id` int unsigned NOT NULL COMMENT '板块ID',
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '标题',
+  `status` tinyint NOT NULL COMMENT '状态',
+  `user_id` int unsigned NOT NULL COMMENT '用户ID',
+  `contact` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '联系方式',
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '内容',
+  `attachment` json DEFAULT NULL COMMENT '附件',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_post_forum` (`forum_id`),
+  KEY `FK_post_user` (`user_id`),
+  CONSTRAINT `FK_post_forum` FOREIGN KEY (`forum_id`) REFERENCES `forum` (`id`),
+  CONSTRAINT `FK_post_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='帖子';
+
+-- 数据导出被取消选择。
+
+-- 导出  表 loveta.report 结构
+CREATE TABLE IF NOT EXISTS `report` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `user_id` int unsigned NOT NULL COMMENT '用户ID',
+  `status` tinyint unsigned NOT NULL COMMENT '状态',
+  `object_type` tinyint unsigned NOT NULL COMMENT '对象类型',
+  `object_id` int unsigned NOT NULL COMMENT '对象ID',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
+  `attachment_group_id` int unsigned DEFAULT NULL COMMENT '附件组ID',
+  `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `FK_reports_attachment_group` (`attachment_group_id`),
+  CONSTRAINT `FK_reports_attachment_group` FOREIGN KEY (`attachment_group_id`) REFERENCES `attachment_group` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='举报';
+
+-- 数据导出被取消选择。
 
 -- 导出  表 loveta.role 结构
-DROP TABLE IF EXISTS `role`;
 CREATE TABLE IF NOT EXISTS `role` (
   `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '角色编码',
-  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '角色名',
-  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '描述',
+  `code` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '角色编码',
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '角色名',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '描述',
   `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色';
 
--- 正在导出表  loveta.role 的数据：~3 rows (大约)
-DELETE FROM `role`;
-INSERT INTO `role` (`id`, `code`, `name`, `description`, `create_time`, `update_time`) VALUES
-	(1, 'super-admin', '超级管理员', NULL, '2024-01-08 12:05:57', '2024-03-22 15:18:19'),
-	(2, 'admin', '管理员', NULL, '2024-01-08 14:46:59', '2024-03-22 15:18:24'),
-	(3, 'volunteer', '志愿者', '一般认为，志愿者是自愿贡献个人的时间和精力的人，在不计物质报酬的前提下为推动人类发展、社会进步和社会福利事业而提供服务的人员。', '2024-03-18 19:13:08', '2024-03-22 14:42:17');
+-- 数据导出被取消选择。
 
 -- 导出  表 loveta.role_menu 结构
-DROP TABLE IF EXISTS `role_menu`;
 CREATE TABLE IF NOT EXISTS `role_menu` (
   `role_id` int unsigned NOT NULL COMMENT '角色ID',
   `menu_id` int unsigned NOT NULL COMMENT '菜单ID',
@@ -116,14 +381,12 @@ CREATE TABLE IF NOT EXISTS `role_menu` (
   PRIMARY KEY (`role_id`,`menu_id`),
   KEY `FK_role_menu_menu` (`menu_id`),
   CONSTRAINT `FK_role_menu_menu` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_role_menu_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='角色菜单关系表';
+  CONSTRAINT `FK_role_menu_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色菜单关系表';
 
--- 正在导出表  loveta.role_menu 的数据：~0 rows (大约)
-DELETE FROM `role_menu`;
+-- 数据导出被取消选择。
 
 -- 导出  表 loveta.role_permission 结构
-DROP TABLE IF EXISTS `role_permission`;
 CREATE TABLE IF NOT EXISTS `role_permission` (
   `role_id` int unsigned NOT NULL COMMENT '角色ID',
   `permission_id` int unsigned NOT NULL COMMENT '权限ID',
@@ -131,58 +394,43 @@ CREATE TABLE IF NOT EXISTS `role_permission` (
   PRIMARY KEY (`role_id`,`permission_id`),
   KEY `FK_role_permission_permission` (`permission_id`),
   CONSTRAINT `FK_role_permission_permission` FOREIGN KEY (`permission_id`) REFERENCES `permission` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_role_permission_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='角色权限关系表';
+  CONSTRAINT `FK_role_permission_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色权限关系表';
 
--- 正在导出表  loveta.role_permission 的数据：~1 rows (大约)
-DELETE FROM `role_permission`;
-INSERT INTO `role_permission` (`role_id`, `permission_id`, `create_time`) VALUES
-	(1, 1, '2024-03-22 18:44:30');
+-- 数据导出被取消选择。
 
 -- 导出  表 loveta.user 结构
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `phone` char(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '手机号',
-  `password` char(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '密码',
-  `wx_openid` char(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '微信唯一标识',
-  `wx_unionid` char(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '微信统一标识',
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `phone` char(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '手机号',
+  `password` char(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '密码',
+  `wx_openid` char(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '微信唯一标识',
+  `wx_unionid` char(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '微信统一标识',
   `status` tinyint unsigned NOT NULL COMMENT '状态',
-  `nickname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '昵称',
-  `realname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '姓名',
-  `avatar` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '头像',
+  `nickname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '昵称',
+  `realname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '姓名',
+  `avatar` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '头像',
   `sex` tinyint unsigned DEFAULT NULL COMMENT '性别',
   `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `phone` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户';
 
--- 正在导出表  loveta.user 的数据：~2 rows (大约)
-DELETE FROM `user`;
-INSERT INTO `user` (`id`, `phone`, `password`, `wx_openid`, `wx_unionid`, `status`, `nickname`, `realname`, `avatar`, `sex`, `create_time`, `update_time`) VALUES
-	(1, '18888888888', '$2a$10$JNzmbAlTHNsEqVXjRHQEFuxZIUmtrwefrzfPsShcFFo5mZdST84ii', NULL, NULL, 1, 'lingkai5wu', '', NULL, 0, '2024-01-05 14:20:04', '2024-03-22 02:13:04'),
-	(2, '18888888889', '$2a$10$4Tlz5qm3W8ShJfE3Et43qO7nrqtruaiFFLheBHNHV6oMM2Ahv2pgS', NULL, NULL, 1, NULL, NULL, NULL, 0, '2024-01-11 19:17:16', '2024-03-18 20:03:58');
+-- 数据导出被取消选择。
 
 -- 导出  表 loveta.user_role 结构
-DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE IF NOT EXISTS `user_role` (
-  `user_id` bigint unsigned NOT NULL COMMENT '用户ID',
+  `user_id` int unsigned NOT NULL COMMENT '用户ID',
   `role_id` int unsigned NOT NULL COMMENT '角色ID',
   `create_time` datetime NOT NULL DEFAULT (now()) COMMENT '创建时间',
   PRIMARY KEY (`user_id`,`role_id`),
   KEY `FK_user_role_role` (`role_id`),
   CONSTRAINT `FK_user_role_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_user_role_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户角色关系表';
+  CONSTRAINT `FK_user_role_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户角色关系表';
 
--- 正在导出表  loveta.user_role 的数据：~4 rows (大约)
-DELETE FROM `user_role`;
-INSERT INTO `user_role` (`user_id`, `role_id`, `create_time`) VALUES
-	(1, 1, '2024-03-20 16:10:13'),
-	(1, 3, '2024-03-22 13:26:13'),
-	(2, 2, '2024-03-22 13:26:23'),
-	(2, 3, '2024-03-22 14:42:21');
+-- 数据导出被取消选择。
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
