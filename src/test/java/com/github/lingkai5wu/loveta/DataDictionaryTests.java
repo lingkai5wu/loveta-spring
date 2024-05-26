@@ -13,6 +13,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class DataDictionaryTests {
+
     private static void write(String fileName, StringBuilder stringBuilder) throws IOException {
         File file = new File("target/" + fileName + ".html");
         FileWriter writer = new FileWriter(file);

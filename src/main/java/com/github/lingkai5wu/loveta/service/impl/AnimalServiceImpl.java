@@ -14,4 +14,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AnimalServiceImpl extends ServiceImpl<AnimalMapper, Animal> implements IAnimalService {
+
 }

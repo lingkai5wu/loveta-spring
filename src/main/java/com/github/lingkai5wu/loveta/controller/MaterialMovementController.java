@@ -29,6 +29,7 @@ import java.util.List;
 @RequestMapping("/material-movements")
 @AllArgsConstructor
 public class MaterialMovementController {
+
     private final IMaterialMovementService materialMovementService;
     private final IMaterialStockService materialStockService;
 

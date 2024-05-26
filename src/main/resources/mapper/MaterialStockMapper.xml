@@ -16,9 +16,9 @@
     </resultMap>
     <select id="listMaterialStockBasicVOs"
             resultMap="materialStockBasicVOResultMap">
-        SELECT ms.id           AS id,
-               ms.quantity     AS quantity,
-               ms.min          AS min,
+        SELECT ms.id       AS id,
+               ms.quantity AS quantity,
+               ms.min AS min,
                ms.max          AS max,
                m.id            AS material_id,
                m.status        AS material_status,
@@ -28,7 +28,8 @@
                mw.label        AS warehouse,
                mw.contact      AS contact
         FROM material_stock ms
-                 INNER JOIN material_warehouse mw ON ms.warehouse_id = mw.id
-                 INNER JOIN material m ON ms.material_id = m.id
+            INNER JOIN material_warehouse mw
+        ON ms.warehouse_id = mw.id
+            INNER JOIN material m ON ms.material_id = m.id
     </select>
 </mapper>

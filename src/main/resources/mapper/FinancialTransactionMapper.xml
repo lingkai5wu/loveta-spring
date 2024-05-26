@@ -15,8 +15,8 @@
     </resultMap>
     <select id="listFinancialTransactionBasicVOs"
             resultMap="financialTransactionBasicVOResultMap">
-        SELECT fc.id          AS id,
-               fc.date        AS date,
+        SELECT fc.id AS id,
+               fc.date AS date,
                fc.amount      AS amount,
                fc.description AS description,
                fc.attachment  AS attachment,
@@ -26,7 +26,8 @@
                u.nickname     AS user_nickname,
                u.avatar       AS user_avatar
         FROM financial_transaction fc
-                 INNER JOIN financial_transaction_category ftc ON fc.category_id = ftc.id
-                 LEFT JOIN user u ON fc.operator_user_id = u.id
+            INNER JOIN financial_transaction_category ftc
+        ON fc.category_id = ftc.id
+            LEFT JOIN user u ON fc.operator_user_id = u.id
     </select>
 </mapper>

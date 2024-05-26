@@ -10,4 +10,5 @@ import com.github.lingkai5wu.loveta.model.po.AnimalCategory;
  * @since 2024-04-04
  */
 public interface AnimalCategoryMapper extends BaseMapper<AnimalCategory> {
+
 }
